@@ -6,9 +6,6 @@ and utility (is the rewrite still useful?). The system loops until the Judge pas
 
 Built with **LangGraph** (workflow) + **LangChain** (LLM-agnostic). Default model: **`openai:gpt-5-mini`**.
 
-> Design docs: [docs/architecture.md](docs/architecture.md) (3 agents + the loop, LangGraph internals),
-> [docs/pipeline.md](docs/pipeline.md) (the publish-dataset pipeline), [docs/topic_description.md](docs/topic_description.md).
-
 ---
 
 ## Build & run (Docker — recommended)
@@ -159,7 +156,6 @@ backend/
     state.py             # LangGraph shared state
 frontend/                # static UI (HTML/CSS/JS) + nginx reverse proxy
 docker-compose.yml
-docs/                    # design docs
 ```
 
 ---
@@ -178,10 +174,8 @@ curl -N localhost:8080/api/anonymize -H 'Content-Type: application/json' \
 
 ## Known limitations / not yet implemented
 
-- **Single record only.** Batch over a dataset and the **cross-record** re-identification stage are
-  designed in [docs/pipeline.md](docs/pipeline.md) but not in this basecode.
+- **Single record only.** Batch over a dataset and the **cross-record** re-identification stage are not
+  implemented in this basecode.
 - **Pure-LLM by design** — no deterministic NER/regex layer; the Defender removes identifiers itself.
 - **Leak verdict is LLM-based**, decided by the Judge from the Attacker's guesses and the rewrite — there is
-  no `ground_truth` matching in this basecode. A `matcher` LLM hook for eval-mode scoring against known
-  truths is described in [docs/architecture.md §6](docs/architecture.md).
-- Cost/latency scale with `max_iters` × 3 LLM calls per round.
+  no `ground_truth` matching in this basecode.
