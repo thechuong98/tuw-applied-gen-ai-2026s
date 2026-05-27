@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Semantic Anonymizer</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header>
+    <h1>🛡️ Semantic Anonymizer</h1>
+    <p class="sub">Defender ⇄ Attacker + Utility Judge — rewrite text to block identity inference while preserving utility.</p>
+  </header>
+
+  <main>
+    <section class="panel input-panel">
+      <h2>Input</h2>
+      <label for="text">Text to anonymize</label>
+      <textarea id="text" rows="7" placeholder="Enter text..."></textarea>
+
+      <label for="attrs">Attributes to hide <span class="hint">(comma-separated)</span></label>
+      <input id="attrs" type="text" placeholder="age, profession, exact_location" />
+
+      <label for="utility">Signal to preserve <span class="hint">(optional)</span></label>
+      <input id="utility" type="text" placeholder="e.g. WFH approval process" />
+
+      <button id="run">Anonymize ▶</button>
+      <div id="status" class="status"></div>
+    </section>
+
+    <section class="panel flow-panel">
+      <h2>Run flow</h2>
+      <div id="result" class="result hidden"></div>
+      <div id="timeline" class="timeline">
+        <p class="placeholder">Enter text and click <b>Anonymize</b> to watch the Defender, Attacker, and Judge work round by round.</p>
+      </div>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>

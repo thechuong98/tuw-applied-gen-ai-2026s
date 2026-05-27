@@ -1,0 +1,20 @@
+[project]
+name = "semantic-anonymizer-backend"
+version = "0.1.0"
+description = "Adversarial LLM anonymizer backend (Defender / Attacker / Utility Judge) — LangGraph + LangChain"
+requires-python = ">=3.10"
+dependencies = [
+    "langgraph>=0.2.60",
+    "langchain>=0.3.7",
+    "langchain-openai>=0.2.8",
+    "fastapi>=0.110",
+    "uvicorn[standard]>=0.29",
+    "pydantic>=2.7",
+    "pyyaml>=6.0",
+    "python-dotenv>=1.0",
+]
+
+[tool.uv]
+# This is an application (run, not packaged/published), so don't build/install the project itself —
+# `uv sync` only installs the dependencies above into .venv.
+package = false

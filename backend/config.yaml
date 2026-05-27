@@ -1,0 +1,32 @@
+# Single, documented config file (LLM-agnostic — to switch provider just change the "provider:model" string).
+# API key is NOT stored here — put it in .env (OPENAI_API_KEY). You can override the model via the MODEL env var.
+
+models:
+  default:  "openai:gpt-5-mini"
+  defender: "openai:gpt-5-mini"
+  attacker: "openai:gpt-5-mini"   # should be the strongest model to stress-test
+  judge:    "openai:gpt-5-mini"
+  matcher:  "openai:gpt-5-mini"   # semantic match when ground_truth is available (eval mode)
+
+# Some models (e.g. the gpt-5 line) only accept the default temperature -> set to null = don't send the parameter.
+# For regular models you can set a number: defender 0.5, attacker 0.1, judge 0.0
+temperature:
+  default:  null
+  defender: null
+  attacker: null
+  judge:    null
+
+loop:
+  max_iters: 4                     # max number of times the Defender is allowed to rewrite
+  # Leak is decided by the Judge LLM (not a confidence threshold). These are the utility PASS thresholds:
+  min_task_utility: 0.6            # PASS threshold for utility
+  min_factual: 0.7
+  min_format: 0.0                  # set > 0 if you want to strictly enforce keeping the format
+
+weights:                           # scoring for best_candidate when max_iters is reached
+  privacy: 0.6
+  utility: 0.4
+
+defaults:
+  # Used when the user does not enter any attribute on the frontend
+  attributes_to_hide: ["age", "exact_location", "profession", "employer", "name"]
