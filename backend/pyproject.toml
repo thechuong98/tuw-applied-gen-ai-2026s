@@ -7,10 +7,12 @@ dependencies = [
     "langgraph>=0.2.60",
     "langchain>=0.3.7",
     "langchain-openai>=0.2.8",
+    "langchain-google-vertexai>=2.0.0",
     "fastapi>=0.110",
     "uvicorn[standard]>=0.29",
     "pydantic>=2.7",
     "pyyaml>=6.0",
+    "spacy>=3.7",
     "python-dotenv>=1.0",
 ]
 

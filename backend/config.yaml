@@ -1,12 +1,14 @@
 # Single, documented config file (LLM-agnostic — to switch provider just change the "provider:model" string).
-# API key is NOT stored here — put it in .env (OPENAI_API_KEY). You can override the model via the MODEL env var.
+# For Google Vertex AI: set GOOGLE_CLOUD_PROJECT and GOOGLE_CLOUD_LOCATION env vars.
+# For local development: authenticate via `gcloud auth application-default login`.
+# You can override the model via the MODEL env var.
 
 models:
-  default:  "openai:gpt-5-mini"
-  defender: "openai:gpt-5-mini"
-  attacker: "openai:gpt-5-mini"   # should be the strongest model to stress-test
-  judge:    "openai:gpt-5-mini"
-  matcher:  "openai:gpt-5-mini"   # semantic match when ground_truth is available (eval mode)
+  default:  "google_vertexai:gemini-2.5-flash"
+  defender: "google_vertexai:gemini-2.5-flash"
+  attacker: "google_vertexai:gemini-2.5-flash"   # should be the strongest model to stress-test
+  judge:    "google_vertexai:gemini-2.5-flash"
+  matcher:  "google_vertexai:gemini-2.5-flash"   # semantic match when ground_truth is available (eval mode)
 
 # Some models (e.g. the gpt-5 line) only accept the default temperature -> set to null = don't send the parameter.
 # For regular models you can set a number: defender 0.5, attacker 0.1, judge 0.0

@@ -19,3 +19,35 @@ def get_llm(config: dict, role: str):
     temps = config.get("temperature", {}) or {}
     temp = temps.get(role, temps.get("default"))
     return _build(spec, temp)
+
+
+def safe_structured_invoke(chain, inputs: dict, schema_name: str, max_retries: int = 1):
+    """Invoke structured output chain with retry on None or exception.
+
+    Args:
+        chain: LangChain chain with structured output
+        inputs: Dict of prompt variables
+        schema_name: Name of the schema for error messages
+        max_retries: Number of retries after initial attempt (default 1)
+
+    Returns:
+        The structured output object
+
+    Raises:
+        ValueError: If all attempts fail (None result or exception)
+    """
+    last_error = None
+    for attempt in range(max_retries + 1):
+        try:
+            result = chain.invoke(inputs)
+            if result is not None:
+                return result
+        except Exception as e:
+            last_error = e
+    if last_error:
+        raise ValueError(
+            f"Structured output failed for {schema_name} after {max_retries + 1} attempts: {last_error}"
+        )
+    raise ValueError(
+        f"Structured output returned None for {schema_name} after {max_retries + 1} attempts"
+    )
