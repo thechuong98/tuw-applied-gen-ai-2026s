@@ -323,5 +323,6 @@ This aggregation is not yet implemented.
 - **Semantic LLM matcher not implemented.** Ground truth validation uses deterministic string matching only (exact, contains, numeric extraction). A semantic LLM-based matcher for fuzzy matches is not yet implemented.
 - **Cross-record re-identification not implemented.** Batch processing handles each record independently. Analysis of re-identification risk across multiple records in a dataset is not implemented.
 - **Full evaluation harness not implemented.** There is no automated evaluation pipeline with ground truth datasets.
-- **Frontend not re-tested.** The frontend has not been verified after recent backend changes (NER, ground_truth, batch).
+- **Judge can be lenient with approximate inference.** The Judge LLM may mark "NO LEAK" even when the Attacker infers approximate values (e.g., birth year from historical context). For stricter evaluation, use `ground_truth` validation or implement numeric tolerance thresholds.
+- **Ground truth validation not exposed in frontend.** The `ground_truth` field and validation results are available in the backend API but not displayed in the frontend UI.
 - **Docker Vertex AI credentials.** Docker deployment with Vertex AI may require additional credential mounting that is not yet configured.

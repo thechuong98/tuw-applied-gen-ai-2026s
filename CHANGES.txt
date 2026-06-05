@@ -560,6 +560,8 @@ Q5: [RESOLVED] The model string "openai:gpt-5-mini" — is this intentional?
 
 [2026-06-05] — Added basic pytest unit test suite for matcher, scoring, NER, and safe_structured_invoke. 65 tests passing, no LLM calls.
 
+[2026-06-05] — Frontend smoke test passed after backend changes. UI correctly displays Defender, Attacker, Judge rounds, utility metrics, and final Result. Observed: Judge can be lenient with approximate semantic inference (e.g., birth year from historical context).
+
 ============================================================
 END OF CHANGE LOG
 ============================================================
