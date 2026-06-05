@@ -260,15 +260,20 @@ The core challenge is balancing privacy (Attacker can't guess) with utility
       - Full evaluation harness with ground_truth datasets
     Status: BASIC IMPLEMENTATION DONE (deterministic matching only)
 
-4.5 TEST SUITE
-    Suggested location: backend/tests/ (new directory)
-    What is needed:
-      - Unit tests for scoring.py functions
-      - Integration tests for the graph flow
+4.5 [PARTIAL] TEST SUITE
+    Files: backend/tests/test_matcher.py, test_scoring.py, test_ner.py, test_llm.py
+    What exists:
+      - pytest added as dev dependency in pyproject.toml
+      - Unit tests for matcher.py functions (normalize, match, check_ground_truth)
+      - Unit tests for scoring.py functions (candidate_score, update_best, feedback)
+      - Unit tests for ner.py functions (regex detection, dedupe, format hints)
+      - Mocked tests for safe_structured_invoke (success, retry, failure)
+      - 65 tests passing, no LLM calls required
+    What is missing:
+      - Integration tests with mocked graph/LLM responses
+      - End-to-end tests with real API (expensive)
       - Evaluation tests with known input/output pairs
-      - pytest as test runner (add to pyproject.toml)
-    Why important: Academic projects benefit from demonstrable correctness.
-      Currently there are zero test files in the codebase.
+    Status: BASIC UNIT TESTS IMPLEMENTED
 
 4.6 EVALUATION HARNESS / METRICS
     Suggested location: backend/app/eval.py (new file)
@@ -352,15 +357,16 @@ The core challenge is balancing privacy (Attacker can't guess) with utility
       - Parallel processing for faster throughput
       - Cross-record re-identification analysis
 
-[SHOULD] ADD BASIC TEST SUITE
-    What: pytest tests for core functions.
-    How to implement:
-      1. Add pytest to pyproject.toml dev dependencies
-      2. Create backend/tests/test_scoring.py
-         - Test candidate_score(), update_best(), feedback builders
-      3. Create backend/tests/test_graph.py
-         - Mock LLM responses, test graph flow
-    Effort: ~2-3 hours
+[DONE/PARTIAL] ADD BASIC TEST SUITE
+    Status: UNIT TESTS IMPLEMENTED
+    What was done:
+      - Added pytest>=8.0 as dev dependency in pyproject.toml
+      - Created backend/tests/ directory with 4 test files
+      - 65 unit tests covering matcher, scoring, ner, llm modules
+      - All tests pass without LLM calls (mocked where needed)
+    What remains (optional/future):
+      - Integration tests with mocked graph flow
+      - End-to-end tests with real API calls
 
 [COULD] ADD CONFIDENCE THRESHOLD FOR ATTACKER GUESSES
     What: Filter out low-confidence Attacker guesses before Judge evaluation.
@@ -477,10 +483,11 @@ PRIORITIZED TODO LIST (highest priority first):
    Done: Accepts texts[], processes sequentially, returns aggregated JSON
    Remaining: Parallel processing, cross-record re-identification (future)
 
-4. ADD TEST SUITE
-   File: Create backend/tests/test_scoring.py
-   Change: Add pytest, write unit tests for scoring.py
-   Why: Demonstrates correctness for academic evaluation
+4. [DONE/PARTIAL] ADD TEST SUITE
+   Status: BASIC UNIT TESTS IMPLEMENTED
+   Files: backend/tests/test_matcher.py, test_scoring.py, test_ner.py, test_llm.py
+   Done: 65 unit tests for core functions, no LLM calls needed
+   Remaining: Integration tests, graph mocking (optional)
 
 5. [DONE] UPDATE MODEL PROVIDER
    Status: COMPLETED — switched from openai:gpt-5-mini to
@@ -550,6 +557,8 @@ Q5: [RESOLVED] The model string "openai:gpt-5-mini" — is this intentional?
 [2026-06-05] — Added basic sequential /api/anonymize_batch endpoint with per-record results and errors. Cross-record re-identification not implemented.
 
 [2026-06-05] — Verified /api/anonymize_batch at runtime with one record and ground_truth; endpoint returns batch JSON response without crashing.
+
+[2026-06-05] — Added basic pytest unit test suite for matcher, scoring, NER, and safe_structured_invoke. 65 tests passing, no LLM calls.
 
 ============================================================
 END OF CHANGE LOG
