@@ -130,6 +130,10 @@ All settings live in **one file**: [backend/config.yaml](backend/config.yaml). C
   the matching `langchain-*` package and set its credentials). Or override all roles at once with the `MODEL` env var.
 - **Tune the loop** — `max_iters` and the utility PASS thresholds (`min_task_utility`, `min_factual`,
   `min_format`). The leak verdict itself is made by the Judge LLM, so there is no confidence threshold to tune.
+- **Default attributes** — when a request omits `attributes_to_hide`, the system falls back to
+  `defaults.attributes_to_hide` in `config.yaml`: the eight TAB entity types (PERSON, CODE, LOC, ORG, DEM,
+  DATETIME, QUANTITY, MISC) written as short descriptions, so pasted text is still anonymized sensibly with
+  no manual input.
 
 ---
 
@@ -182,7 +186,7 @@ flowchart LR
 - **Attacker** — chain-of-thought inference of each target attribute, with confidence + evidence spans.
 - **Judge** — runs in two sequential stages:
   - **(1) Privacy gate** — decides whether each attribute is still inferable from the rewrite, reasoning over the Attacker's guesses and evidence. **A leak short-circuits the round** — utility is *not* scored and the Defender is sent back to rewrite harder.
-  - **(2) Utility scoring** — reached only when nothing leaked, it scores `task_utility`, `factual_consistency`, `format_preserved`. Tracks the best candidate across rounds.
+  - **(2) Utility scoring** — reached only when nothing leaked, it scores five dimensions (`task_utility`, `informational_completeness`, `factual_consistency`, `fluency`, `format_preserved`) and tracks the best candidate across rounds; PASS thresholds live in `config.yaml`.
 - **Ground truth validation** — when `ground_truth` is provided in the request, attacker guesses are validated against known true values using deterministic normalized exact/contains matching. This allows evaluation mode without relying solely on the Judge LLM's verdict.
 - **Safe structured output** — all LLM structured output calls use a retry wrapper (`safe_structured_invoke`) that handles `None` returns and exceptions gracefully.
 
@@ -206,7 +210,12 @@ backend/
     state.py             # LangGraph shared state
     ner.py               # NER/regex pre-scan for direct identifiers
     matcher.py           # deterministic ground_truth validation
+    eval.py              # offline eval harness over TAB/ECHR records (judge-focused metrics)
   tests/                 # pytest unit tests (65 tests, no LLM calls)
+data/
+  eval/
+    tab.json             # 127 TAB / ECHR gold records (attributes_to_hide + utility_to_preserve)
+    type_labels.json     # TAB entity type -> detailed description fed to the agents
 frontend/                # static UI (HTML/CSS/JS) + nginx reverse proxy
 docker-compose.yml
 CHANGES.txt              # detailed project status and change log
@@ -304,17 +313,26 @@ Privacy verdict:
 - `leaked_attrs` — list of attribute names that leaked
 - `ground_truth_validation` — per-attribute match results when `ground_truth` is provided
 
-### Dataset-level aggregation (future work)
+### Dataset-level evaluation harness
 
-A full evaluation harness would aggregate per-run metrics across a dataset:
+[`backend/app/eval.py`](backend/app/eval.py) runs the full pipeline over a dataset of gold records and
+aggregates the results. The bundled dataset is the **Text Anonymization Benchmark (TAB / ECHR)** — 127 legal
+records in [data/eval/tab.json](data/eval/tab.json), each carrying gold `attributes_to_hide` (with verbatim
+mention spans) and a `utility_to_preserve` list. Short TAB entity labels are expanded to detailed
+descriptions via [data/eval/type_labels.json](data/eval/type_labels.json) before being fed to the agents.
 
-- Average utility scores (task_utility, factual_consistency, etc.)
-- Privacy success rate (% of records with no leaks)
-- Leaked attribute rate (% of attributes leaked across all records)
-- Average rounds needed to reach PASS
-- Ground truth match rate (when ground_truth is provided)
+```bash
+cd backend
+python -m app.eval ../data/eval/tab.json --limit 20 --out results.json
+```
 
-This aggregation is not yet implemented.
+Using the **verbatim presence of a gold span** as objective ground truth, it reports:
+
+- **Judge accuracy** — leak recall over spans that are verbatim-present (the headline metric) and, critically,
+  *missed leaks* (the Judge ruled "safe" while a gold identifier was still on the page).
+- **System privacy** — gold leak rate of the delivered text, broken down per entity label, plus fully-clean
+  and false-pass record counts.
+- **Utility** — mean of the Judge's five utility scores over records that passed the privacy gate.
 
 ---
 
@@ -322,7 +340,7 @@ This aggregation is not yet implemented.
 
 - **Semantic LLM matcher not implemented.** Ground truth validation uses deterministic string matching only (exact, contains, numeric extraction). A semantic LLM-based matcher for fuzzy matches is not yet implemented.
 - **Cross-record re-identification not implemented.** Batch processing handles each record independently. Analysis of re-identification risk across multiple records in a dataset is not implemented.
-- **Full evaluation harness not implemented.** There is no automated evaluation pipeline with ground truth datasets.
+- **Eval ground truth is verbatim-only.** The harness ([eval.py](backend/app/eval.py)) scores leaks by exact gold-span presence, so it catches identifiers copied through unchanged but not paraphrased or purely inferential leaks (it treats those as a lower bound — see the module docstring).
 - **Judge can be lenient with approximate inference.** The Judge LLM may mark "NO LEAK" even when the Attacker infers approximate values (e.g., birth year from historical context). For stricter evaluation, use `ground_truth` validation or implement numeric tolerance thresholds.
 - **Ground truth validation not exposed in frontend.** The `ground_truth` field and validation results are available in the backend API but not displayed in the frontend UI.
 - **Docker Vertex AI credentials.** Docker deployment with Vertex AI may require additional credential mounting that is not yet configured.

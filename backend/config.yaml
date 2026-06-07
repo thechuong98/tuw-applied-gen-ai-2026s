@@ -30,5 +30,12 @@ weights:                           # scoring for best_candidate when max_iters i
   utility: 0.4
 
 defaults:
-  # Used when the user does not enter any attribute on the frontend
-  attributes_to_hide: ["age", "exact_location", "profession", "employer", "name"]
+  attributes_to_hide:
+    - "people's names, initials, nicknames, aliases, usernames"                              # PERSON
+    - "identifying numbers/codes — case, SSN, phone, passport, licence, report IDs"          # CODE
+    - "places — cities, regions, countries, addresses, named infrastructure"                 # LOC
+    - "organisation names — companies, courts, schools, hospitals, NGOs, acronyms"           # ORG
+    - "demographics — nationality, ethnicity, language, job/rank, education, diagnosis, age" # DEM
+    - "specific dates, times, and durations"                                                 # DATETIME
+    - "meaningful quantities — money, percentages, measurements"                             # QUANTITY
+    - "other identifying details — products, events, laws, named ideas"                      # MISC
