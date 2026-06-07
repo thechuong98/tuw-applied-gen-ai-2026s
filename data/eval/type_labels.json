@@ -1,0 +1,11 @@
+{
+  "_comment": "TAB entity-type -> detailed attribute description fed to the defender/attacker/judge. Wording follows the TAB annotation guidelines (https://github.com/NorskRegnesentral/text-anonymization-benchmark/blob/master/guidelines.md). The eval data keeps the short type as `label`; eval.py expands it via this map at run time.",
+  "PERSON": "names of people — full names, surnames, initials, nicknames, aliases and usernames",
+  "CODE": "numbers and codes that identify someone or something — case/application numbers, social-security, phone, passport or licence numbers, report IDs",
+  "LOC": "places and locations — cities, regions, countries, street addresses, and named infrastructures such as bridges or bus stops",
+  "ORG": "names of organisations — companies, courts, prisons, schools, universities, hospitals, NGOs, churches, and their acronyms",
+  "DEM": "demographic attributes — nationality, ethnicity, descent, native language, job title or rank, education, physical description, medical diagnosis, and age",
+  "DATETIME": "specific dates, times and durations — a date, a year, a time of day, or a span of time",
+  "QUANTITY": "meaningful quantities — monetary amounts, percentages, and measurements with their units",
+  "MISC": "any other identifying detail about a person — trademarks, products, events, speeches, laws, and named ideas or movements"
+}
