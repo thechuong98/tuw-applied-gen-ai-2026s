@@ -1,7 +1,9 @@
 services:
   backend:
     build: ./backend
-    env_file: .env          # provides OPENAI_API_KEY (copy from .env.example)
+    env_file:               # provides OPENAI_API_KEY (copy from .env.example)
+      - path: .env
+        required: false     # fresh clone has no .env yet — don't fail build/up
     environment:
       - CONFIG_PATH=/app/config.yaml
       # - MODEL=openai:gpt-5-mini   # uncomment to override every model role at once
