@@ -13,7 +13,9 @@ Routing:
         -> retry(defender)           if (leak or low utility) and under the iteration cap
         -> finalize(best candidate)  at the iteration cap
 """
-from .llm import get_llm
+from .llm import get_llm, safe_structured_invoke
+from .matcher import check_ground_truth
+from .ner import detect_identifiers, format_ner_hints
 from .prompts import ATTACKER_PROMPT, DEFENDER_PROMPT, PRIVACY_PROMPT, UTILITY_PROMPT
 from .schemas import AttackerOutput, DefenderOutput, PrivacyVerdict, UtilityScores
 from .scoring import (
@@ -26,14 +28,21 @@ from .state import AnonState
 
 
 def defender(state: AnonState) -> dict:
+    # NER/regex pre-scan: detect direct identifiers and pass as hints to the LLM
+    ner_findings = state.get("ner_findings")
+    if ner_findings is None:
+        ner_findings = detect_identifiers(state["original_text"])
+    ner_hints = format_ner_hints(ner_findings)
+
     llm = get_llm(state["config"], "defender")
     chain = DEFENDER_PROMPT | llm.with_structured_output(DefenderOutput, method="function_calling")
-    out: DefenderOutput = chain.invoke({
+    out: DefenderOutput = safe_structured_invoke(chain, {
         "text": state["original_text"],
         "attrs": ", ".join(state["attributes_to_hide"]),
         "channel": state.get("channel", "text"),
         "feedback": state.get("feedback") or "(none)",
-    })
+        "ner_hints": ner_hints,
+    }, "DefenderOutput")
     new_iter = state["iteration"] + 1
     return {
         "current_text": out.rewritten_text,
@@ -41,6 +50,7 @@ def defender(state: AnonState) -> dict:
         "defender_reasoning": out.reasoning,
         "iteration": new_iter,
         "feedback": None,
+        "ner_findings": ner_findings,
         "history": [{"round": new_iter, "rewrite": out.rewritten_text,
                      "strategy": out.strategy_log, "reasoning": out.reasoning}],
     }
@@ -49,10 +59,10 @@ def defender(state: AnonState) -> dict:
 def attacker(state: AnonState) -> dict:
     llm = get_llm(state["config"], "attacker")
     chain = ATTACKER_PROMPT | llm.with_structured_output(AttackerOutput, method="function_calling")
-    out: AttackerOutput = chain.invoke({
+    out: AttackerOutput = safe_structured_invoke(chain, {
         "text": state["current_text"],
         "attrs": ", ".join(state["attributes_to_hide"]),
-    })
+    }, "AttackerOutput")
     return {"attacker_result": out.model_dump()}
 
 
@@ -78,12 +88,12 @@ def judge(state: AnonState) -> dict:
 
     # --- Stage 1: privacy. Decide "no leak" before scoring anything. ---
     priv_chain = PRIVACY_PROMPT | llm.with_structured_output(PrivacyVerdict, method="function_calling")
-    priv: PrivacyVerdict = priv_chain.invoke({
+    priv: PrivacyVerdict = safe_structured_invoke(priv_chain, {
         "attrs": ", ".join(attrs),
         "guesses": _format_guesses(state["attacker_result"]),
         "original": state["original_text"],
         "rewritten": state["current_text"],
-    })
+    }, "PrivacyVerdict")
     priv_dump = priv.model_dump()
     leaks_dump = priv_dump["leaks"]
     privacy_summary = priv_dump.get("summary", "")
@@ -102,14 +112,43 @@ def judge(state: AnonState) -> dict:
             })
     leaked = [d["attribute"] for d in details]
 
+    # --- Ground truth validation: can prove positive leaks, not negatives ---
+    ground_truth = state.get("ground_truth") or {}
+    gt_validation = None
+    if ground_truth:
+        attacker_guesses = (state["attacker_result"] or {}).get("guesses", [])
+        gt_validation = check_ground_truth(attacker_guesses, ground_truth)
+        # Override: if ground_truth says matched but LLM said no leak, add to leaked list
+        for attr, result in gt_validation.items():
+            if result["matched"] and attr not in leaked and attr in attrs:
+                leaked.append(attr)
+                ag = guesses_by_attr.get(attr, {})
+                gt_rationale = f"Ground truth match: attacker guessed '{result['guess']}' which matches true value"
+                details.append({
+                    "attribute": attr,
+                    "guess": result["guess"] or "(unspecified)",
+                    "evidence": ag.get("evidence_spans", []),
+                    "rationale": gt_rationale,
+                })
+                # Also update leaks_dump so streamed "leaks" array is consistent with leaked_attrs
+                leaks_dump.append({
+                    "attribute": attr,
+                    "leaked": True,
+                    "inferred_value": result["guess"],
+                    "rationale": gt_rationale,
+                })
+
     # Leak found -> short-circuit: do NOT score utility. Hand the Defender the reasons it leaked.
     if leaked:
         sc = candidate_score(cfg, len(leaked), len(attrs), 0.0)
         best = update_best(state.get("best_candidate"),
                            {"text": state["current_text"], "score": sc, "round": state["iteration"],
                             "leaked_attrs": leaked, "verdict": "MAX_ITERS"})
+        judge_result = {"leaks": leaks_dump, "summary": privacy_summary}
+        if gt_validation is not None:
+            judge_result["ground_truth_validation"] = gt_validation
         return {
-            "judge_result": {"leaks": leaks_dump, "summary": privacy_summary},
+            "judge_result": judge_result,
             "leaked_attrs": leaked,
             "best_candidate": best,
             "feedback": build_leak_feedback(details),
@@ -117,11 +156,11 @@ def judge(state: AnonState) -> dict:
 
     # --- Stage 2: utility. Reached only when nothing leaked. ---
     util_chain = UTILITY_PROMPT | llm.with_structured_output(UtilityScores, method="function_calling")
-    util: UtilityScores = util_chain.invoke({
+    util: UtilityScores = safe_structured_invoke(util_chain, {
         "utility": ", ".join(state.get("utility_to_preserve") or []) or "(preserve general meaning)",
         "original": state["original_text"],
         "rewritten": state["current_text"],
-    })
+    }, "UtilityScores")
     j = util.model_dump()
 
     lc = cfg["loop"]
@@ -134,8 +173,10 @@ def judge(state: AnonState) -> dict:
                        {"text": state["current_text"], "score": sc, "round": state["iteration"],
                         "leaked_attrs": [], "verdict": "PASS" if utility_ok else "MAX_ITERS"})
 
-    ret = {"judge_result": {"leaks": leaks_dump, "summary": privacy_summary, **j},
-           "leaked_attrs": [], "best_candidate": best}
+    judge_result = {"leaks": leaks_dump, "summary": privacy_summary, **j}
+    if gt_validation is not None:
+        judge_result["ground_truth_validation"] = gt_validation
+    ret = {"judge_result": judge_result, "leaked_attrs": [], "best_candidate": best}
     if utility_ok:
         ret["verdict"] = "PASS"
     else:

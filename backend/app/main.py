@@ -2,10 +2,12 @@
 import json
 import os
 
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import StreamingResponse
 from pydantic import BaseModel, Field
+
+MAX_BATCH_SIZE = 10
 
 from .config import load_config
 from .graph import build_graph
@@ -24,6 +26,15 @@ class AnonRequest(BaseModel):
     attributes_to_hide: list[str] = Field(default_factory=list)
     utility_to_preserve: list[str] = Field(default_factory=list)
     channel: str = "text"
+    ground_truth: dict = Field(default_factory=dict)  # optional: {attr: true_value} for eval mode
+
+
+class BatchAnonRequest(BaseModel):
+    texts: list[str]
+    attributes_to_hide: list[str] = Field(default_factory=list)
+    utility_to_preserve: list[str] = Field(default_factory=list)
+    channel: str = "text"
+    ground_truth: list[dict] = Field(default_factory=list)  # parallel to texts: ground_truth[i] for texts[i]
 
 
 @app.get("/api/health")
@@ -49,9 +60,12 @@ def _node_event(node: str, payload: dict, round_no: int) -> dict | None:
     if node == "judge":
         j = payload.get("judge_result", {})
         leaked = payload.get("leaked_attrs", [])
-        return {"type": "node", "node": "judge", "round": round_no,
-                "leaked": bool(leaked), "leaked_attrs": leaked,
-                "leaks": j.get("leaks", []), "summary": j.get("summary", ""), "scores": j}
+        ev = {"type": "node", "node": "judge", "round": round_no,
+              "leaked": bool(leaked), "leaked_attrs": leaked,
+              "leaks": j.get("leaks", []), "summary": j.get("summary", ""), "scores": j}
+        if j.get("ground_truth_validation"):
+            ev["ground_truth_validation"] = j["ground_truth_validation"]
+        return ev
     return None
 
 
@@ -62,6 +76,7 @@ def anonymize(req: AnonRequest):
         "attributes_to_hide": req.attributes_to_hide or CONFIG["defaults"]["attributes_to_hide"],
         "utility_to_preserve": req.utility_to_preserve,
         "channel": req.channel,
+        "ground_truth": req.ground_truth or {},
         "config": CONFIG,
         "iteration": 0,
         "history": [],
@@ -96,3 +111,60 @@ def anonymize(req: AnonRequest):
             yield json.dumps({"type": "error", "message": f"{type(e).__name__}: {e}"}, ensure_ascii=False) + "\n"
 
     return StreamingResponse(gen(), media_type="application/x-ndjson")
+
+
+@app.post("/api/anonymize_batch")
+def anonymize_batch(req: BatchAnonRequest):
+    """Process multiple texts sequentially through the adversarial loop."""
+    if not req.texts:
+        raise HTTPException(status_code=400, detail="texts list cannot be empty")
+    if len(req.texts) > MAX_BATCH_SIZE:
+        raise HTTPException(status_code=400, detail=f"texts list exceeds max batch size of {MAX_BATCH_SIZE}")
+
+    attrs = req.attributes_to_hide or CONFIG["defaults"]["attributes_to_hide"]
+    results = []
+    success_count = 0
+    error_count = 0
+
+    for i, text in enumerate(req.texts):
+        gt = req.ground_truth[i] if i < len(req.ground_truth) else {}
+        init = {
+            "original_text": text,
+            "attributes_to_hide": attrs,
+            "utility_to_preserve": req.utility_to_preserve,
+            "channel": req.channel,
+            "ground_truth": gt,
+            "config": CONFIG,
+            "iteration": 0,
+            "history": [],
+        }
+        try:
+            final_state = GRAPH.invoke(init, config={"recursion_limit": 60})
+            judge_result = final_state.get("judge_result") or {}
+            gt_val = judge_result.get("ground_truth_validation")
+            results.append({
+                "index": i,
+                "status": "success",
+                "original_text": text,
+                "final_text": final_state.get("final_text", ""),
+                "verdict": final_state.get("verdict", "MAX_ITERS"),
+                "rounds": final_state.get("rounds", final_state.get("iteration", 0)),
+                "leaked_attrs": final_state.get("leaked_attrs", []),
+                "ground_truth_validation": gt_val,
+            })
+            success_count += 1
+        except Exception as e:
+            results.append({
+                "index": i,
+                "status": "error",
+                "original_text": text,
+                "error": f"{type(e).__name__}: {e}",
+            })
+            error_count += 1
+
+    return {
+        "batch_size": len(req.texts),
+        "success_count": success_count,
+        "error_count": error_count,
+        "results": results,
+    }

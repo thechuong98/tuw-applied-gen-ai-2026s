@@ -12,6 +12,13 @@ ENV UV_COMPILE_BYTECODE=1 \
 COPY pyproject.toml uv.lock ./
 RUN uv sync --frozen --no-dev
 
+# Download the spaCy English model into the project venv. Without this the NER
+# layer silently falls back to regex-only (PERSON/GPE/LOC/ORG detection is lost).
+# Installed as a wheel via `uv pip` because the uv-managed venv has no pip for
+# `spacy download` to call. Pin matches spacy 3.8.x in uv.lock.
+RUN uv pip install --python /app/.venv/bin/python \
+    https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.8.0/en_core_web_sm-3.8.0-py3-none-any.whl
+
 # App code + config.
 COPY app ./app
 COPY config.yaml .

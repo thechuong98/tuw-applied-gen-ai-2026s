@@ -18,6 +18,7 @@ class AnonState(TypedDict, total=False):
     feedback: Optional[str]
     strategy_log: dict
     defender_reasoning: str     # Defender's chain-of-thought for the latest rewrite
+    ner_findings: list[dict]    # NER/regex pre-scan results (list of NERFinding dicts)
 
     # --- per-component results ---
     attacker_result: Optional[dict]
