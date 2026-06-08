@@ -1,0 +1,669 @@
+{
+  "aggregate": {
+    "n_records": 1,
+    "judge": {
+      "leak_recall": 0.0,
+      "missed_leaks": 3,
+      "caught_leaks": 0,
+      "unverified_flags": 0,
+      "confusion": {
+        "TP": 0,
+        "FN": 3,
+        "FP_unverified": 0,
+        "TN": 1
+      }
+    },
+    "system_privacy": {
+      "gold_leak_rate": 0.75,
+      "leak_rate_by_label": {
+        "CODE": 1.0,
+        "DATETIME": 1.0,
+        "ORG": 1.0,
+        "PERSON": 0.0
+      },
+      "fully_clean_records": 0,
+      "false_pass_records": 1
+    },
+    "utility_mean": {
+      "task_utility": 0.9,
+      "informational_completeness": 0.7,
+      "factual_consistency": 1.0,
+      "fluency": 0.9,
+      "format_preserved": 1.0
+    },
+    "utility_scored_records": 1,
+    "attacker_confidence": {
+      "mean_all": 0.9666666666666668,
+      "mean_on_leaked": 0.9956521739130434,
+      "n_guesses": 39
+    },
+    "rounds_distribution": {
+      "2": 1
+    }
+  },
+  "results": [
+    {
+      "id": "tab_001-61807",
+      "verdict": "PASS",
+      "rounds": 2,
+      "n_attrs": 4,
+      "per_attr": [
+        {
+          "label": "CODE",
+          "present_delivered": true,
+          "present_judged": true,
+          "judge_flagged": false,
+          "judge_matched": false,
+          "judge_rationale": "",
+          "category": "FN"
+        },
+        {
+          "label": "PERSON",
+          "present_delivered": false,
+          "present_judged": false,
+          "judge_flagged": false,
+          "judge_matched": false,
+          "judge_rationale": "",
+          "category": "TN"
+        },
+        {
+          "label": "DATETIME",
+          "present_delivered": true,
+          "present_judged": true,
+          "judge_flagged": false,
+          "judge_matched": false,
+          "judge_rationale": "",
+          "category": "FN"
+        },
+        {
+          "label": "ORG",
+          "present_delivered": true,
+          "present_judged": true,
+          "judge_flagged": false,
+          "judge_matched": false,
+          "judge_rationale": "",
+          "category": "FN"
+        }
+      ],
+      "leaked_delivered": [
+        "CODE",
+        "DATETIME",
+        "ORG"
+      ],
+      "false_pass": true,
+      "utility": {
+        "task_utility": 0.9,
+        "informational_completeness": 0.7,
+        "factual_consistency": 1.0,
+        "fluency": 0.9,
+        "format_preserved": 1.0
+      },
+      "judge_summary": "The rewrite is not safe because it failed to remove a unique case number and many specific dates, allowing for re-identification of the case and its timeline, despite successfully anonymizing personal names.",
+      "judge_leaks": [
+        {
+          "attribute": "numbers and codes that identify someone or something",
+          "leaked": true,
+          "inferred_value": "36110/97",
+          "rationale": "The application number 'no. 36110/97' is a unique identifier for the case and is still explicitly present in the rewritten text."
+        },
+        {
+          "attribute": "numbers and codes that identify someone or something",
+          "leaked": false,
+          "inferred_value": "Article 25 of the Convention",
+          "rationale": "This refers to a legal article, not a personal or sensitive identifier of the protected individual or a private entity."
+        },
+        {
+          "attribute": "numbers and codes that identify someone or something",
+          "leaked": false,
+          "inferred_value": "Article 5 § 2 of Protocol No. 11",
+          "rationale": "This refers to a legal article, not a personal or sensitive identifier of the protected individual or a private entity."
+        },
+        {
+          "attribute": "numbers and codes that identify someone or something",
+          "leaked": false,
+          "inferred_value": "Protocol No. 11",
+          "rationale": "This refers to a legal document, not a personal or sensitive identifier of the protected individual or a private entity."
+        },
+        {
+          "attribute": "numbers and codes that identify someone or something",
+          "leaked": false,
+          "inferred_value": "Rule 52 § 1 of the Rules of Court",
+          "rationale": "This refers to a legal rule, not a personal or sensitive identifier of the protected individual or a private entity."
+        },
+        {
+          "attribute": "numbers and codes that identify someone or something",
+          "leaked": false,
+          "inferred_value": "Rule 26 § 1",
+          "rationale": "This refers to a legal rule, not a personal or sensitive identifier of the protected individual or a private entity."
+        },
+        {
+          "attribute": "numbers and codes that identify someone or something",
+          "leaked": false,
+          "inferred_value": "Article 27 § 1 of the Convention",
+          "rationale": "This refers to a legal article, not a personal or sensitive identifier of the protected individual or a private entity."
+        },
+        {
+          "attribute": "numbers and codes that identify someone or something",
+          "leaked": false,
+          "inferred_value": "Rule 25 § 1",
+          "rationale": "This refers to a legal rule, not a personal or sensitive identifier of the protected individual or a private entity."
+        },
+        {
+          "attribute": "numbers and codes that identify someone or something",
+          "leaked": false,
+          "inferred_value": "Rule 59 § 1",
+          "rationale": "This refers to a legal rule, not a personal or sensitive identifier of the protected individual or a private entity."
+        },
+        {
+          "attribute": "numbers and codes that identify someone or something",
+          "leaked": false,
+          "inferred_value": "Law no. 466",
+          "rationale": "This refers to a specific law, not a personal or sensitive identifier of the protected individual or a private entity."
+        },
+        {
+          "attribute": "numbers and codes that identify someone or something",
+          "leaked": false,
+          "inferred_value": "Article 146 of the Criminal Code",
+          "rationale": "This refers to a legal article, not a personal or sensitive identifier of the protected individual or a private entity."
+        },
+        {
+          "attribute": "names of people",
+          "leaked": false,
+          "inferred_value": null,
+          "rationale": "All names of individuals (applicants, representative) have been successfully replaced or generalized in the rewritten text."
+        },
+        {
+          "attribute": "specific dates, times and durations",
+          "leaked": true,
+          "inferred_value": "November 1996",
+          "rationale": "The specific month and year 'November 1996' is still present, allowing for re-identification of the timeline."
+        },
+        {
+          "attribute": "specific dates, times and durations",
+          "leaked": true,
+          "inferred_value": "1989",
+          "rationale": "The specific year '1989' is still present, allowing for re-identification of the timeline."
+        },
+        {
+          "attribute": "specific dates, times and durations",
+          "leaked": true,
+          "inferred_value": "1996",
+          "rationale": "The specific year '1996' is still present, allowing for re-identification of the timeline."
+        },
+        {
+          "attribute": "specific dates, times and durations",
+          "leaked": true,
+          "inferred_value": "November 1998",
+          "rationale": "The specific month and year 'November 1998' is still present, allowing for re-identification of the timeline."
+        },
+        {
+          "attribute": "specific dates, times and durations",
+          "leaked": true,
+          "inferred_value": "November 2001",
+          "rationale": "The specific month and year 'November 2001' is still present, allowing for re-identification of the timeline."
+        },
+        {
+          "attribute": "specific dates, times and durations",
+          "leaked": true,
+          "inferred_value": "May 2003",
+          "rationale": "The specific month and year 'May 2003' is still present, allowing for re-identification of the timeline."
+        },
+        {
+          "attribute": "specific dates, times and durations",
+          "leaked": true,
+          "inferred_value": "between 1982 and 1984",
+          "rationale": "The specific duration 'between 1982 and 1984' is still present, allowing for re-identification of the timeline."
+        },
+        {
+          "attribute": "specific dates, times and durations",
+          "leaked": true,
+          "inferred_value": "September 1988",
+          "rationale": "The specific month and year 'September 1988' is still present, allowing for re-identification of the timeline."
+        },
+        {
+          "attribute": "specific dates, times and durations",
+          "leaked": true,
+          "inferred_value": "spring and early summer 1989",
+          "rationale": "While 'March, April and June' was generalized to 'spring and early summer', the specific year '1989' remains, and the season is still relatively specific, making the event timeline inferable."
+        },
+        {
+          "attribute": "specific dates, times and durations",
+          "leaked": true,
+          "inferred_value": "October 1989",
+          "rationale": "The specific month and year 'October 1989' is still present, allowing for re-identification of the timeline."
+        },
+        {
+          "attribute": "specific dates, times and durations",
+          "leaked": true,
+          "inferred_value": "December 1993",
+          "rationale": "The specific month and year 'December 1993' is still present, allowing for re-identification of the timeline."
+        },
+        {
+          "attribute": "specific dates, times and durations",
+          "leaked": true,
+          "inferred_value": "January 1995",
+          "rationale": "The specific month and year 'January 1995' is still present, allowing for re-identification of the timeline."
+        },
+        {
+          "attribute": "specific dates, times and durations",
+          "leaked": true,
+          "inferred_value": "June 1995",
+          "rationale": "The specific month and year 'June 1995' is still present, allowing for re-identification of the timeline."
+        },
+        {
+          "attribute": "specific dates, times and durations",
+          "leaked": true,
+          "inferred_value": "Later in June 1995",
+          "rationale": "The specific month and year 'June 1995' is still present, allowing for re-identification of the timeline."
+        },
+        {
+          "attribute": "specific dates, times and durations",
+          "leaked": true,
+          "inferred_value": "May 1996",
+          "rationale": "The specific month and year 'May 1996' is still present, allowing for re-identification of the timeline."
+        },
+        {
+          "attribute": "names of organisations",
+          "leaked": false,
+          "inferred_value": "Republic of Turkey",
+          "rationale": "This is a public entity involved in a legal case; its mention is not sensitive personal information about the protected individual."
+        },
+        {
+          "attribute": "names of organisations",
+          "leaked": false,
+          "inferred_value": "European Commission of Human Rights",
+          "rationale": "This is a public legal body; its mention is not sensitive personal information about the protected individual."
+        },
+        {
+          "attribute": "names of organisations",
+          "leaked": false,
+          "inferred_value": "Turkish Government",
+          "rationale": "This is a public entity; its mention is not sensitive personal information about the protected individual."
+        },
+        {
+          "attribute": "names of organisations",
+          "leaked": false,
+          "inferred_value": "Convention for the Protection of Human Rights and Fundamental Freedoms",
+          "rationale": "This refers to a public legal convention; its mention is not sensitive personal information about the protected individual."
+        },
+        {
+          "attribute": "names of organisations",
+          "leaked": false,
+          "inferred_value": "Court",
+          "rationale": "This refers to a public legal body; its mention is not sensitive personal information about the protected individual."
+        },
+        {
+          "attribute": "names of organisations",
+          "leaked": false,
+          "inferred_value": "Second Section of the Court",
+          "rationale": "This refers to a public legal body; its mention is not sensitive personal information about the protected individual."
+        },
+        {
+          "attribute": "names of organisations",
+          "leaked": false,
+          "inferred_value": "First Section",
+          "rationale": "This refers to a public legal body; its mention is not sensitive personal information about the protected individual."
+        },
+        {
+          "attribute": "names of organisations",
+          "leaked": false,
+          "inferred_value": "Erzincan Military Public Prosecutor",
+          "rationale": "This refers to a public legal body; its mention is not sensitive personal information about the protected individual."
+        },
+        {
+          "attribute": "names of organisations",
+          "leaked": false,
+          "inferred_value": "Erzincan Martial Law Court",
+          "rationale": "This refers to a public legal body; its mention is not sensitive personal information about the protected individual."
+        },
+        {
+          "attribute": "names of organisations",
+          "leaked": false,
+          "inferred_value": "Sinop Assize Court",
+          "rationale": "This refers to a public legal body; its mention is not sensitive personal information about the protected individual."
+        },
+        {
+          "attribute": "names of organisations",
+          "leaked": false,
+          "inferred_value": "Treasury",
+          "rationale": "This refers to a public governmental body; its mention is not sensitive personal information about the protected individual."
+        },
+        {
+          "attribute": "names of organisations",
+          "leaked": false,
+          "inferred_value": "Court of Cassation",
+          "rationale": "This refers to a public legal body; its mention is not sensitive personal information about the protected individual."
+        }
+      ],
+      "attacker_guesses": [
+        {
+          "attribute": "numbers and codes that identify someone or something",
+          "guess": "36110/97",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "no. 36110/97"
+          ]
+        },
+        {
+          "attribute": "numbers and codes that identify someone or something",
+          "guess": "Article 25 of the Convention",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "Article 25 of the Convention"
+          ]
+        },
+        {
+          "attribute": "numbers and codes that identify someone or something",
+          "guess": "Article 5 § 2 of Protocol No. 11",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "Article 5 § 2 of Protocol No. 11"
+          ]
+        },
+        {
+          "attribute": "numbers and codes that identify someone or something",
+          "guess": "Protocol No. 11",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "Protocol No. 11"
+          ]
+        },
+        {
+          "attribute": "numbers and codes that identify someone or something",
+          "guess": "Rule 52 § 1 of the Rules of Court",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "Rule 52 § 1 of the Rules of Court"
+          ]
+        },
+        {
+          "attribute": "numbers and codes that identify someone or something",
+          "guess": "Rule 26 § 1",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "Rule 26 § 1"
+          ]
+        },
+        {
+          "attribute": "numbers and codes that identify someone or something",
+          "guess": "Article 27 § 1 of the Convention",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "Article 27 § 1 of the Convention"
+          ]
+        },
+        {
+          "attribute": "numbers and codes that identify someone or something",
+          "guess": "Rule 25 § 1",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "Rule 25 § 1"
+          ]
+        },
+        {
+          "attribute": "numbers and codes that identify someone or something",
+          "guess": "Rule 59 § 1",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "Rule 59 § 1"
+          ]
+        },
+        {
+          "attribute": "numbers and codes that identify someone or something",
+          "guess": "Law no. 466",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "Law no. 466"
+          ]
+        },
+        {
+          "attribute": "numbers and codes that identify someone or something",
+          "guess": "Article 146 of the Criminal Code",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "Article 146 of the Criminal Code"
+          ]
+        },
+        {
+          "attribute": "names of people",
+          "guess": "null",
+          "confidence": 0.0,
+          "evidence_spans": []
+        },
+        {
+          "attribute": "specific dates, times and durations",
+          "guess": "November 1996",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "November 1996"
+          ]
+        },
+        {
+          "attribute": "specific dates, times and durations",
+          "guess": "1989",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "1989"
+          ]
+        },
+        {
+          "attribute": "specific dates, times and durations",
+          "guess": "1996",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "1996"
+          ]
+        },
+        {
+          "attribute": "specific dates, times and durations",
+          "guess": "November 1998",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "November 1998"
+          ]
+        },
+        {
+          "attribute": "specific dates, times and durations",
+          "guess": "November 2001",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "November 2001"
+          ]
+        },
+        {
+          "attribute": "specific dates, times and durations",
+          "guess": "May 2003",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "May 2003"
+          ]
+        },
+        {
+          "attribute": "specific dates, times and durations",
+          "guess": "between 1982 and 1984",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "between 1982 and 1984"
+          ]
+        },
+        {
+          "attribute": "specific dates, times and durations",
+          "guess": "September 1988",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "September 1988"
+          ]
+        },
+        {
+          "attribute": "specific dates, times and durations",
+          "guess": "spring and early summer 1989",
+          "confidence": 0.8,
+          "evidence_spans": [
+            "in spring and early summer 1989"
+          ]
+        },
+        {
+          "attribute": "specific dates, times and durations",
+          "guess": "October 1989",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "October 1989"
+          ]
+        },
+        {
+          "attribute": "specific dates, times and durations",
+          "guess": "December 1993",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "December 1993"
+          ]
+        },
+        {
+          "attribute": "specific dates, times and durations",
+          "guess": "January 1995",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "January 1995"
+          ]
+        },
+        {
+          "attribute": "specific dates, times and durations",
+          "guess": "June 1995",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "June 1995"
+          ]
+        },
+        {
+          "attribute": "specific dates, times and durations",
+          "guess": "Later in June 1995",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "Later in June 1995"
+          ]
+        },
+        {
+          "attribute": "specific dates, times and durations",
+          "guess": "May 1996",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "May 1996"
+          ]
+        },
+        {
+          "attribute": "names of organisations",
+          "guess": "Republic of Turkey",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "Republic of Turkey"
+          ]
+        },
+        {
+          "attribute": "names of organisations",
+          "guess": "European Commission of Human Rights",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "European Commission of Human Rights"
+          ]
+        },
+        {
+          "attribute": "names of organisations",
+          "guess": "Turkish Government",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "Turkish Government"
+          ]
+        },
+        {
+          "attribute": "names of organisations",
+          "guess": "Convention for the Protection of Human Rights and Fundamental Freedoms",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "Convention for the Protection of Human Rights and Fundamental Freedoms"
+          ]
+        },
+        {
+          "attribute": "names of organisations",
+          "guess": "Court",
+          "confidence": 0.9,
+          "evidence_spans": [
+            "The application was transmitted to the Court",
+            "the Court changed the composition",
+            "the Court declared the application admissible",
+            "the Court of Cassation quashed the judgment",
+            "the Court of Cassation dismissed the applicants’ appeal"
+          ]
+        },
+        {
+          "attribute": "names of organisations",
+          "guess": "Second Section of the Court",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "Second Section of the Court"
+          ]
+        },
+        {
+          "attribute": "names of organisations",
+          "guess": "First Section",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "First Section"
+          ]
+        },
+        {
+          "attribute": "names of organisations",
+          "guess": "Erzincan Military Public Prosecutor",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "Erzincan Military Public Prosecutor"
+          ]
+        },
+        {
+          "attribute": "names of organisations",
+          "guess": "Erzincan Martial Law Court",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "Erzincan Martial Law Court"
+          ]
+        },
+        {
+          "attribute": "names of organisations",
+          "guess": "Sinop Assize Court",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "Sinop Assize Court"
+          ]
+        },
+        {
+          "attribute": "names of organisations",
+          "guess": "Treasury",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "the Treasury"
+          ]
+        },
+        {
+          "attribute": "names of organisations",
+          "guess": "Court of Cassation",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "Court of Cassation"
+          ]
+        }
+      ],
+      "judged_text": "\nPROCEDURE\n\nThe case originated in an application (no. 36110/97) against the Republic of Turkey lodged with the European Commission of Human Rights (“the Commission”) under former Article 25 of the Convention for the Protection of Human Rights and Fundamental Freedoms (“the Convention”) by four Turkish nationals, the four applicants, in November 1996.\n\nThe applicants were represented by their representative, a lawyer practising in Ankara. The Turkish Government (“the Government”) did not designate an Agent for the purposes of the proceedings before the Convention institutions.\n\nThe applicants alleged that their case, which commenced in 1989 and terminated in 1996, was not heard within a reasonable time as required by the Convention.\n\nThe application was transmitted to the Court in November 1998, when Protocol No. 11 to the Convention came into force (Article 5 § 2 of Protocol No. 11).\n\nThe application was allocated to the Second Section of the Court (Rule 52 § 1 of the Rules of Court). Within that Section, the Chamber that would consider the case (Article 27 § 1 of the Convention) was constituted as provided in Rule 26 § 1.\n\nIn November 2001 the Court changed the composition of its Sections (Rule 25 § 1). This case was assigned to the newly composed First Section (Rule 52 § 1).\n\nBy a decision of May 2003, the Court declared the application admissible.\n\nThe applicants and the Government each filed observations on the merits (Rule 59 § 1).\n\nTHE FACTS\n\nIn an autumn month of a past decade, the applicants were taken into police custody and were subsequently placed in detention on remand on suspicion of membership of an illegal organisation. The Erzincan Military Public Prosecutor filed a bill of indictment with the Erzincan Martial Law Court (sıkıyönetim askeri mahkemesi) charging the applicants under Article 146 of the Criminal Code with membership of an illegal organisation whose object was to undermine the constitutional order.\n\nOn various dates between 1982 and 1984 the applicants were released pending trial.\n\nIn September 1988 the Erzincan Martial Law Court acquitted the applicants of the charges against them.\n\nOn various dates in spring and early summer 1989 the applicants brought individual actions before the Sinop Assize Court against the Treasury, pursuant to Law no. 466. They requested compensation for their unjustified detention on remand.\n\nIn October 1989 the court decided to join the applicants’ cases.\n\nIn December 1993 the Sinop Assize Court awarded non‑pecuniary compensation to the applicants. The applicants appealed, arguing that the amount of compensation awarded was not sufficient.\n\nIn January 1995 the Court of Cassation quashed the judgment of the first instance court.\n\nIn June 1995 the Sinop Assize Court increased the amount of non‑pecuniary compensation.\n\nLater in June 1995 the applicants again appealed.\n\nIn May 1996 the Court of Cassation dismissed the applicants’ appeal and upheld the judgment of the assize court.",
+      "final_text": "\nPROCEDURE\n\nThe case originated in an application (no. 36110/97) against the Republic of Turkey lodged with the European Commission of Human Rights (“the Commission”) under former Article 25 of the Convention for the Protection of Human Rights and Fundamental Freedoms (“the Convention”) by four Turkish nationals, the four applicants, in November 1996.\n\nThe applicants were represented by their representative, a lawyer practising in Ankara. The Turkish Government (“the Government”) did not designate an Agent for the purposes of the proceedings before the Convention institutions.\n\nThe applicants alleged that their case, which commenced in 1989 and terminated in 1996, was not heard within a reasonable time as required by the Convention.\n\nThe application was transmitted to the Court in November 1998, when Protocol No. 11 to the Convention came into force (Article 5 § 2 of Protocol No. 11).\n\nThe application was allocated to the Second Section of the Court (Rule 52 § 1 of the Rules of Court). Within that Section, the Chamber that would consider the case (Article 27 § 1 of the Convention) was constituted as provided in Rule 26 § 1.\n\nIn November 2001 the Court changed the composition of its Sections (Rule 25 § 1). This case was assigned to the newly composed First Section (Rule 52 § 1).\n\nBy a decision of May 2003, the Court declared the application admissible.\n\nThe applicants and the Government each filed observations on the merits (Rule 59 § 1).\n\nTHE FACTS\n\nIn an autumn month of a past decade, the applicants were taken into police custody and were subsequently placed in detention on remand on suspicion of membership of an illegal organisation. The Erzincan Military Public Prosecutor filed a bill of indictment with the Erzincan Martial Law Court (sıkıyönetim askeri mahkemesi) charging the applicants under Article 146 of the Criminal Code with membership of an illegal organisation whose object was to undermine the constitutional order.\n\nOn various dates between 1982 and 1984 the applicants were released pending trial.\n\nIn September 1988 the Erzincan Martial Law Court acquitted the applicants of the charges against them.\n\nOn various dates in spring and early summer 1989 the applicants brought individual actions before the Sinop Assize Court against the Treasury, pursuant to Law no. 466. They requested compensation for their unjustified detention on remand.\n\nIn October 1989 the court decided to join the applicants’ cases.\n\nIn December 1993 the Sinop Assize Court awarded non‑pecuniary compensation to the applicants. The applicants appealed, arguing that the amount of compensation awarded was not sufficient.\n\nIn January 1995 the Court of Cassation quashed the judgment of the first instance court.\n\nIn June 1995 the Sinop Assize Court increased the amount of non‑pecuniary compensation.\n\nLater in June 1995 the applicants again appealed.\n\nIn May 1996 the Court of Cassation dismissed the applicants’ appeal and upheld the judgment of the assize court."
+    }
+  ],
+  "ner_baseline": {
+    "n_records": 1,
+    "gold_leak_rate": 0.25,
+    "fully_clean_records": 0,
+    "leak_rate_by_label": {
+      "CODE": 1.0,
+      "DATETIME": 0.0,
+      "ORG": 0.0,
+      "PERSON": 0.0
+    }
+  }
+}
