@@ -13,6 +13,7 @@ Routing:
         -> retry(defender)           if (leak or low utility) and under the iteration cap
         -> finalize(best candidate)  at the iteration cap
 """
+from difflib import SequenceMatcher
 from .llm import get_llm, safe_structured_invoke
 from .matcher import check_ground_truth
 from .ner import detect_identifiers, format_ner_hints, check_verbatim_leaks, format_verbatim_feedback
@@ -88,6 +89,24 @@ def _format_guesses(attacker_result: dict) -> str:
     return "\n".join(rows) or "(the attacker made no concrete guesses)"
 
 
+def _attr_matches(judge_attr: str, attrs: list[str], threshold: float = 0.5) -> bool:
+    """Fuzzy-match judge_attr against known attribute names.
+
+    Catches cases where the Judge writes "date of arrest" instead of "DATETIME",
+    or "application number" instead of "CODE".
+    """
+    judge_lower = (judge_attr or "").lower()
+    for a in attrs:
+        if judge_lower == a.lower():
+            return True
+        ratio = SequenceMatcher(None, judge_lower, a.lower()).ratio()
+        if ratio >= threshold:
+            return True
+        if any(word.lower() in judge_lower for word in a.split() if len(word) > 3):
+            return True
+    return False
+
+
 def judge(state: AnonState) -> dict:
     cfg = state["config"]
     attrs = state["attributes_to_hide"]
@@ -109,7 +128,7 @@ def judge(state: AnonState) -> dict:
     guesses_by_attr = {g.get("attribute"): g for g in (state["attacker_result"] or {}).get("guesses", [])}
     details = []
     for lk in leaks_dump:
-        if lk.get("leaked") and lk.get("attribute") in attrs:
+        if lk.get("leaked") and _attr_matches(lk.get("attribute", ""), attrs):
             ag = guesses_by_attr.get(lk["attribute"], {})
             details.append({
                 "attribute": lk["attribute"],

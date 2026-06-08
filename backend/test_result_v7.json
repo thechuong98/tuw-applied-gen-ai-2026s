@@ -1,0 +1,1525 @@
+{
+  "aggregate": {
+    "n_records": 5,
+    "judge": {
+      "leak_recall": 0.0,
+      "missed_leaks": 2,
+      "caught_leaks": 0,
+      "unverified_flags": 0,
+      "confusion": {
+        "TP": 0,
+        "FN": 2,
+        "FP_unverified": 0,
+        "TN": 23
+      }
+    },
+    "system_privacy": {
+      "gold_leak_rate": 0.16,
+      "leak_rate_by_label": {
+        "CODE": 0.0,
+        "DATETIME": 0.2,
+        "DEM": 1.0,
+        "LOC": 0.0,
+        "MISC": 1.0,
+        "ORG": 0.0,
+        "PERSON": 0.0
+      },
+      "fully_clean_records": 2,
+      "false_pass_records": 2
+    },
+    "utility_mean": {
+      "task_utility": 0.8,
+      "informational_completeness": 0.55,
+      "factual_consistency": 1.0,
+      "fluency": 1.0,
+      "format_preserved": 1.0
+    },
+    "utility_scored_records": 2,
+    "attacker_confidence": {
+      "mean_all": 0.8443298969072166,
+      "mean_on_leaked": null,
+      "n_guesses": 97
+    },
+    "rounds_distribution": {
+      "2": 2,
+      "4": 3
+    }
+  },
+  "results": [
+    {
+      "id": "tab_001-61807",
+      "verdict": "MAX_ITERS",
+      "rounds": 4,
+      "n_attrs": 4,
+      "per_attr": [
+        {
+          "label": "CODE",
+          "present_delivered": false,
+          "present_judged": false,
+          "judge_flagged": false,
+          "judge_matched": false,
+          "judge_rationale": "",
+          "category": "TN"
+        },
+        {
+          "label": "PERSON",
+          "present_delivered": false,
+          "present_judged": false,
+          "judge_flagged": false,
+          "judge_matched": false,
+          "judge_rationale": "",
+          "category": "TN"
+        },
+        {
+          "label": "DATETIME",
+          "present_delivered": false,
+          "present_judged": false,
+          "judge_flagged": false,
+          "judge_matched": false,
+          "judge_rationale": "",
+          "category": "TN"
+        },
+        {
+          "label": "ORG",
+          "present_delivered": false,
+          "present_judged": false,
+          "judge_flagged": false,
+          "judge_matched": false,
+          "judge_rationale": "",
+          "category": "TN"
+        }
+      ],
+      "leaked_delivered": [],
+      "false_pass": false,
+      "utility": {},
+      "judge_summary": "The text is mostly safe, but 'Law no. 466' remains an identifying number that was not generalized. All other sensitive attributes such as specific names, dates, case numbers, and organization names have been successfully anonymized.",
+      "judge_leaks": [
+        {
+          "attribute": "numbers and codes that identify someone or something",
+          "leaked": true,
+          "inferred_value": "Law no. 466",
+          "rationale": "The specific legislative reference 'Law no. 466' is present in both the original and rewritten text, making it directly inferable."
+        },
+        {
+          "attribute": "case/application numbers",
+          "leaked": false,
+          "inferred_value": null,
+          "rationale": "The specific application number (no. 36110/97) has been replaced with a placeholder ([CASE_NUMBER_PLACEHOLDER]) and is no longer inferable."
+        },
+        {
+          "attribute": "names of people",
+          "leaked": false,
+          "inferred_value": null,
+          "rationale": "All specific names of individuals (Mr Galip Yalman, Mr Bahattin Sarısoy, Mr Osman Çağlayan, Mr Yusuf Çamca, Mr S. Esmer) have been generalized to descriptions like 'four nationals of the state, the applicants' or 'a legal representative'."
+        },
+        {
+          "attribute": "specific dates, times and durations",
+          "leaked": false,
+          "inferred_value": null,
+          "rationale": "All specific dates (e.g., 29 November 1996, 1 November 1998, 15 May 2003) and precise durations have been generalized to broader timeframes such as 'late November of a particular year', 'late 1980s', 'mid-1990s', 'early 2000s', 'In the months following their acquittal', 'Several years later', making the exact values unrecoverable."
+        },
+        {
+          "attribute": "names of organisations",
+          "leaked": false,
+          "inferred_value": null,
+          "rationale": "All specific organization names (e.g., European Commission of Human Rights, Republic of Turkey, Erzincan Military Public Prosecutor, Sinop Assize Court, Court of Cassation) have been generalized to descriptions like 'an international human rights body', 'a member state', 'a military prosecutor', 'a regional court', 'the highest appellate court'."
+        }
+      ],
+      "attacker_guesses": [
+        {
+          "attribute": "case/application numbers",
+          "guess": "null",
+          "confidence": 0.0,
+          "evidence_spans": [
+            "application (no. [CASE_NUMBER_PLACEHOLDER])"
+          ]
+        },
+        {
+          "attribute": "numbers and codes that identify someone or something",
+          "guess": "Law no. 466",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "Law no. 466"
+          ]
+        },
+        {
+          "attribute": "names of people",
+          "guess": "null",
+          "confidence": 0.0,
+          "evidence_spans": [
+            "four nationals of the state, the applicants",
+            "a legal representative",
+            "a military prosecutor"
+          ]
+        },
+        {
+          "attribute": "specific dates, times and durations",
+          "guess": "late November (of an unspecified year)",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "late November of a particular year"
+          ]
+        },
+        {
+          "attribute": "specific dates, times and durations",
+          "guess": "late 1980s",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "late 1980s",
+            "late 1980s"
+          ]
+        },
+        {
+          "attribute": "specific dates, times and durations",
+          "guess": "mid-1990s",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "mid-1990s",
+            "mid-1990s",
+            "mid-1990s"
+          ]
+        },
+        {
+          "attribute": "specific dates, times and durations",
+          "guess": "late 1990s",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "late 1990s"
+          ]
+        },
+        {
+          "attribute": "specific dates, times and durations",
+          "guess": "early 2000s",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "early 2000s",
+            "early 2000s"
+          ]
+        },
+        {
+          "attribute": "specific dates, times and durations",
+          "guess": "early 1980s",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "early 1980s"
+          ]
+        },
+        {
+          "attribute": "specific dates, times and durations",
+          "guess": "between the early and mid-1980s",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "between the early and mid-1980s"
+          ]
+        },
+        {
+          "attribute": "specific dates, times and durations",
+          "guess": "In the months following their acquittal",
+          "confidence": 0.5,
+          "evidence_spans": [
+            "In the months following their acquittal"
+          ]
+        },
+        {
+          "attribute": "specific dates, times and durations",
+          "guess": "Some months after these actions",
+          "confidence": 0.5,
+          "evidence_spans": [
+            "Some months after these actions"
+          ]
+        },
+        {
+          "attribute": "specific dates, times and durations",
+          "guess": "Several years later",
+          "confidence": 0.5,
+          "evidence_spans": [
+            "Several years later"
+          ]
+        },
+        {
+          "attribute": "specific dates, times and durations",
+          "guess": "A short time later",
+          "confidence": 0.5,
+          "evidence_spans": [
+            "A short time later"
+          ]
+        },
+        {
+          "attribute": "specific dates, times and durations",
+          "guess": "Towards the end of the specified period",
+          "confidence": 0.5,
+          "evidence_spans": [
+            "Towards the end of the specified period"
+          ]
+        },
+        {
+          "attribute": "names of organisations",
+          "guess": "null",
+          "confidence": 0.0,
+          "evidence_spans": [
+            "international human rights body",
+            "judicial body",
+            "state authorities",
+            "military court",
+            "regional court",
+            "national financial authority",
+            "highest appellate court"
+          ]
+        }
+      ],
+      "judged_text": "\nPROCEDURE\n\nThe case originated in an application (no. [CASE_NUMBER_PLACEHOLDER]) against a member state lodged with an international human rights body (“the human rights body”) under former Article 25 of a regional human rights treaty (“the treaty”) by four nationals of the state, the applicants, in late November of a particular year.\n\nThe applicants were represented by a legal representative practising in a major city. The state authorities did not designate an Agent for the purposes of the proceedings before the treaty bodies.\n\nThe applicants alleged that their case, which commenced in the late 1980s and terminated in the mid-1990s, was not heard within a reasonable time as required by the treaty.\n\nThe application was transmitted to the judicial body in the late 1990s, when Protocol No. 11 to the treaty came into force (Article 5 § 2 of Protocol No. 11).\n\nThe application was allocated to a section of the judicial body (Rule 52 § 1 of the Rules of the judicial body). Within that Section, the relevant panel that would consider the case (Article 27 § 1 of the treaty) was constituted as provided in Rule 26 § 1.\n\nIn the early 2000s the judicial body changed the composition of its Sections (Rule 25 § 1). This case was assigned to a newly composed section (Rule 52 § 1).\n\nBy a decision in the early 2000s, the judicial body declared the application admissible.\n\nThe applicants and the state authorities each filed observations on the merits (Rule 59 § 1).\n\nTHE FACTS\n\nIn the early 1980s the applicants were taken into police custody and were subsequently placed in detention on remand on suspicion of membership of an illegal organisation. A military prosecutor filed a bill of indictment with a military court charging the applicants under Article 146 of the Criminal Code with membership of an illegal organisation whose object was to undermine the constitutional order.\n\nOn various dates between the early and mid-1980s the applicants were released pending trial.\n\nIn the late 1980s a military court acquitted the applicants of the charges against them.\n\nIn the months following their acquittal, the applicants brought individual actions before a regional court against the national financial authority, pursuant to Law no. 466. They requested compensation for their unjustified detention on remand.\n\nSome months after these actions, the court decided to join the applicants’ cases.\n\nSeveral years later, the regional court awarded non‑pecuniary compensation to the applicants. The applicants appealed, arguing that the amount of compensation awarded was not sufficient.\n\nIn the mid-1990s, the highest appellate court quashed the judgment of the first instance court.\n\nSome time in the mid-1990s the regional court increased the amount of non‑pecuniary compensation.\n\nA short time later, the applicants again appealed.\n\nTowards the end of the specified period, the highest appellate court dismissed the applicants’ appeal and upheld the judgment of the regional court.",
+      "final_text": "\nPROCEDURE\n\nThe case originated in an application (bearing a specific reference number) against the respondent State lodged with a relevant international human rights body (“that body”) under former Article 25 of a foundational human rights treaty (“the treaty”) by four nationals of the respondent State, identified as “the applicants”, on a specific date in late November.\n\nThe applicants were represented by their legal professional, based in a major city in the respondent State. The authorities of the respondent State did not designate an Agent for the purposes of the proceedings before the institutions established under the treaty.\n\nThe applicants alleged that their case, which commenced in the late 1980s and terminated in the mid-1990s, was not heard within a reasonable time as required by the treaty.\n\nThe application was transmitted to the central adjudicating body on a specific date in early November, when Protocol No. 11 to the treaty came into force (Article 5 § 2 of Protocol No. 11).\n\nThe application was allocated to a specific section of the adjudicating body (Rule 52 § 1 of the Rules of the central adjudicating body). Within that section, the subdivision that would consider the case (Article 27 § 1 of the treaty) was constituted as provided in Rule 26 § 1.\n\nOn a specific date in early November several years later, the central adjudicating body changed the composition of its sections (Rule 25 § 1). This case was assigned to a newly composed section (Rule 52 § 1).\n\nBy a decision of mid-May of a later year, the central adjudicating body declared the application admissible.\n\nThe applicants and the respondent State each filed observations on the merits (Rule 59 § 1).\n\nTHE FACTS\n\nIn the autumn of a particular year, the applicants were taken into police custody and were subsequently placed in detention on remand on suspicion of membership of an illegal organisation. A military prosecutor's office filed a bill of indictment with a military court responsible for martial law cases, charging the applicants under Article 146 of the Criminal Code with membership of an illegal organisation whose object was to undermine the constitutional order.\n\nOn various dates between the early to mid-1980s, the applicants were released pending trial.\n\nOn a specific date in mid-September of a subsequent year, the military court responsible for martial law cases acquitted the applicants of the charges against them.\n\nOn various dates in the spring and early summer of that year, the applicants brought individual actions before a court of general jurisdiction against the national financial authority, pursuant to Law no. 466. They requested compensation for their unjustified detention on remand.\n\nIn late October of the same year, the court decided to join the applicants’ cases.\n\nIn mid-December several years later, the court of general jurisdiction awarded non‑pecuniary compensation to the applicants. The applicants appealed, arguing that the amount of compensation awarded was not sufficient.\n\nIn late January of a later year, the highest appellate court quashed the judgment of the first instance court.\n\nIn early June of the same year, the court of general jurisdiction increased the amount of non‑pecuniary compensation.\n\nIn mid-June of the same year, the applicants again appealed.\n\nIn late May of the following year, the highest appellate court dismissed the applicants’ appeal and upheld the judgment of the court of general jurisdiction."
+    },
+    {
+      "id": "tab_001-61253",
+      "verdict": "MAX_ITERS",
+      "rounds": 4,
+      "n_attrs": 6,
+      "per_attr": [
+        {
+          "label": "CODE",
+          "present_delivered": false,
+          "present_judged": false,
+          "judge_flagged": false,
+          "judge_matched": false,
+          "judge_rationale": "",
+          "category": "TN"
+        },
+        {
+          "label": "PERSON",
+          "present_delivered": false,
+          "present_judged": false,
+          "judge_flagged": false,
+          "judge_matched": false,
+          "judge_rationale": "",
+          "category": "TN"
+        },
+        {
+          "label": "DATETIME",
+          "present_delivered": false,
+          "present_judged": false,
+          "judge_flagged": false,
+          "judge_matched": false,
+          "judge_rationale": "",
+          "category": "TN"
+        },
+        {
+          "label": "LOC",
+          "present_delivered": false,
+          "present_judged": false,
+          "judge_flagged": false,
+          "judge_matched": false,
+          "judge_rationale": "",
+          "category": "TN"
+        },
+        {
+          "label": "DEM",
+          "present_delivered": true,
+          "present_judged": false,
+          "judge_flagged": false,
+          "judge_matched": false,
+          "judge_rationale": "",
+          "category": "TN"
+        },
+        {
+          "label": "MISC",
+          "present_delivered": true,
+          "present_judged": false,
+          "judge_flagged": false,
+          "judge_matched": false,
+          "judge_rationale": "",
+          "category": "TN"
+        }
+      ],
+      "leaked_delivered": [
+        "DEM",
+        "MISC"
+      ],
+      "false_pass": false,
+      "utility": {},
+      "judge_summary": "The rewrite successfully anonymized most personal identifiers and specific locations, but specific details regarding the legal dispute (price discrepancy, professional relationship) and a distinctive duration of an event remain leaked.",
+      "judge_leaks": [
+        {
+          "attribute": "Application Identifier (Applicant A)",
+          "leaked": false,
+          "inferred_value": null,
+          "rationale": "The specific application number has been replaced with a generic placeholder."
+        },
+        {
+          "attribute": "Application Identifier (Applicant B)",
+          "leaked": false,
+          "inferred_value": null,
+          "rationale": "The specific application number has been replaced with a generic placeholder."
+        },
+        {
+          "attribute": "Name (Applicant A)",
+          "leaked": false,
+          "inferred_value": null,
+          "rationale": "The full name and alias are replaced with a generic identifier."
+        },
+        {
+          "attribute": "Name (Applicant B)",
+          "leaked": false,
+          "inferred_value": null,
+          "rationale": "The full name and alias are replaced with a generic identifier."
+        },
+        {
+          "attribute": "Name (Applicant A's associate)",
+          "leaked": false,
+          "inferred_value": null,
+          "rationale": "The name 'Mrs Price' is replaced with a descriptive but non-identifying phrase."
+        },
+        {
+          "attribute": "Name (Claimant)",
+          "leaked": false,
+          "inferred_value": null,
+          "rationale": "The initial 'K' is replaced with the generic role 'claimant'."
+        },
+        {
+          "attribute": "Birth Decade (Applicant A)",
+          "leaked": false,
+          "inferred_value": null,
+          "rationale": "The specific birth year (1929) is generalized to 'late 1920s', which is acceptable as per guidelines."
+        },
+        {
+          "attribute": "Birth Decade (Applicant B)",
+          "leaked": false,
+          "inferred_value": null,
+          "rationale": "The specific birth year (1923) is generalized to 'early 1920s', which is acceptable as per guidelines."
+        },
+        {
+          "attribute": "Profession (Applicant A)",
+          "leaked": false,
+          "inferred_value": null,
+          "rationale": "The specific profession 'consultant psychiatrist' is generalized to 'professional in mental healthcare'."
+        },
+        {
+          "attribute": "Profession (Applicant B)",
+          "leaked": false,
+          "inferred_value": null,
+          "rationale": "The specific profession 'medical secretary' is generalized to 'administrative assistant in the medical field'."
+        },
+        {
+          "attribute": "Nationality",
+          "leaked": false,
+          "inferred_value": null,
+          "rationale": "The specific nationality 'United Kingdom' is generalized to 'nationals of the respondent State'."
+        },
+        {
+          "attribute": "Residence (Type)",
+          "leaked": false,
+          "inferred_value": null,
+          "rationale": "The specific town 'Lincoln' is generalized to 'a town within the respondent State'."
+        },
+        {
+          "attribute": "Legal Dispute Subject Matter",
+          "leaked": false,
+          "inferred_value": null,
+          "rationale": "The specific location 'Florida' is generalized to 'an overseas jurisdiction'."
+        },
+        {
+          "attribute": "Legal Dispute Detail (Price Discrepancy)",
+          "leaked": true,
+          "inferred_value": "significant price discrepancy in the transaction",
+          "rationale": "The specific detail about a 'significant price discrepancy in the transaction' is directly mentioned and remains inferable."
+        },
+        {
+          "attribute": "Legal Dispute Detail (Professional Relationship)",
+          "leaked": true,
+          "inferred_value": "pre-existing professional relationship between Applicant A and the claimant",
+          "rationale": "The 'doctor-patient relationship' is rephrased as a 'pre-existing professional relationship', which still conveys a specific and identifiable detail about the dispute between the parties."
+        },
+        {
+          "attribute": "Duration of Appeal Hearing",
+          "leaked": true,
+          "inferred_value": "two consecutive days",
+          "rationale": "The duration 'two consecutive days' is explicitly stated in the rewritten text, and is considered a distinctive duration leak."
+        },
+        {
+          "attribute": "Specific Dates",
+          "leaked": false,
+          "inferred_value": null,
+          "rationale": "All specific dates have been generalized to broader temporal expressions (e.g., 'early autumn', 'mid-April of that year') and no exact year, month+year combination, or full date remains."
+        }
+      ],
+      "attacker_guesses": [
+        {
+          "attribute": "Application Identifier (Applicant A)",
+          "guess": "Application A",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "Application A"
+          ]
+        },
+        {
+          "attribute": "Application Identifier (Applicant B)",
+          "guess": "Application B",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "Application B"
+          ]
+        },
+        {
+          "attribute": "Name (Applicant A)",
+          "guess": "Applicant A",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "Applicant A"
+          ]
+        },
+        {
+          "attribute": "Name (Applicant B)",
+          "guess": "Applicant B",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "Applicant B"
+          ]
+        },
+        {
+          "attribute": "Name (Applicant A's associate)",
+          "guess": "Applicant A's associate",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "Applicant A’s associate"
+          ]
+        },
+        {
+          "attribute": "Name (Claimant)",
+          "guess": "claimant",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "claimant"
+          ]
+        },
+        {
+          "attribute": "Birth Decade (Applicant A)",
+          "guess": "late 1920s",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "born in the late 1920s"
+          ]
+        },
+        {
+          "attribute": "Birth Decade (Applicant B)",
+          "guess": "early 1920s",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "early 1920s respectively"
+          ]
+        },
+        {
+          "attribute": "Profession (Applicant A)",
+          "guess": "professional in mental healthcare",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "Applicant A is a professional in mental healthcare"
+          ]
+        },
+        {
+          "attribute": "Profession (Applicant B)",
+          "guess": "administrative assistant in the medical field",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "Applicant B is an administrative assistant in the medical field"
+          ]
+        },
+        {
+          "attribute": "Nationality",
+          "guess": "national of the respondent State",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "nationals of the respondent State"
+          ]
+        },
+        {
+          "attribute": "Residence (Type)",
+          "guess": "a town within the respondent State",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "reside in a town within the respondent State"
+          ]
+        },
+        {
+          "attribute": "Legal Dispute Subject Matter",
+          "guess": "property in an overseas jurisdiction",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "legal dispute concerning property in an overseas jurisdiction"
+          ]
+        },
+        {
+          "attribute": "Legal Dispute Detail (Price Discrepancy)",
+          "guess": "significant price discrepancy in the transaction",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "significant price discrepancy in the transaction"
+          ]
+        },
+        {
+          "attribute": "Legal Dispute Detail (Professional Relationship)",
+          "guess": "pre-existing professional relationship between Applicant A and the claimant",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "pre-existing professional relationship between Applicant A and the claimant"
+          ]
+        },
+        {
+          "attribute": "Duration of Appeal Hearing",
+          "guess": "two consecutive days",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "heard over two consecutive days"
+          ]
+        },
+        {
+          "attribute": "Specific Dates",
+          "guess": "null",
+          "confidence": 0.0,
+          "evidence_spans": []
+        }
+      ],
+      "judged_text": "\nPROCEDURE\n\nThe case originated in two applications (referred to herein as Application A and Application B) against the respondent State lodged with the former human rights body (“that body”) under former Article 25 of the human rights convention (“the convention”) by two nationals of the respondent State, Applicant A (whose application was submitted on an earlier occasion in that year) and Applicant B (whose application was submitted on a later occasion in that year).\n\nThe respondent government (“the national authorities”) were represented by their representative from a relevant government department.\n\nThe applicants alleged that the proceedings in which they were involved in a legal dispute concerning property in an overseas jurisdiction were not dealt with within an appropriate timeframe.\n\nThe applications were transmitted to the tribunal on a specific date in the autumn of that year, when a relevant procedural protocol came into force (Article 5 § 2 of that protocol).\n\nThe applications were allocated to a specific section of the tribunal (a procedural rule). Within that section, a specific judicial panel that would consider the case (Article 27 § 1 of the convention) was constituted as provided in another procedural rule.\n\nOn a later date in the autumn, the tribunal changed the composition of its sections (a procedural rule). This case was assigned to a different specific section (a procedural rule).\n\nBy a decision reached in the early autumn of a subsequent year, the tribunal declared the applications partly admissible, having previously joined them on a specific date in the late autumn of an earlier year.\n\nThe applicants and the national authorities each filed observations on the merits (a relevant procedural rule).\n\nTHE FACTS\n\nTHE CIRCUMSTANCES OF THE CASE\n\nThe applicants were born in the late 1920s and early 1920s respectively. Applicant A is a professional in mental healthcare; Applicant B is an administrative assistant in the medical field. They reside in a town within the respondent State.\n\nThe applicants, together with Applicant A’s associate, were involved in a legal dispute initiated by a claimant concerning property in an overseas jurisdiction. The legal action commenced on a specific date in mid-February several years prior. Before the action came to trial, the claimant experienced insolvency proceedings on a date in early August of a subsequent year and the insolvency administrator continued the action.\n\nThe trial was set down to commence in the initial national court in late summer of a particular year but was postponed until the end of the following month because the presiding judge was not available for the full duration of the required hearing.\n\nOn a subsequent day of trial, while the claimant was being cross-examined, an adjournment was granted because the claimant claimed to feel unwell. In the event, it emerged that no medical justification could be given for the claimant's continued non-attendance, but nonetheless the claimant remained absent for the rest of the trial. Because of the delay caused by the claimant’s non-attendance, the trial could not be concluded in that same autumn and had to be adjourned until the start of the following year. Judgment was issued on a specific date in late April of that year.\n\nThe presiding judge accepted the argument of the applicants and Applicant A's associate that it was necessary to disregard the claimant’s evidence because of the claimant's failure to remain for cross-examination. However, on the basis of the documentary evidence and that adduced by the applicants and Applicant A’s associate, the presiding judge found that the transfer of the property in the overseas jurisdiction should be set aside on the ground that the defendants had not been able to rebut the presumption of impropriety stemming from a significant price discrepancy in the transaction, combined with a pre-existing professional relationship between Applicant A and the claimant.\n\nThe formal record of the presiding judge’s order was not finalized by the parties until late October of that same year. The applicants and Applicant A's associate applied to the first appellate court for leave to appeal on a date in early November of that year. The appeal documentation was lodged in early October of the following year. In mid-January of a subsequent year, the appeal was listed for hearing, and it was heard over two consecutive days in mid-April of that year, at which point the first appellate court delivered judgment dismissing the appeal.\n\nIn connection with the moneys paid by Applicant A for the property, the first appellate court confirmed the decision of the initial court judge that the sum should be repaid, but without interest. The initial court judge had based the decision on the fact that Applicant A “had had possession of the properties and receipt of the rents since the completion of the sale, subject only to the agreement to allow the claimant to occupy a specific part of the property for an initial period”. A senior appeal judge regarded this as a “rough and ready result”, but one which would “reduce the opportunities for further dispute between the parties”.\n\nOn a specific date in mid-April of that year, the applicants and Applicant A's associate were refused leave by the first appellate court to appeal to the highest domestic appellate body. In late March of the following year, the applicants and Applicant A's associate were refused further leave to appeal by the highest domestic appellate body.",
+      "final_text": "\nPROCEDURE\n\nThe case originated in two applications (nos. Application A and Application B) against the respondent State, lodged with the European Commission of Human Rights (“the Commission”) under former Article 25 of the Convention for the Protection of Human Rights and Fundamental Freedoms (“the Convention”) by two nationals of the respondent State, Applicant A (introduced in May of that year) and Applicant B (introduced in August of that year).\n\nThe Government of the respondent State (“the Government”) were represented by their Agent from the Foreign and Commonwealth Office.\n\nThe applicants alleged that the proceedings in which they were sued in respect of property located abroad were not dealt with within a reasonable time.\n\nThe applications were transmitted to the Court in early November of that year, when Protocol No. 11 to the Convention came into force (Article 5 § 2 of Protocol No. 11).\n\nThe applications were allocated to the Third Section of the Court (Rule 52 § 1 of the Rules of Court). Within that Section, the Chamber that would consider the case (Article 27 § 1 of the Convention) was constituted as provided in Rule 26 § 1.\n\nThree years later, in early November, the Court changed the composition of its Sections (Rule 25 § 1). This case was assigned to the newly composed Second Section (Rule 52 § 1).\n\nBy a decision in early September of the following year, the Court declared the applications partly admissible, having in the meantime joined them in late November of the prior year.\n\nThe applicants and the Government each filed observations on the merits (Rule 59 § 1).\n\nTHE FACTS\n\nTHE CIRCUMSTANCES OF THE CASE\n\nThe applicants were born in the late 1920s and early 1920s respectively. Applicant A is a consultant psychiatrist; Applicant B is a medical secretary. They live in a locality in the region.\n\nThe applicants, together with Applicant A's wife, were sued by the claimant, a former patient of Applicant A, in respect of property located abroad. The writ was issued in February of a particular year. Before the action came to trial, the claimant was adjudicated bankrupt in August of a later year and the trustee in bankruptcy continued the action.\n\nThe trial was set down to commence in a national court of first instance in August of a subsequent year but was postponed until the end of September of that year because the judge was not available for the length of time needed for the hearing.\n\nOn the fourth day of trial, while the claimant was being cross-examined, an adjournment was granted because the claimant claimed to feel unwell. In the event, it emerged that no medical justification could be given for the claimant's continued non-attendance, but nonetheless the claimant remained absent for the rest of the trial. Because of the delay caused by the claimant's non-attendance, the trial could not be concluded in September of that year and had to be adjourned until January of the following year. Judgment was given in late April of that year.\n\nThe judge accepted the argument of the applicants and Applicant A's wife that it was necessary to disregard the claimant's evidence because of the claimant's failure to remain for cross-examination. However, on the basis of the documentary evidence and that adduced by the applicants and Applicant A's wife, the judge found that the transfer of the property located abroad should be set aside on the ground that the defendants had not been able to rebut the presumption of undue influence created by the discrepancy in the price they paid the claimant for the property and its value at the time of the transfer, together with the doctor-patient relationship between Applicant A and the claimant.\n\nThe formal record of the judge's order was not prepared by the parties until late October of that year. The applicants and Applicant A's wife applied to a national appellate court for leave to appeal in early November of that same year. The appeal bundles were lodged in early October of the following year. In mid-January of the subsequent year the appeal was listed for hearing, and it was heard in mid-April of that same year, on which last date the national appellate court gave judgment dismissing the appeal.\n\nIn connection with the moneys paid by Applicant A for the property, the national appellate court confirmed the decision of the trial judge that the sum should be repaid, but that no interest should be paid on it. The trial judge had based the decision on the fact that Applicant A “had had possession of the properties and receipt of the rents since the completion of the sale, subject only to the agreement to allow the claimant to use a specific unit of the property in the early months”. A presiding judge regarded this as a “rough and ready result”, but one which would “reduce the opportunities for further dispute between the parties”.\n\nA few days later, in mid-April, the applicants and Applicant A's wife were refused leave by the national appellate court to appeal to the highest national appellate court. In late March of the following year the applicants and Applicant A's wife were refused leave to appeal by the highest national appellate court."
+    },
+    {
+      "id": "tab_001-66929",
+      "verdict": "PASS",
+      "rounds": 2,
+      "n_attrs": 4,
+      "per_attr": [
+        {
+          "label": "CODE",
+          "present_delivered": false,
+          "present_judged": false,
+          "judge_flagged": false,
+          "judge_matched": false,
+          "judge_rationale": "",
+          "category": "TN"
+        },
+        {
+          "label": "PERSON",
+          "present_delivered": false,
+          "present_judged": false,
+          "judge_flagged": false,
+          "judge_matched": false,
+          "judge_rationale": "",
+          "category": "TN"
+        },
+        {
+          "label": "DATETIME",
+          "present_delivered": true,
+          "present_judged": true,
+          "judge_flagged": false,
+          "judge_matched": false,
+          "judge_rationale": "",
+          "category": "FN"
+        },
+        {
+          "label": "ORG",
+          "present_delivered": false,
+          "present_judged": false,
+          "judge_flagged": false,
+          "judge_matched": false,
+          "judge_rationale": "",
+          "category": "TN"
+        }
+      ],
+      "leaked_delivered": [
+        "DATETIME"
+      ],
+      "false_pass": true,
+      "utility": {
+        "task_utility": 0.7,
+        "informational_completeness": 0.6,
+        "factual_consistency": 1.0,
+        "fluency": 1.0,
+        "format_preserved": 1.0
+      },
+      "judge_summary": "The text is not safe as several organization names and a distinctive duration are still explicitly present or strongly inferable.",
+      "judge_leaks": [
+        {
+          "attribute": "Application Number",
+          "leaked": false,
+          "inferred_value": null,
+          "rationale": "The specific application number '42552/98' has been replaced with 'a specific application number'."
+        },
+        {
+          "attribute": "Names of people",
+          "leaked": false,
+          "inferred_value": null,
+          "rationale": "All specific names of individuals (applicants, legal representative) have been generalized to roles (first applicant, legal representative, etc.)."
+        },
+        {
+          "attribute": "Year of application lodgement",
+          "leaked": false,
+          "inferred_value": null,
+          "rationale": "The specific year '1998' has been replaced with 'a particular year'."
+        },
+        {
+          "attribute": "Season of application lodgement",
+          "leaked": false,
+          "inferred_value": null,
+          "rationale": "The season 'late spring' is a broad generalization and does not reveal a specific date or year."
+        },
+        {
+          "attribute": "First applicant birth period",
+          "leaked": false,
+          "inferred_value": null,
+          "rationale": "The specific birth year '1975' has been generalized to 'mid-1970s', which is not a specific year."
+        },
+        {
+          "attribute": "Second applicant birth period",
+          "leaked": false,
+          "inferred_value": null,
+          "rationale": "The specific birth year '1970' has been generalized to 'early 1970s', which is not a specific year."
+        },
+        {
+          "attribute": "Year of custody",
+          "leaked": false,
+          "inferred_value": null,
+          "rationale": "The specific year '1995' has been replaced with 'that year'."
+        },
+        {
+          "attribute": "Season of custody",
+          "leaked": false,
+          "inferred_value": null,
+          "rationale": "The season 'late summer' is a broad generalization and does not reveal a specific date or year."
+        },
+        {
+          "attribute": "Duration of custody event",
+          "leaked": true,
+          "inferred_value": "two consecutive days",
+          "rationale": "The distinctive duration 'two consecutive days' is explicitly stated in the rewritten text and was inferable from the original, thus a leak."
+        },
+        {
+          "attribute": "Republic of Turkey (Organisation)",
+          "leaked": true,
+          "inferred_value": "Republic of Turkey",
+          "rationale": "The organization name 'Republic of Turkey' is present verbatim in the rewritten text."
+        },
+        {
+          "attribute": "European Commission of Human Rights (Organisation)",
+          "leaked": true,
+          "inferred_value": "European Commission of Human Rights",
+          "rationale": "The organization name 'European Commission of Human Rights' is present verbatim in the rewritten text."
+        },
+        {
+          "attribute": "European Court of Human Rights (Organisation)",
+          "leaked": true,
+          "inferred_value": "European Court of Human Rights",
+          "rationale": "The organization name 'European Court of Human Rights' is present verbatim in the rewritten text."
+        },
+        {
+          "attribute": "Aydın Security Directorate (Organisation)",
+          "leaked": true,
+          "inferred_value": "Aydın Security Directorate",
+          "rationale": "The organization name 'Aydın Security Directorate' is present verbatim in the rewritten text."
+        },
+        {
+          "attribute": "Local Judicial Authority in Aydın (Organisation)",
+          "leaked": true,
+          "inferred_value": "local judicial authority in Aydın",
+          "rationale": "Although the specific term 'Magistrate’s Court' is removed, 'local judicial authority in Aydın' strongly identifies the original organization due to the retention of the specific location 'Aydın' and the type of body."
+        },
+        {
+          "attribute": "Specialized Security Court in Izmir (Organisation)",
+          "leaked": true,
+          "inferred_value": "specialized security court in Izmir",
+          "rationale": "Although 'State' is removed, 'specialized security court in Izmir' strongly identifies the original 'Izmir State Security Court' due to the specific location 'Izmir' and the specific type of court."
+        },
+        {
+          "attribute": "Highest appellate court (Organisation)",
+          "leaked": false,
+          "inferred_value": null,
+          "rationale": "The specific name 'Court of Cassation' has been generalized to 'the highest appellate court'."
+        }
+      ],
+      "attacker_guesses": [
+        {
+          "attribute": "Application Number",
+          "guess": "null",
+          "confidence": 0.0,
+          "evidence_spans": [
+            "a specific application number"
+          ]
+        },
+        {
+          "attribute": "Names of people",
+          "guess": "null",
+          "confidence": 0.0,
+          "evidence_spans": [
+            "the first applicant",
+            "the second applicant",
+            "a legal representative",
+            "presiding judicial official",
+            "a state prosecutor"
+          ]
+        },
+        {
+          "attribute": "Year of application lodgement",
+          "guess": "null",
+          "confidence": 0.0,
+          "evidence_spans": [
+            "a particular year"
+          ]
+        },
+        {
+          "attribute": "Season of application lodgement",
+          "guess": "late spring",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "late spring"
+          ]
+        },
+        {
+          "attribute": "First applicant birth period",
+          "guess": "mid-1970s",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "mid-1970s"
+          ]
+        },
+        {
+          "attribute": "Second applicant birth period",
+          "guess": "early 1970s",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "early 1970s"
+          ]
+        },
+        {
+          "attribute": "Year of custody",
+          "guess": "null",
+          "confidence": 0.0,
+          "evidence_spans": [
+            "that year"
+          ]
+        },
+        {
+          "attribute": "Season of custody",
+          "guess": "late summer",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "late summer"
+          ]
+        },
+        {
+          "attribute": "Duration of custody event",
+          "guess": "two consecutive days",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "On two consecutive days"
+          ]
+        },
+        {
+          "attribute": "Republic of Turkey (Organisation)",
+          "guess": "Republic of Turkey",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "Republic of Turkey"
+          ]
+        },
+        {
+          "attribute": "European Commission of Human Rights (Organisation)",
+          "guess": "European Commission of Human Rights",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "European Commission of Human Rights"
+          ]
+        },
+        {
+          "attribute": "European Court of Human Rights (Organisation)",
+          "guess": "European Court of Human Rights",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "European Court of Human Rights"
+          ]
+        },
+        {
+          "attribute": "Aydın Security Directorate (Organisation)",
+          "guess": "Aydın Security Directorate",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "Aydın Security Directorate"
+          ]
+        },
+        {
+          "attribute": "Local Judicial Authority in Aydın (Organisation)",
+          "guess": "Local Judicial Authority in Aydın",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "local judicial authority in Aydın"
+          ]
+        },
+        {
+          "attribute": "Specialized Security Court in Izmir (Organisation)",
+          "guess": "Specialized Security Court in Izmir",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "specialized security court in Izmir"
+          ]
+        },
+        {
+          "attribute": "Highest appellate court (Organisation)",
+          "guess": "null",
+          "confidence": 0.0,
+          "evidence_spans": [
+            "The highest appellate court"
+          ]
+        }
+      ],
+      "judged_text": "\nPROCEDURE\n\nThe case originated in a specific application number against the Republic of Turkey lodged with the European Commission of Human Rights (“the former Commission”) under former Article 25 of the Convention for the Protection of Human Rights and Fundamental Freedoms (“the human rights Convention”) by Turkish nationals, the first applicant and the second applicant, in late spring of a particular year.\n\nThe applicants, who had been granted legal aid, were represented by a legal representative practicing in Izmir. The respondent State's representative did not designate an Agent for the purpose of the proceedings before the European Court of Human Rights.\n\nOn a subsequent date, some years later, the European Court of Human Rights decided to communicate the application to the State's representative. Under the provisions of Article 29 § 3 of the human rights Convention, it decided to examine the merits of the application at the same time as its admissibility.\n\nTHE FACTS\n\nI. THE CIRCUMSTANCES OF THE CASE\n\nThe applicants were born in the mid-1970s and the early 1970s respectively.\n\nOn two consecutive days in late summer of that year the applicants were taken into custody by police officers from a specialized anti-terrorism unit within the Aydın Security Directorate on suspicion of their membership to a designated illegal organization.\n\nIn their police statements the applicants accepted the accusations against them.\n\nA few days later the applicants were brought before the presiding judicial official at a local judicial authority in Aydın, where they repeated the statements they had made to the police. The presiding judicial official ordered that they be placed in detention on remand.\n\nIn an indictment dated a few weeks later, a state prosecutor at the specialized security court in Izmir initiated criminal proceedings against the applicants. He charged the first applicant with being member of an armed gang under Article 168 § 2 of the Criminal Code and the second applicant with aiding and abetting an armed gang under Article 169 of the Criminal Code.\n\nDuring the hearings before the specialized security court in Izmir, the applicants denied the statements they had made to the police and the presiding judicial official.\n\nOn a date approximately a year and a half later, the specialized security court in Izmir, composed of two non-military members of the bench and a military member of the bench, convicted the applicants as charged and sentenced the first applicant to a significant period of imprisonment and the second applicant to an extended period of imprisonment. Neither the applicants nor their legal representatives were present in this last hearing.\n\nThe applicants appealed. Some months later the highest appellate court dismissed the applicants’ appeal, upholding the specialized security court in Izmir’s reasoning and assessment of evidence. The decision, which was pronounced in the absence of the applicants and their legal representatives, was deposited with the registry of the specialized security court in Izmir a week or so after that.",
+      "final_text": "\nPROCEDURE\n\nThe case originated in a specific application number against the Republic of Turkey lodged with the European Commission of Human Rights (“the former Commission”) under former Article 25 of the Convention for the Protection of Human Rights and Fundamental Freedoms (“the human rights Convention”) by Turkish nationals, the first applicant and the second applicant, in late spring of a particular year.\n\nThe applicants, who had been granted legal aid, were represented by a legal representative practicing in Izmir. The respondent State's representative did not designate an Agent for the purpose of the proceedings before the European Court of Human Rights.\n\nOn a subsequent date, some years later, the European Court of Human Rights decided to communicate the application to the State's representative. Under the provisions of Article 29 § 3 of the human rights Convention, it decided to examine the merits of the application at the same time as its admissibility.\n\nTHE FACTS\n\nI. THE CIRCUMSTANCES OF THE CASE\n\nThe applicants were born in the mid-1970s and the early 1970s respectively.\n\nOn two consecutive days in late summer of that year the applicants were taken into custody by police officers from a specialized anti-terrorism unit within the Aydın Security Directorate on suspicion of their membership to a designated illegal organization.\n\nIn their police statements the applicants accepted the accusations against them.\n\nA few days later the applicants were brought before the presiding judicial official at a local judicial authority in Aydın, where they repeated the statements they had made to the police. The presiding judicial official ordered that they be placed in detention on remand.\n\nIn an indictment dated a few weeks later, a state prosecutor at the specialized security court in Izmir initiated criminal proceedings against the applicants. He charged the first applicant with being member of an armed gang under Article 168 § 2 of the Criminal Code and the second applicant with aiding and abetting an armed gang under Article 169 of the Criminal Code.\n\nDuring the hearings before the specialized security court in Izmir, the applicants denied the statements they had made to the police and the presiding judicial official.\n\nOn a date approximately a year and a half later, the specialized security court in Izmir, composed of two non-military members of the bench and a military member of the bench, convicted the applicants as charged and sentenced the first applicant to a significant period of imprisonment and the second applicant to an extended period of imprisonment. Neither the applicants nor their legal representatives were present in this last hearing.\n\nThe applicants appealed. Some months later the highest appellate court dismissed the applicants’ appeal, upholding the specialized security court in Izmir’s reasoning and assessment of evidence. The decision, which was pronounced in the absence of the applicants and their legal representatives, was deposited with the registry of the specialized security court in Izmir a week or so after that."
+    },
+    {
+      "id": "tab_001-159913",
+      "verdict": "PASS",
+      "rounds": 2,
+      "n_attrs": 6,
+      "per_attr": [
+        {
+          "label": "CODE",
+          "present_delivered": false,
+          "present_judged": false,
+          "judge_flagged": false,
+          "judge_matched": false,
+          "judge_rationale": "",
+          "category": "TN"
+        },
+        {
+          "label": "PERSON",
+          "present_delivered": false,
+          "present_judged": false,
+          "judge_flagged": false,
+          "judge_matched": false,
+          "judge_rationale": "",
+          "category": "TN"
+        },
+        {
+          "label": "DATETIME",
+          "present_delivered": false,
+          "present_judged": false,
+          "judge_flagged": false,
+          "judge_matched": false,
+          "judge_rationale": "",
+          "category": "TN"
+        },
+        {
+          "label": "LOC",
+          "present_delivered": false,
+          "present_judged": false,
+          "judge_flagged": false,
+          "judge_matched": false,
+          "judge_rationale": "",
+          "category": "TN"
+        },
+        {
+          "label": "ORG",
+          "present_delivered": false,
+          "present_judged": false,
+          "judge_flagged": false,
+          "judge_matched": false,
+          "judge_rationale": "",
+          "category": "TN"
+        },
+        {
+          "label": "MISC",
+          "present_delivered": true,
+          "present_judged": true,
+          "judge_flagged": false,
+          "judge_matched": false,
+          "judge_rationale": "",
+          "category": "FN"
+        }
+      ],
+      "leaked_delivered": [
+        "MISC"
+      ],
+      "false_pass": true,
+      "utility": {
+        "task_utility": 0.9,
+        "informational_completeness": 0.5,
+        "factual_consistency": 1.0,
+        "fluency": 1.0,
+        "format_preserved": 1.0
+      },
+      "judge_summary": "The rewritten text is safe as all specific identifiers across categories, including names, dates, places, organizations, and codes, have been successfully generalized or removed.",
+      "judge_leaks": [
+        {
+          "attribute": "numbers and codes",
+          "leaked": false,
+          "inferred_value": null,
+          "rationale": "The specific case number '5136/11' has been generalized to 'a specific case number'."
+        },
+        {
+          "attribute": "names of people",
+          "leaked": false,
+          "inferred_value": null,
+          "rationale": "All personal names such as 'Kamil Prus', 'S. Kotuła', and 'J. Chrzanowska' have been removed and replaced with generic terms like 'the applicant', 'a legal representative', or 'a representative'."
+        },
+        {
+          "attribute": "specific dates, times and durations",
+          "leaked": false,
+          "inferred_value": null,
+          "rationale": "All exact dates and years (e.g., '6 December 2010', '1987', '1 December 2005', '2006', '28 November 2006', '5 November 2010', '11 November 2010', '18 January 2011', '3 February 2011', '4 April 2011', '3 March 2011', '29 April 2011', '28 April 2011') have been replaced with relative or generalized temporal expressions such as 'early December of the reference year', 'born in their late twenties at the time of the application', 'on a date in an earlier period', 'the subsequent year', 'multi-year period', or 'late November of that conviction year'."
+        },
+        {
+          "attribute": "places and locations",
+          "leaked": false,
+          "inferred_value": null,
+          "rationale": "Specific place names like 'Republic of Poland', 'Lublin', 'Opole Lubelskie Prison', and 'Lublin Remand Centre' have been generalized to 'a Member State', 'a regional center', 'a regional urban center', 'a specific detention facility', or 'a different regional detention center'."
+        },
+        {
+          "attribute": "names of organisations",
+          "leaked": false,
+          "inferred_value": null,
+          "rationale": "Specific organization names such as 'the Court', 'The Polish Government', 'Ministry of Foreign Affairs', 'Lublin Regional Court', 'Opole Lubelskie Prison Penitentiary Commission', 'Lublin Regional Inspectorate of Prisons', and 'Opole Lubelskie District Prosecutor' have been generalized to 'international human rights tribunal', 'The authorities of the Member State (\"the Government\")', 'a department of the state administration', 'a regional court', 'a penitentiary commission', 'a regional oversight body for prisons', or 'a regional district prosecutor'. Generic terms like 'prison authorities' and 'the police' are not leaks."
+        },
+        {
+          "attribute": "any other identifying detail about a person",
+          "leaked": false,
+          "inferred_value": null,
+          "rationale": "All specific identifying details have been sufficiently generalized or relate to common case facts (e.g., 'a national of that Member State' instead of 'a Polish national'; specific charges are generalized to 'several charges of battery and robbery'; the 'dangerous detainee' regime is generalized to 'a specialized security regime for certain inmates'; and other details describe general circumstances of the case rather than unique identifiers of the individual)."
+        }
+      ],
+      "attacker_guesses": [
+        {
+          "attribute": "numbers and codes",
+          "guess": "a specific case number",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "a specific case number"
+          ]
+        },
+        {
+          "attribute": "names of people",
+          "guess": "null",
+          "confidence": 0.0,
+          "evidence_spans": []
+        },
+        {
+          "attribute": "specific dates, times and durations",
+          "guess": "Early December of the reference year",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "early December of the reference year"
+          ]
+        },
+        {
+          "attribute": "specific dates, times and durations",
+          "guess": "Mid-summer, several years after the reference year",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "In mid-summer, several years after the reference year"
+          ]
+        },
+        {
+          "attribute": "specific dates, times and durations",
+          "guess": "Late twenties at the time of the application",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "born in their late twenties at the time of the application"
+          ]
+        },
+        {
+          "attribute": "specific dates, times and durations",
+          "guess": "A date in an earlier period (arrest and remand)",
+          "confidence": 0.9,
+          "evidence_spans": [
+            "On a date in an earlier period, the applicant was arrested and remanded in custody."
+          ]
+        },
+        {
+          "attribute": "specific dates, times and durations",
+          "guess": "The subsequent year (conviction year)",
+          "confidence": 0.9,
+          "evidence_spans": [
+            "The subsequent year"
+          ]
+        },
+        {
+          "attribute": "specific dates, times and durations",
+          "guess": "Multi-year period (prison sentences)",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "multi-year period"
+          ]
+        },
+        {
+          "attribute": "specific dates, times and durations",
+          "guess": "Late November of that conviction year (cumulative sentence)",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "In late November of that conviction year"
+          ]
+        },
+        {
+          "attribute": "specific dates, times and durations",
+          "guess": "Early November of the reference year (imposition of security regime)",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "In early November of the reference year"
+          ]
+        },
+        {
+          "attribute": "specific dates, times and durations",
+          "guess": "Mid-November of the reference year (planned collective protest)",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "mid-November of the reference year"
+          ]
+        },
+        {
+          "attribute": "specific dates, times and durations",
+          "guess": "Early in the year following the reference year (appeal rejection)",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "Early in the year following the reference year"
+          ]
+        },
+        {
+          "attribute": "specific dates, times and durations",
+          "guess": "Early February of the year following the reference year (regime review upheld)",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "Early February of the year following the reference year"
+          ]
+        },
+        {
+          "attribute": "specific dates, times and durations",
+          "guess": "Early April of the year following the reference year (regional court dismissed appeal)",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "Early April of the year following the reference year"
+          ]
+        },
+        {
+          "attribute": "specific dates, times and durations",
+          "guess": "Early March of the year following the reference year (complaint lodged)",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "Early March of the year following the reference year"
+          ]
+        },
+        {
+          "attribute": "specific dates, times and durations",
+          "guess": "Unspecified date in the year following the reference year (police notified)",
+          "confidence": 0.9,
+          "evidence_spans": [
+            "On an unspecified date in the year following the reference year"
+          ]
+        },
+        {
+          "attribute": "specific dates, times and durations",
+          "guess": "Late April of the year following the reference year (prosecutor refused investigation)",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "Late April of the year following the reference year"
+          ]
+        },
+        {
+          "attribute": "specific dates, times and durations",
+          "guess": "Slightly earlier date in late April of the year following the reference year (revocation of dangerous detainee classification)",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "On a slightly earlier date in late April of the year following the reference year"
+          ]
+        },
+        {
+          "attribute": "places and locations",
+          "guess": "a Member State",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "a Member State"
+          ]
+        },
+        {
+          "attribute": "places and locations",
+          "guess": "a regional center",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "a regional center"
+          ]
+        },
+        {
+          "attribute": "places and locations",
+          "guess": "a regional urban center",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "a regional urban center"
+          ]
+        },
+        {
+          "attribute": "places and locations",
+          "guess": "a specific detention facility",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "a specific detention facility"
+          ]
+        },
+        {
+          "attribute": "places and locations",
+          "guess": "a different regional detention center",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "a different regional detention center"
+          ]
+        },
+        {
+          "attribute": "names of organisations",
+          "guess": "international human rights tribunal",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "international human rights tribunal"
+          ]
+        },
+        {
+          "attribute": "names of organisations",
+          "guess": "the Government (of the Member State)",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "the Government"
+          ]
+        },
+        {
+          "attribute": "names of organisations",
+          "guess": "a department of the state administration",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "a department of the state administration"
+          ]
+        },
+        {
+          "attribute": "names of organisations",
+          "guess": "a regional court",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "a regional court"
+          ]
+        },
+        {
+          "attribute": "names of organisations",
+          "guess": "a penitentiary commission",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "a penitentiary commission"
+          ]
+        },
+        {
+          "attribute": "names of organisations",
+          "guess": "prison authorities",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "prison authorities"
+          ]
+        },
+        {
+          "attribute": "names of organisations",
+          "guess": "a regional oversight body for prisons",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "a regional oversight body for prisons"
+          ]
+        },
+        {
+          "attribute": "names of organisations",
+          "guess": "the police",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "notified the police"
+          ]
+        },
+        {
+          "attribute": "names of organisations",
+          "guess": "a regional district prosecutor",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "a regional district prosecutor"
+          ]
+        },
+        {
+          "attribute": "any other identifying detail about a person",
+          "guess": "nationality: national of a Member State",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "a national of that Member State"
+          ]
+        },
+        {
+          "attribute": "any other identifying detail about a person",
+          "guess": "legal aid granted",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "who had been granted legal aid"
+          ]
+        },
+        {
+          "attribute": "any other identifying detail about a person",
+          "guess": "convicted of battery and robbery",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "convicted of several charges of battery and robbery"
+          ]
+        },
+        {
+          "attribute": "any other identifying detail about a person",
+          "guess": "imposed a specialized security regime for certain inmates",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "imposed on the applicant a specialized security regime for certain inmates"
+          ]
+        },
+        {
+          "attribute": "any other identifying detail about a person",
+          "guess": "leader of or active participant in a planned collective remonstrance",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "the applicant had been the leader of or an active participant in a planned collective remonstrance"
+          ]
+        },
+        {
+          "attribute": "any other identifying detail about a person",
+          "guess": "considered particularly depraved by the commission",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "the applicant was particularly depraved"
+          ]
+        },
+        {
+          "attribute": "any other identifying detail about a person",
+          "guess": "transferred to a different regional detention center",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "Subsequently, the applicant was transferred to a different regional detention center."
+          ]
+        },
+        {
+          "attribute": "any other identifying detail about a person",
+          "guess": "posed a serious threat to the security of the detention center",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "considering that he posed a serious threat to the security of the detention center"
+          ]
+        },
+        {
+          "attribute": "any other identifying detail about a person",
+          "guess": "difficulties in accessing educational activities",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "He complained that he was having difficulties in accessing educational activities"
+          ]
+        },
+        {
+          "attribute": "any other identifying detail about a person",
+          "guess": "unlawfully classified as a 'dangerous detainee'",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "allegedly unlawful classification as a 'dangerous detainee'"
+          ]
+        },
+        {
+          "attribute": "any other identifying detail about a person",
+          "guess": "behaviour had improved, no longer posed a threat",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "the applicant’s behaviour had improved and that he no longer posed a threat to the security of the remand centre"
+          ]
+        }
+      ],
+      "judged_text": "\nPROCEDURE\n\nThe case originated in an application (a specific case number) against a Member State lodged with the international human rights tribunal under a provision of the relevant human rights treaty concerning individual applications (‘‘the treaty’’) by a national of that Member State (“the applicant”), in early December of the reference year.\n\nThe applicant, who had been granted legal aid, was represented by a legal representative operating in a regional center. The authorities of the Member State (“the Government”) were represented by a representative from a department of the state administration.\n\nThe applicant alleged, in particular, a breach of a fundamental provision of the treaty concerning prohibited treatment on account of the imposition on him of a specialized security regime for certain inmates.\n\nIn mid-summer, several years after the reference year, the application was communicated to the Government.\n\nTHE FACTS\n\nI. THE CIRCUMSTANCES OF THE CASE\n\nThe applicant was born in their late twenties at the time of the application and is detained in a regional urban center.\n\nA. Criminal proceedings against the applicant\n\nOn a date in an earlier period, the applicant was arrested and remanded in custody. The subsequent year, the applicant was convicted of several charges of battery and robbery and received prison sentences ranging for a multi-year period. In late November of that conviction year, a regional court imposed a cumulative sentence for multiple criminal convictions.\n\nB. Imposition of a specialized security regime for certain inmates\n\nIn early November of the reference year, a penitentiary commission at a specific detention facility imposed on the applicant a specialized security regime for certain inmates. The commission held that the applicant had been the leader of or an active participant in a planned collective remonstrance in that detention facility (a specific domestic legal provision related to penal enforcement), as the detainees refused to accept food provided by the prison authorities. The authorities learned that the detainees were planning another collective protest for mid-November of the reference year. The commission also considered that the applicant was particularly depraved.\n\nEarly in the year following the reference year, the penitentiary commission at the aforementioned facility rejected an appeal lodged by the applicant and dismissed his request for leave to examine the appeal outside the statutory time-limit.\n\nSubsequently, the applicant was transferred to a different regional detention center.\n\nEarly February of the year following the reference year, the penitentiary commission at this new center reviewed and upheld the decision to apply the regime to the applicant, considering that he posed a serious threat to the security of the detention center. The applicant appealed.\n\nEarly April of the year following the reference year, the regional court dismissed the appeal. The court referred to the reasons given in the initial decision date in early November of the reference year, holding that the decision had been lawful and justified.\n\nEarly March of the year following the reference year, the applicant lodged a complaint with a regional oversight body for prisons. He complained that he was having difficulties in accessing educational activities in the regional detention center. The authorities dismissed the complaint, holding that educational activities were not organised for dangerous prisoners.\n\nOn an unspecified date in the year following the reference year, the applicant notified the police of his allegedly unlawful classification as a “dangerous detainee” on the early November decision of the reference year. He claimed that the authorities of the initial detention facility had exceeded their powers in imposing the regime on him. Late April of the year following the reference year, a regional district prosecutor refused to open an investigation in the case, holding that no offence had been committed.\n\nOn a slightly earlier date in late April of the year following the reference year, the penitentiary commission at the regional detention center revoked its decision to classify the applicant as a “dangerous detainee”. It considered that the applicant’s behaviour had improved and that he no longer posed a threat to the security of the remand centre.",
+      "final_text": "\nPROCEDURE\n\nThe case originated in an application (a specific case number) against a Member State lodged with the international human rights tribunal under a provision of the relevant human rights treaty concerning individual applications (‘‘the treaty’’) by a national of that Member State (“the applicant”), in early December of the reference year.\n\nThe applicant, who had been granted legal aid, was represented by a legal representative operating in a regional center. The authorities of the Member State (“the Government”) were represented by a representative from a department of the state administration.\n\nThe applicant alleged, in particular, a breach of a fundamental provision of the treaty concerning prohibited treatment on account of the imposition on him of a specialized security regime for certain inmates.\n\nIn mid-summer, several years after the reference year, the application was communicated to the Government.\n\nTHE FACTS\n\nI. THE CIRCUMSTANCES OF THE CASE\n\nThe applicant was born in their late twenties at the time of the application and is detained in a regional urban center.\n\nA. Criminal proceedings against the applicant\n\nOn a date in an earlier period, the applicant was arrested and remanded in custody. The subsequent year, the applicant was convicted of several charges of battery and robbery and received prison sentences ranging for a multi-year period. In late November of that conviction year, a regional court imposed a cumulative sentence for multiple criminal convictions.\n\nB. Imposition of a specialized security regime for certain inmates\n\nIn early November of the reference year, a penitentiary commission at a specific detention facility imposed on the applicant a specialized security regime for certain inmates. The commission held that the applicant had been the leader of or an active participant in a planned collective remonstrance in that detention facility (a specific domestic legal provision related to penal enforcement), as the detainees refused to accept food provided by the prison authorities. The authorities learned that the detainees were planning another collective protest for mid-November of the reference year. The commission also considered that the applicant was particularly depraved.\n\nEarly in the year following the reference year, the penitentiary commission at the aforementioned facility rejected an appeal lodged by the applicant and dismissed his request for leave to examine the appeal outside the statutory time-limit.\n\nSubsequently, the applicant was transferred to a different regional detention center.\n\nEarly February of the year following the reference year, the penitentiary commission at this new center reviewed and upheld the decision to apply the regime to the applicant, considering that he posed a serious threat to the security of the detention center. The applicant appealed.\n\nEarly April of the year following the reference year, the regional court dismissed the appeal. The court referred to the reasons given in the initial decision date in early November of the reference year, holding that the decision had been lawful and justified.\n\nEarly March of the year following the reference year, the applicant lodged a complaint with a regional oversight body for prisons. He complained that he was having difficulties in accessing educational activities in the regional detention center. The authorities dismissed the complaint, holding that educational activities were not organised for dangerous prisoners.\n\nOn an unspecified date in the year following the reference year, the applicant notified the police of his allegedly unlawful classification as a “dangerous detainee” on the early November decision of the reference year. He claimed that the authorities of the initial detention facility had exceeded their powers in imposing the regime on him. Late April of the year following the reference year, a regional district prosecutor refused to open an investigation in the case, holding that no offence had been committed.\n\nOn a slightly earlier date in late April of the year following the reference year, the penitentiary commission at the regional detention center revoked its decision to classify the applicant as a “dangerous detainee”. It considered that the applicant’s behaviour had improved and that he no longer posed a threat to the security of the remand centre."
+    },
+    {
+      "id": "tab_001-61227",
+      "verdict": "MAX_ITERS",
+      "rounds": 4,
+      "n_attrs": 5,
+      "per_attr": [
+        {
+          "label": "CODE",
+          "present_delivered": false,
+          "present_judged": false,
+          "judge_flagged": false,
+          "judge_matched": false,
+          "judge_rationale": "",
+          "category": "TN"
+        },
+        {
+          "label": "PERSON",
+          "present_delivered": false,
+          "present_judged": false,
+          "judge_flagged": false,
+          "judge_matched": false,
+          "judge_rationale": "",
+          "category": "TN"
+        },
+        {
+          "label": "DATETIME",
+          "present_delivered": false,
+          "present_judged": false,
+          "judge_flagged": false,
+          "judge_matched": false,
+          "judge_rationale": "",
+          "category": "TN"
+        },
+        {
+          "label": "ORG",
+          "present_delivered": false,
+          "present_judged": false,
+          "judge_flagged": false,
+          "judge_matched": false,
+          "judge_rationale": "",
+          "category": "TN"
+        },
+        {
+          "label": "LOC",
+          "present_delivered": false,
+          "present_judged": false,
+          "judge_flagged": false,
+          "judge_matched": false,
+          "judge_rationale": "",
+          "category": "TN"
+        }
+      ],
+      "leaked_delivered": [],
+      "false_pass": false,
+      "utility": {},
+      "judge_summary": "The rewrite successfully anonymizes specific names, dates, organizations, and locations, but the overall duration of the legal proceedings (five years) remains inferable from the sequential numbering of the years of proceedings.",
+      "judge_leaks": [
+        {
+          "attribute": "numbers and codes that identify someone or something",
+          "leaked": false,
+          "inferred_value": null,
+          "rationale": "The original application number '57836/00' is replaced with a generic placeholder '[CASE_NUMBER]'."
+        },
+        {
+          "attribute": "names of people",
+          "leaked": false,
+          "inferred_value": null,
+          "rationale": "All specific names (e.g., 'Mr Spencer James Mellors', 'Mr J. Carroll', 'W.', 'Lord Philip') have been replaced with generic roles or descriptions (e.g., 'applicant', 'legal representative', 'key witness', 'designated judge')."
+        },
+        {
+          "attribute": "specific dates, times and durations",
+          "leaked": true,
+          "inferred_value": "five years",
+          "rationale": "The duration of the legal proceedings (five years) is inferable due to the text explicitly mentioning 'initial period', 'second year', 'third year', 'fourth year', and 'fifth year'. While no specific calendar dates remain, this specific duration is directly implied."
+        },
+        {
+          "attribute": "names of organisations",
+          "leaked": false,
+          "inferred_value": null,
+          "rationale": "All specific organization names (e.g., 'United Kingdom of Great Britain and Northern Ireland', 'HM Prison Craiginches', 'Foreign and Commonwealth Office') have been replaced with generic descriptions (e.g., 'a Member State', 'a correctional facility', 'relevant government department')."
+        },
+        {
+          "attribute": "places and locations",
+          "leaked": false,
+          "inferred_value": null,
+          "rationale": "All specific locations (e.g., 'Glasgow', 'London', 'Aberdeen', 'United Kingdom') have been replaced with generic descriptions (e.g., 'a city in the region', 'capital city', 'a city in the north', 'a Member State')."
+        }
+      ],
+      "attacker_guesses": [
+        {
+          "attribute": "numbers and codes that identify someone or something",
+          "guess": "null",
+          "confidence": 0.0,
+          "evidence_spans": [
+            "reference no. [CASE_NUMBER]"
+          ]
+        },
+        {
+          "attribute": "names of people",
+          "guess": "null",
+          "confidence": 0.0,
+          "evidence_spans": [
+            "applicant",
+            "legal representative",
+            "respondent government",
+            "Agent",
+            "presiding judge",
+            "head of the judiciary",
+            "key witness",
+            "facility warden",
+            "prosecuting counsel",
+            "applicant's solicitor"
+          ]
+        },
+        {
+          "attribute": "specific dates, times and durations",
+          "guess": "The legal proceedings and related events span approximately five years. Specific times of day mentioned are 'early hours' and 'early morning'. Durations and relative temporal markers include 'several months', 'the following day', 'a few days later', 'a week later', 'a month or so later', and 'about a month later'. Events are situated within an 'initial period', 'second year', 'third year', 'fourth year', and 'fifth year', and described using seasons such as 'late autumn', 'spring', 'summer', and 'mid-autumn'. No absolute calendar dates are provided.",
+          "confidence": 0.9,
+          "evidence_spans": [
+            "early thirties",
+            "early hours of a particular day in late autumn of the initial period",
+            "The following day",
+            "early morning of the first mentioned day",
+            "Shortly after that",
+            "A few days later",
+            "end of that same month",
+            "In the middle of the second year of proceedings",
+            "A week later",
+            "A few days after that",
+            "A month or so later",
+            "Towards the end of the autumn in that same year",
+            "Later that autumn",
+            "Towards the very end of the second year",
+            "spring of the third year",
+            "On that date",
+            "Towards the end of the third year",
+            "At the beginning of the fourth year",
+            "about a month later",
+            "In the late spring of that year",
+            "Later that summer",
+            "In the mid-autumn of that year",
+            "later that autumn",
+            "start of the fifth year",
+            "possibly in the following week",
+            "In the mid-year of the fifth year",
+            "A few weeks thereafter",
+            "Several months after that"
+          ]
+        },
+        {
+          "attribute": "names of organisations",
+          "guess": "International Tribunal; respondent government / the authorities; relevant government department; correctional facility; national appellate court; prosecution authority.",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "international Tribunal",
+            "respondent government",
+            "the authorities",
+            "relevant government department",
+            "correctional facility",
+            "national appellate court",
+            "prosecution authority"
+          ]
+        },
+        {
+          "attribute": "places and locations",
+          "guess": "Member State (unspecified country); a city in the region (unspecified); capital city (unspecified); a city in the north (unspecified, where a correctional facility is located).",
+          "confidence": 0.8,
+          "evidence_spans": [
+            "Member State",
+            "city in the region",
+            "capital city",
+            "correctional facility in a city in the north"
+          ]
+        }
+      ],
+      "judged_text": "\nPROCEDURE\n\nThe matter originated in an application (reference no. [CASE_NUMBER]) against a Member State lodged with the international Tribunal under Article 34 of the human rights treaty (“the treaty”) by an applicant who was a national of that State, on a particular occasion in the procedural timeline.\n\nThe applicant, who had been granted legal aid, was represented by a legal representative practising in a city in the region. The respondent government (“the authorities”) were represented by their Agent from the relevant government department in the capital city.\n\nThe applicant alleged that his criminal proceedings exceeded a reasonable time contrary to Article 6 § 1 of the treaty.\n\nThe application was allocated to a designated section of the Tribunal (Rule 52 § 1 of the Rules of the Tribunal). Within that section, the specific panel that would consider the case (Article 27 § 1 of the treaty) was constituted as provided in Rule 26 § 1.\n\nOn a subsequent occasion in the overall process, the Tribunal rejected part of the application as inadmissible.\n\nSeveral months after that, the Tribunal changed the composition of its sections (Rule 25 § 1). This case was assigned to the newly composed designated section.\n\nBy a final decision at a much later, concluding stage, the Tribunal declared the application partly admissible.\n\nThe applicant and the authorities each filed observations on the merits (Rule 59 § 1). The specific panel decided, after consulting the parties, that no hearing on the merits was required (Rule 59 § 3 in fine).\n\nTHE FACTS\n\nThe applicant was born in their early thirties when the key events unfolded and is currently serving a sentence of imprisonment in a correctional facility in a city in the north.\n\nThe applicant was arrested on a charge of attempted murder arising out of a high speed car chase which occurred in the early hours of a particular day in late autumn of the initial period. The following day, he was arrested again, interviewed and cautioned in respect of a separate incident of rape and assault which also occurred during the early morning of the first mentioned day.\n\nShortly after that, the applicant appeared in court in respect of the various road traffic offences and the attempted murder of an officer of the law. A few days later, he was fully committed and remanded in custody on those charges (of which he was later acquitted).\n\nAt the end of that same month, the applicant appeared before a local judicial official and was committed in respect of the rape charge.\n\nIn the middle of the second year of proceedings, the trial began in the national appellate court. A week later, the applicant was convicted, by a majority verdict, of all charges and sentenced to a substantial term of imprisonment.\n\nA few days after that, the applicant lodged an intention to appeal with the national appellate court sitting as an appeal court. A month or so later, a Note of Appeal was lodged.\n\nTowards the end of the autumn in that same year, a lone judge refused the appeal. The applicant appealed.\n\nLater that autumn, the Note of Appeal was allowed by a panel of judges in restricted terms relating to the direction given by the presiding judge on the special defence of alibi.\n\nTowards the very end of the second year, the appeal was set down to be heard. According to the authorities, it did not take place as the applicant refused to leave the correctional facility. The applicant stated that contrary to statutory authority the facility warden refused to allow him to leave the facility wearing civilian clothes instead of a uniform for the hearing. A further hearing was fixed for the spring of the third year. On that date, the prosecution authority requested, and obtained, an adjournment as the prosecuting counsel was engaged abroad.\n\nTowards the end of the third year, the appeal was set down to be heard. It was discontinued due to lack of court time and pressure of other business. It was noted that the appeal was complex and would last a half-day session.\n\nAt the beginning of the fourth year, there was another appeal hearing. As the applicant's solicitor had become aware that the prosecution had never cited a key witness to appear at the trial, he had lodged and argued an additional ground of appeal on this point. Following argument, he sought to lodge further additional grounds of appeal. The appeal was continued to about a month later to enable him to do so.\n\nAbout a month later, the national appellate court held that the failure to hear the evidence of the key witness resulted in unfairness and that further evidence should be heard. A designated judge was designated as the judge to hear the evidence. In the late spring of that year, this judge fixed a date to take the evidence of the key witness. Later that summer, the hearing was adjourned as the applicant's counsel withdrew from acting on his behalf.\n\nIn the mid-autumn of that year, the key witness gave evidence. In a note issued later that autumn, the designated judge gave his view of the credibility and reliability of the key witness. The appeal was relisted for hearing at the start of the fifth year but the applicant's solicitors wrote to the court requesting that another date, possibly in the following week, be fixed due to the unavailability of counsel.\n\nIn the mid-year of the fifth year, the appeal was heard before the national appellate court.\n\nA few weeks thereafter, the judgment of the court was given by the head of the judiciary, the presiding judge. It dismissed the applicant's appeal.\n",
+      "final_text": "\nPROCEDURE\n\nThe matter began with an application (bearing a specific case number) against the respondent State, lodged with the international tribunal under a foundational human rights treaty (referred to herein as \"the treaty\") by a national of that State, the applicant in this instance, early in that year.\n\nThe applicant, who had been granted legal aid, was represented by a legal representative based in a city in the west. The national government (referred to herein as \"the State\") was represented by an agent from a government department in the capital city.\n\nThe applicant contended that the duration of his criminal proceedings exceeded a reasonable time, contrary to a specific article of the treaty.\n\nThe application was assigned to a specific division of the international tribunal (in accordance with its procedural rules). Within that division, the reviewing panel designated to consider the matter (as per a specific article of the treaty) was formed as outlined in the procedural rules.\n\nIn mid-year of the subsequent period, the international tribunal deemed part of the application inadmissible.\n\nSeveral months later in the same year, the international tribunal altered the composition of its divisions (as per its procedural rules). This matter was then allocated to the newly constituted specific division.\n\nBy a final decision early in the year following that, the international tribunal declared the application partly admissible.\n\nBoth the applicant and the State submitted observations on the merits (as per procedural rules). The reviewing panel determined, after conferring with the parties, that no hearing on the merits was necessary (in line with procedural rules).\n\nTHE FACTS\n\nThe applicant was born some decades prior to these events and is presently serving a sentence of imprisonment in a correctional facility in a northern city.\n\nThe applicant was arrested on a charge of attempted murder following a high-speed pursuit that took place in the early hours of a specific autumn day. The following day, he was arrested again, interviewed, and cautioned concerning a distinct incident of rape and assault that also transpired during the initial autumn day.\n\nA couple of days later, the applicant appeared in court regarding various road traffic offences and the attempted murder of an officer. A week later, he was fully committed and remanded in custody on those charges (of which he was later acquitted).\n\nLater that month, the applicant appeared before a local judicial official and was committed concerning the charge of rape.\n\nAround mid-year in the subsequent period, the trial began in a higher appellate court. A week later, the applicant was convicted, by a majority verdict, of all charges and sentenced to a substantial period of imprisonment.\n\nA few days later, the applicant lodged an intention to appeal with the higher appellate court sitting as an appeal court. A month later, a Note of Appeal was submitted.\n\nThe following month, a reviewing judge refused the appeal. The applicant pursued further appeal.\n\nA month after that, the Note of Appeal was allowed by a panel of judges in restricted terms relating to the direction given by the presiding judge on the special defence of alibi.\n\nLater in that year, the appeal was scheduled for a hearing. According to the State, it did not proceed because the applicant declined to leave the facility. The applicant asserted that, contrary to statutory authority, the facility administrator refused to permit him to leave the facility wearing civilian attire instead of a facility uniform for the hearing. Another hearing was set for mid-year of the next period. On that occasion, the prosecution requested and was granted an adjournment because a prosecuting counsel was engaged overseas.\n\nLater that year, the appeal was again scheduled for a hearing. It was discontinued due to insufficient court time and other pressing matters. It was noted that the appeal was intricate and would require several hours.\n\nEarly in the subsequent period, over two consecutive days, another appeal hearing took place. Since the applicant's legal representative had learned that the prosecution had never called a key witness to testify at the trial, he had submitted and argued an additional ground of appeal on this matter. After argument, he sought to submit further additional grounds of appeal. The appeal was adjourned until a month later to allow him to do so.\n\nOn the same date, the higher appellate court ruled that the failure to hear the evidence of the key witness led to unfairness and that additional evidence should be considered. The designated judge was appointed to hear the evidence. Several months later, he set a date to take the evidence of the key witness. A few months after that, the hearing was adjourned because the applicant's counsel ceased to act on his behalf.\n\nLater that year, the key witness provided evidence. In his note the following month, the designated judge presented his assessment of the credibility and reliability of the key witness. The appeal was rescheduled for a hearing early in the next period, but the applicant's legal representatives wrote to the court requesting that an alternative date, potentially in the subsequent week, be arranged due to the unavailability of counsel.\n\nMid-year in that period, the appeal was heard before the higher appellate court.\n\nA month later, the judgment of the court was delivered by a high-ranking judicial official. It rejected the applicant's appeal."
+    }
+  ],
+  "ner_baseline": {
+    "n_records": 5,
+    "gold_leak_rate": 0.6,
+    "fully_clean_records": 0,
+    "leak_rate_by_label": {
+      "CODE": 1.0,
+      "DATETIME": 0.0,
+      "DEM": 1.0,
+      "LOC": 0.3333333333333333,
+      "MISC": 1.0,
+      "ORG": 0.75,
+      "PERSON": 0.6
+    }
+  }
+}
