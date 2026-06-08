@@ -1,17 +1,15 @@
 """LangGraph node functions: defender -> attacker -> judge -> finalize.
 
-Pure-LLM: no deterministic prepass — the Defender LLM handles identifiers and semantic clues alike.
-
 The Judge is the single verdict authority, run in TWO sequential stages:
   1. PRIVACY  — decide whether any sensitive attribute still leaked.
   2. UTILITY  — ONLY if stage 1 found no leak, score each utility dimension.
-A leak short-circuits the judge: utility is never scored and the Defender is asked to rewrite harder.
-There is no separate confidence-threshold scoring node anymore.
 
-Routing:
-  judge -> finalize(PASS)            if no leak AND utility ok
-        -> retry(defender)           if (leak or low utility) and under the iteration cap
-        -> finalize(best candidate)  at the iteration cap
+Important implementation detail:
+The Judge's structured output uses free-text attribute names. It may write
+"duration", "application number", or "name of organisation" instead of the
+exact target label. Therefore, any leaked=true finding from the Judge is
+treated as a privacy failure. This avoids false PASS outcomes caused by
+attribute-name mismatch.
 """
 from .llm import get_llm, safe_structured_invoke
 from .matcher import check_ground_truth
@@ -28,7 +26,7 @@ from .state import AnonState
 
 
 def defender(state: AnonState) -> dict:
-    # NER/regex pre-scan: detect direct identifiers and pass as hints to the LLM
+    # NER/regex pre-scan: detect direct identifiers and pass as hints to the LLM.
     ner_findings = state.get("ner_findings")
     if ner_findings is None:
         ner_findings = detect_identifiers(state["original_text"])
@@ -43,6 +41,7 @@ def defender(state: AnonState) -> dict:
         "feedback": state.get("feedback") or "(none)",
         "ner_hints": ner_hints,
     }, "DefenderOutput")
+
     new_iter = state["iteration"] + 1
     return {
         "current_text": out.rewritten_text,
@@ -51,8 +50,12 @@ def defender(state: AnonState) -> dict:
         "iteration": new_iter,
         "feedback": None,
         "ner_findings": ner_findings,
-        "history": [{"round": new_iter, "rewrite": out.rewritten_text,
-                     "strategy": out.strategy_log, "reasoning": out.reasoning}],
+        "history": [{
+            "round": new_iter,
+            "rewrite": out.rewritten_text,
+            "strategy": out.strategy_log,
+            "reasoning": out.reasoning,
+        }],
     }
 
 
@@ -75,10 +78,50 @@ def _format_guesses(attacker_result: dict) -> str:
             continue
         ev = "; ".join(g.get("evidence_spans") or []) or "(none)"
         rows.append(
-            f"- {g.get('attribute')}: guess='{val}' (attacker confidence {g.get('confidence', 0.0):.2f}); "
-            f"evidence: {ev}"
+            f"- {g.get('attribute')}: guess='{val}' "
+            f"(attacker confidence {g.get('confidence', 0.0):.2f}); evidence: {ev}"
         )
     return "\n".join(rows) or "(the attacker made no concrete guesses)"
+
+
+def _build_leak_details(leaks_dump: list[dict], attacker_result: dict) -> list[dict]:
+    """Turn Judge leaked=true findings into actionable Defender feedback.
+
+    We intentionally do NOT require exact attribute-name equality here. The Judge
+    may output free-text sub-attributes such as "duration", "application number",
+    or "name of organisation". If leaked=true, the privacy gate should fail.
+    """
+    guesses_by_attr = {
+        g.get("attribute"): g
+        for g in (attacker_result or {}).get("guesses", [])
+        if g.get("attribute")
+    }
+
+    details: list[dict] = []
+    seen: set[tuple[str, str, str]] = set()
+
+    for lk in leaks_dump or []:
+        if not lk.get("leaked"):
+            continue
+
+        attr = lk.get("attribute") or "(unspecified sensitive clue)"
+        inferred = lk.get("inferred_value") or "(unspecified)"
+        rationale = lk.get("rationale", "")
+        key = (str(attr), str(inferred), str(rationale))
+
+        if key in seen:
+            continue
+        seen.add(key)
+
+        ag = guesses_by_attr.get(attr, {})
+        details.append({
+            "attribute": attr,
+            "guess": inferred or ag.get("guess") or "(unspecified)",
+            "evidence": ag.get("evidence_spans", []),
+            "rationale": rationale,
+        })
+
+    return details
 
 
 def judge(state: AnonState) -> dict:
@@ -94,22 +137,12 @@ def judge(state: AnonState) -> dict:
         "original": state["original_text"],
         "rewritten": state["current_text"],
     }, "PrivacyVerdict")
+
     priv_dump = priv.model_dump()
-    leaks_dump = priv_dump["leaks"]
+    leaks_dump = priv_dump.get("leaks", [])
     privacy_summary = priv_dump.get("summary", "")
 
-    # Pair each leak with the Attacker's evidence spans for actionable feedback.
-    guesses_by_attr = {g.get("attribute"): g for g in (state["attacker_result"] or {}).get("guesses", [])}
-    details = []
-    for lk in leaks_dump:
-        if lk.get("leaked") and lk.get("attribute") in attrs:
-            ag = guesses_by_attr.get(lk["attribute"], {})
-            details.append({
-                "attribute": lk["attribute"],
-                "guess": lk.get("inferred_value") or ag.get("guess") or "(unspecified)",
-                "evidence": ag.get("evidence_spans", []),
-                "rationale": lk.get("rationale", ""),
-            })
+    details = _build_leak_details(leaks_dump, state.get("attacker_result") or {})
     leaked = [d["attribute"] for d in details]
 
     # --- Ground truth validation: can prove positive leaks, not negatives ---
@@ -118,19 +151,27 @@ def judge(state: AnonState) -> dict:
     if ground_truth:
         attacker_guesses = (state["attacker_result"] or {}).get("guesses", [])
         gt_validation = check_ground_truth(attacker_guesses, ground_truth)
-        # Override: if ground_truth says matched but LLM said no leak, add to leaked list
+
+        guesses_by_attr = {
+            g.get("attribute"): g
+            for g in attacker_guesses
+            if g.get("attribute")
+        }
+
         for attr, result in gt_validation.items():
-            if result["matched"] and attr not in leaked and attr in attrs:
+            if result["matched"] and attr not in leaked:
                 leaked.append(attr)
                 ag = guesses_by_attr.get(attr, {})
-                gt_rationale = f"Ground truth match: attacker guessed '{result['guess']}' which matches true value"
+                gt_rationale = (
+                    f"Ground truth match: attacker guessed '{result['guess']}' "
+                    f"which matches true value"
+                )
                 details.append({
                     "attribute": attr,
                     "guess": result["guess"] or "(unspecified)",
                     "evidence": ag.get("evidence_spans", []),
                     "rationale": gt_rationale,
                 })
-                # Also update leaks_dump so streamed "leaks" array is consistent with leaked_attrs
                 leaks_dump.append({
                     "attribute": attr,
                     "leaked": True,
@@ -138,15 +179,25 @@ def judge(state: AnonState) -> dict:
                     "rationale": gt_rationale,
                 })
 
-    # Leak found -> short-circuit: do NOT score utility. Hand the Defender the reasons it leaked.
+    # Leak found -> short-circuit: do NOT score utility.
     if leaked:
-        sc = candidate_score(cfg, len(leaked), len(attrs), 0.0)
-        best = update_best(state.get("best_candidate"),
-                           {"text": state["current_text"], "score": sc, "round": state["iteration"],
-                            "leaked_attrs": leaked, "verdict": "MAX_ITERS"})
+        leak_count_for_score = min(len(leaked), len(attrs))
+        sc = candidate_score(cfg, leak_count_for_score, len(attrs), 0.0)
+        best = update_best(
+            state.get("best_candidate"),
+            {
+                "text": state["current_text"],
+                "score": sc,
+                "round": state["iteration"],
+                "leaked_attrs": leaked,
+                "verdict": "MAX_ITERS",
+            },
+        )
+
         judge_result = {"leaks": leaks_dump, "summary": privacy_summary}
         if gt_validation is not None:
             judge_result["ground_truth_validation"] = gt_validation
+
         return {
             "judge_result": judge_result,
             "leaked_attrs": leaked,
@@ -164,23 +215,32 @@ def judge(state: AnonState) -> dict:
     j = util.model_dump()
 
     lc = cfg["loop"]
-    utility_ok = (j["task_utility"] >= lc["min_task_utility"]
-                  and j["factual_consistency"] >= lc["min_factual"]
-                  and j["format_preserved"] >= lc.get("min_format", 0.0))
+    utility_ok = (
+        j["task_utility"] >= lc["min_task_utility"]
+        and j["factual_consistency"] >= lc["min_factual"]
+        and j["format_preserved"] >= lc.get("min_format", 0.0)
+    )
 
     sc = candidate_score(cfg, 0, len(attrs), j["task_utility"])
-    best = update_best(state.get("best_candidate"),
-                       {"text": state["current_text"], "score": sc, "round": state["iteration"],
-                        "leaked_attrs": [], "verdict": "PASS" if utility_ok else "MAX_ITERS"})
+    best = update_best(
+        state.get("best_candidate"),
+        {
+            "text": state["current_text"],
+            "score": sc,
+            "round": state["iteration"],
+            "leaked_attrs": [],
+            "verdict": "PASS" if utility_ok else "MAX_ITERS",
+        },
+    )
 
     judge_result = {"leaks": leaks_dump, "summary": privacy_summary, **j}
     if gt_validation is not None:
         judge_result["ground_truth_validation"] = gt_validation
+
     ret = {"judge_result": judge_result, "leaked_attrs": [], "best_candidate": best}
     if utility_ok:
         ret["verdict"] = "PASS"
     else:
-        # Pass utility scores + reason AND the "why it's safe" note so the rewrite keeps privacy intact.
         ret["feedback"] = build_utility_feedback(j, privacy_summary)
     return ret
 
@@ -188,6 +248,7 @@ def judge(state: AnonState) -> dict:
 def finalize(state: AnonState) -> dict:
     if state.get("verdict") == "PASS":
         return {"final_text": state["current_text"], "rounds": state["iteration"]}
+
     bc = state.get("best_candidate") or {}
     return {
         "verdict": bc.get("verdict", "MAX_ITERS"),
@@ -195,8 +256,6 @@ def finalize(state: AnonState) -> dict:
         "rounds": state["iteration"],
     }
 
-
-# --- router (conditional edge) ---
 
 def route_after_judge(state: AnonState) -> str:
     if state.get("verdict") == "PASS":
