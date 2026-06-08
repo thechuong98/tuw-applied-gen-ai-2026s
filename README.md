@@ -337,6 +337,10 @@ python -m app.eval ../data/eval/tab.json --ner-only --out ner_baseline.json
 # Limit to 20 (N) records
 python -m app.eval ../data/eval/tab.json --limit 20 --out results.json
 ```
+```bash
+# Run on specific records (useful for tracking improvements across prompt changes)
+python -m app.eval ../data/eval/tab.json --ids tab_001-61807 tab_001-66929 --out results.json
+```
 
 Using the **verbatim presence of a gold span** as objective ground truth, it reports:
 
