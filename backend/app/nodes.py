@@ -15,7 +15,7 @@ Routing:
 """
 from .llm import get_llm, safe_structured_invoke
 from .matcher import check_ground_truth
-from .ner import detect_identifiers, format_ner_hints
+from .ner import detect_identifiers, format_ner_hints, check_verbatim_leaks, format_verbatim_feedback
 from .prompts import ATTACKER_PROMPT, DEFENDER_PROMPT, PRIVACY_PROMPT, UTILITY_PROMPT
 from .schemas import AttackerOutput, DefenderOutput, PrivacyVerdict, UtilityScores
 from .scoring import (
@@ -36,11 +36,40 @@ def defender(state: AnonState) -> dict:
 
     llm = get_llm(state["config"], "defender")
     chain = DEFENDER_PROMPT | llm.with_structured_output(DefenderOutput, method="function_calling")
+    # If this is a retry (iteration > 0), check which NER spans are still verbatim
+    # in the previous rewrite and prepend that to the feedback so Defender knows exactly
+    # what it missed — even if the Judge LLM did not catch it.
+    feedback = state.get("feedback") or "(none)"
+    if state["iteration"] > 0 and state.get("current_text"):
+        # Check NER findings verbatim leaks
+        verbatim_leaks = check_verbatim_leaks(ner_findings or [], state["current_text"])
+        # Also check ground_truth mentions directly — catches things NER might miss
+        gt = state.get("ground_truth") or {}
+        if gt:
+            from .ner import NERFinding
+            gt_findings: list[NERFinding] = []
+            for attr, val in gt.items():
+                if val:
+                    gt_findings.append({
+                        "text": str(val), "label": attr.upper(),
+                        "start": 0, "end": 0, "source": "ground_truth"
+                    })
+            gt_leaks = check_verbatim_leaks(gt_findings, state["current_text"])
+            # merge, avoiding duplicates
+            seen = {f["text"] for f in verbatim_leaks}
+            for f in gt_leaks:
+                if f["text"] not in seen:
+                    verbatim_leaks.append(f)
+                    seen.add(f["text"])
+        if verbatim_leaks:
+            verbatim_note = format_verbatim_feedback(verbatim_leaks)
+            feedback = verbatim_note + "\n" + feedback
+
     out: DefenderOutput = safe_structured_invoke(chain, {
         "text": state["original_text"],
         "attrs": ", ".join(state["attributes_to_hide"]),
         "channel": state.get("channel", "text"),
-        "feedback": state.get("feedback") or "(none)",
+        "feedback": feedback,
         "ner_hints": ner_hints,
     }, "DefenderOutput")
     new_iter = state["iteration"] + 1
