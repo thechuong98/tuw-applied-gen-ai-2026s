@@ -455,6 +455,8 @@ def main() -> None:
     ap.add_argument("path", help="record file (.json/.jsonl) or directory")
     ap.add_argument("--limit", type=int, default=None,
                     help="evaluate at most N records")
+    ap.add_argument("--ids", nargs="+", default=None,
+                    help="run only specific record IDs, e.g. --ids tab_001-61807 tab_001-66929")
     ap.add_argument("--batch-size", type=int, default=10,
                     help="flush results to --out after every N records (default: 10)")
     ap.add_argument("--skip", type=int, default=0,
@@ -474,6 +476,10 @@ def main() -> None:
     args = ap.parse_args()
 
     records = load_records(Path(args.path))
+    if args.ids:                       
+        id_set = set(args.ids)
+        records = [r for r in records if r.get("id", r.get("label", "")) in id_set]
+        print(f"filtered to {len(records)} record(s) by --ids")
     if args.limit:
         records = records[: args.limit]
     if not records:
