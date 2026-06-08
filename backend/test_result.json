@@ -10,52 +10,54 @@
         "TP": 0,
         "FN": 3,
         "FP_unverified": 0,
-        "TN": 1
+        "TN": 3
       }
     },
     "system_privacy": {
-      "gold_leak_rate": 0.75,
+      "gold_leak_rate": 0.5,
       "leak_rate_by_label": {
-        "CODE": 1.0,
+        "CODE": 0.0,
         "DATETIME": 1.0,
-        "ORG": 1.0,
+        "DEM": 0.0,
+        "LOC": 1.0,
+        "MISC": 1.0,
         "PERSON": 0.0
       },
       "fully_clean_records": 0,
       "false_pass_records": 1
     },
     "utility_mean": {
-      "task_utility": 0.9,
-      "informational_completeness": 0.7,
+      "task_utility": 1.0,
+      "informational_completeness": 0.9,
       "factual_consistency": 1.0,
-      "fluency": 0.9,
+      "fluency": 1.0,
       "format_preserved": 1.0
     },
     "utility_scored_records": 1,
     "attacker_confidence": {
-      "mean_all": 0.9666666666666668,
-      "mean_on_leaked": 0.9956521739130434,
-      "n_guesses": 39
+      "mean_all": 0.8887096774193549,
+      "mean_on_leaked": 1.0,
+      "n_guesses": 62
     },
     "rounds_distribution": {
-      "2": 1
+      "3": 1
     }
   },
   "results": [
     {
-      "id": "tab_001-61807",
+      "id": "tab_001-61253",
       "verdict": "PASS",
-      "rounds": 2,
-      "n_attrs": 4,
+      "rounds": 3,
+      "n_attrs": 6,
       "per_attr": [
         {
           "label": "CODE",
-          "present_delivered": true,
-          "present_judged": true,
+          "present_delivered": false,
+          "present_judged": false,
           "judge_flagged": false,
           "judge_matched": false,
           "judge_rationale": "",
-          "category": "FN"
+          "category": "TN"
         },
         {
           "label": "PERSON",
@@ -76,7 +78,25 @@
           "category": "FN"
         },
         {
-          "label": "ORG",
+          "label": "LOC",
+          "present_delivered": true,
+          "present_judged": true,
+          "judge_flagged": false,
+          "judge_matched": false,
+          "judge_rationale": "",
+          "category": "FN"
+        },
+        {
+          "label": "DEM",
+          "present_delivered": false,
+          "present_judged": false,
+          "judge_flagged": false,
+          "judge_matched": false,
+          "judge_rationale": "",
+          "category": "TN"
+        },
+        {
+          "label": "MISC",
           "present_delivered": true,
           "present_judged": true,
           "judge_flagged": false,
@@ -86,496 +106,824 @@
         }
       ],
       "leaked_delivered": [
-        "CODE",
         "DATETIME",
-        "ORG"
+        "LOC",
+        "MISC"
       ],
       "false_pass": true,
       "utility": {
-        "task_utility": 0.9,
-        "informational_completeness": 0.7,
+        "task_utility": 1.0,
+        "informational_completeness": 0.9,
         "factual_consistency": 1.0,
-        "fluency": 0.9,
+        "fluency": 1.0,
         "format_preserved": 1.0
       },
-      "judge_summary": "The rewrite is not safe because it failed to remove a unique case number and many specific dates, allowing for re-identification of the case and its timeline, despite successfully anonymizing personal names.",
+      "judge_summary": "The rewrite is not safe because most specific dates, locations, legal references, and details about the case, including property references and financial status, were copied verbatim, allowing for easy re-identification of many attributes.",
       "judge_leaks": [
         {
-          "attribute": "numbers and codes that identify someone or something",
-          "leaked": true,
-          "inferred_value": "36110/97",
-          "rationale": "The application number 'no. 36110/97' is a unique identifier for the case and is still explicitly present in the rewritten text."
-        },
-        {
-          "attribute": "numbers and codes that identify someone or something",
-          "leaked": false,
-          "inferred_value": "Article 25 of the Convention",
-          "rationale": "This refers to a legal article, not a personal or sensitive identifier of the protected individual or a private entity."
-        },
-        {
-          "attribute": "numbers and codes that identify someone or something",
-          "leaked": false,
-          "inferred_value": "Article 5 § 2 of Protocol No. 11",
-          "rationale": "This refers to a legal article, not a personal or sensitive identifier of the protected individual or a private entity."
-        },
-        {
-          "attribute": "numbers and codes that identify someone or something",
-          "leaked": false,
-          "inferred_value": "Protocol No. 11",
-          "rationale": "This refers to a legal document, not a personal or sensitive identifier of the protected individual or a private entity."
-        },
-        {
-          "attribute": "numbers and codes that identify someone or something",
-          "leaked": false,
-          "inferred_value": "Rule 52 § 1 of the Rules of Court",
-          "rationale": "This refers to a legal rule, not a personal or sensitive identifier of the protected individual or a private entity."
-        },
-        {
-          "attribute": "numbers and codes that identify someone or something",
-          "leaked": false,
-          "inferred_value": "Rule 26 § 1",
-          "rationale": "This refers to a legal rule, not a personal or sensitive identifier of the protected individual or a private entity."
-        },
-        {
-          "attribute": "numbers and codes that identify someone or something",
-          "leaked": false,
-          "inferred_value": "Article 27 § 1 of the Convention",
-          "rationale": "This refers to a legal article, not a personal or sensitive identifier of the protected individual or a private entity."
-        },
-        {
-          "attribute": "numbers and codes that identify someone or something",
-          "leaked": false,
-          "inferred_value": "Rule 25 § 1",
-          "rationale": "This refers to a legal rule, not a personal or sensitive identifier of the protected individual or a private entity."
-        },
-        {
-          "attribute": "numbers and codes that identify someone or something",
-          "leaked": false,
-          "inferred_value": "Rule 59 § 1",
-          "rationale": "This refers to a legal rule, not a personal or sensitive identifier of the protected individual or a private entity."
-        },
-        {
-          "attribute": "numbers and codes that identify someone or something",
-          "leaked": false,
-          "inferred_value": "Law no. 466",
-          "rationale": "This refers to a specific law, not a personal or sensitive identifier of the protected individual or a private entity."
-        },
-        {
-          "attribute": "numbers and codes that identify someone or something",
-          "leaked": false,
-          "inferred_value": "Article 146 of the Criminal Code",
-          "rationale": "This refers to a legal article, not a personal or sensitive identifier of the protected individual or a private entity."
-        },
-        {
-          "attribute": "names of people",
+          "attribute": "Application number (First Applicant)",
           "leaked": false,
           "inferred_value": null,
-          "rationale": "All names of individuals (applicants, representative) have been successfully replaced or generalized in the rewritten text."
+          "rationale": "The original application number '43185/98' has been replaced with the generic 'one'."
         },
         {
-          "attribute": "specific dates, times and durations",
+          "attribute": "Application number (Second Applicant)",
+          "leaked": false,
+          "inferred_value": null,
+          "rationale": "The original application number '43186/98' has been replaced with the generic 'two'."
+        },
+        {
+          "attribute": "Full name of First Applicant",
+          "leaked": false,
+          "inferred_value": null,
+          "rationale": "The full name 'John Harding Price' has been replaced with 'the First Applicant'."
+        },
+        {
+          "attribute": "Full name of Second Applicant",
+          "leaked": false,
+          "inferred_value": null,
+          "rationale": "The full name 'Mary Hazel Lowe' has been replaced with 'the Second Applicant'."
+        },
+        {
+          "attribute": "Full name of First Applicant's spouse",
+          "leaked": false,
+          "inferred_value": null,
+          "rationale": "The name 'Mrs Price' has been replaced with 'the First Applicant’s spouse'."
+        },
+        {
+          "attribute": "Full name of plaintiff",
+          "leaked": false,
+          "inferred_value": null,
+          "rationale": "The initial 'K' has been replaced with 'an individual, a former patient of the First Applicant (referred to herein as the plaintiff)'."
+        },
+        {
+          "attribute": "Date (First Applicant's application introduced)",
           "leaked": true,
-          "inferred_value": "November 1996",
-          "rationale": "The specific month and year 'November 1996' is still present, allowing for re-identification of the timeline."
+          "inferred_value": "4 May 1998",
+          "rationale": "The date '4 May 1998' is present verbatim in the rewritten text."
         },
         {
-          "attribute": "specific dates, times and durations",
+          "attribute": "Date (Second Applicant's application introduced)",
           "leaked": true,
-          "inferred_value": "1989",
-          "rationale": "The specific year '1989' is still present, allowing for re-identification of the timeline."
+          "inferred_value": "12 August 1998",
+          "rationale": "The date '12 August 1998' is present verbatim in the rewritten text."
         },
         {
-          "attribute": "specific dates, times and durations",
+          "attribute": "Date (Applications transmitted to Court)",
           "leaked": true,
-          "inferred_value": "1996",
-          "rationale": "The specific year '1996' is still present, allowing for re-identification of the timeline."
+          "inferred_value": "1 November 1998",
+          "rationale": "The date '1 November 1998' is present verbatim in the rewritten text."
         },
         {
-          "attribute": "specific dates, times and durations",
+          "attribute": "Date (Protocol No. 11 came into force)",
           "leaked": true,
-          "inferred_value": "November 1998",
-          "rationale": "The specific month and year 'November 1998' is still present, allowing for re-identification of the timeline."
+          "inferred_value": "1 November 1998",
+          "rationale": "The date '1 November 1998' is present verbatim in the rewritten text."
         },
         {
-          "attribute": "specific dates, times and durations",
+          "attribute": "Date (Court changed composition of Sections)",
           "leaked": true,
-          "inferred_value": "November 2001",
-          "rationale": "The specific month and year 'November 2001' is still present, allowing for re-identification of the timeline."
+          "inferred_value": "1 November 2001",
+          "rationale": "The date '1 November 2001' is present verbatim in the rewritten text."
         },
         {
-          "attribute": "specific dates, times and durations",
+          "attribute": "Date (Applications declared partly admissible)",
           "leaked": true,
-          "inferred_value": "May 2003",
-          "rationale": "The specific month and year 'May 2003' is still present, allowing for re-identification of the timeline."
+          "inferred_value": "3 September 2002",
+          "rationale": "The date '3 September 2002' is present verbatim in the rewritten text."
         },
         {
-          "attribute": "specific dates, times and durations",
+          "attribute": "Date (Applications joined)",
           "leaked": true,
-          "inferred_value": "between 1982 and 1984",
-          "rationale": "The specific duration 'between 1982 and 1984' is still present, allowing for re-identification of the timeline."
+          "inferred_value": "28 November 2000",
+          "rationale": "The date '28 November 2000' is present verbatim in the rewritten text."
         },
         {
-          "attribute": "specific dates, times and durations",
+          "attribute": "Date (Writ issued)",
           "leaked": true,
-          "inferred_value": "September 1988",
-          "rationale": "The specific month and year 'September 1988' is still present, allowing for re-identification of the timeline."
+          "inferred_value": "12 February 1986",
+          "rationale": "The date '12 February 1986' is present verbatim in the rewritten text."
         },
         {
-          "attribute": "specific dates, times and durations",
+          "attribute": "Date (Plaintiff adjudicated bankrupt)",
           "leaked": true,
-          "inferred_value": "spring and early summer 1989",
-          "rationale": "While 'March, April and June' was generalized to 'spring and early summer', the specific year '1989' remains, and the season is still relatively specific, making the event timeline inferable."
+          "inferred_value": "9 August 1989",
+          "rationale": "The date '9 August 1989' is present verbatim in the rewritten text."
         },
         {
-          "attribute": "specific dates, times and durations",
+          "attribute": "Date (Trial set to commence)",
           "leaked": true,
-          "inferred_value": "October 1989",
-          "rationale": "The specific month and year 'October 1989' is still present, allowing for re-identification of the timeline."
+          "inferred_value": "August 1994",
+          "rationale": "The month 'August 1994' is present verbatim in the rewritten text."
         },
         {
-          "attribute": "specific dates, times and durations",
+          "attribute": "Date (Trial postponed until)",
           "leaked": true,
-          "inferred_value": "December 1993",
-          "rationale": "The specific month and year 'December 1993' is still present, allowing for re-identification of the timeline."
+          "inferred_value": "end of September 1994",
+          "rationale": "The date 'end of September 1994' is present verbatim in the rewritten text."
         },
         {
-          "attribute": "specific dates, times and durations",
+          "attribute": "Date (Trial adjourned until)",
           "leaked": true,
           "inferred_value": "January 1995",
-          "rationale": "The specific month and year 'January 1995' is still present, allowing for re-identification of the timeline."
+          "rationale": "The month 'January 1995' is present verbatim in the rewritten text."
         },
         {
-          "attribute": "specific dates, times and durations",
+          "attribute": "Date (Judgment given)",
           "leaked": true,
-          "inferred_value": "June 1995",
-          "rationale": "The specific month and year 'June 1995' is still present, allowing for re-identification of the timeline."
+          "inferred_value": "27 April 1995",
+          "rationale": "The date '27 April 1995' is present verbatim in the rewritten text."
         },
         {
-          "attribute": "specific dates, times and durations",
+          "attribute": "Date (Formal record of judge's order prepared)",
           "leaked": true,
-          "inferred_value": "Later in June 1995",
-          "rationale": "The specific month and year 'June 1995' is still present, allowing for re-identification of the timeline."
+          "inferred_value": "26 October 1995",
+          "rationale": "The date '26 October 1995' is present verbatim in the rewritten text."
         },
         {
-          "attribute": "specific dates, times and durations",
+          "attribute": "Date (Application to Court of Appeal)",
           "leaked": true,
-          "inferred_value": "May 1996",
-          "rationale": "The specific month and year 'May 1996' is still present, allowing for re-identification of the timeline."
+          "inferred_value": "1 November 1995",
+          "rationale": "The date '1 November 1995' is present verbatim in the rewritten text."
         },
         {
-          "attribute": "names of organisations",
+          "attribute": "Date (Appeal bundles lodged)",
+          "leaked": true,
+          "inferred_value": "4 October 1996",
+          "rationale": "The date '4 October 1996' is present verbatim in the rewritten text."
+        },
+        {
+          "attribute": "Date (Appeal listed for hearing)",
+          "leaked": true,
+          "inferred_value": "15 January 1997",
+          "rationale": "The date '15 January 1997' is present verbatim in the rewritten text."
+        },
+        {
+          "attribute": "Date (Appeal heard)",
+          "leaked": true,
+          "inferred_value": "16 and 17 April 1997",
+          "rationale": "The dates '16 and 17 April 1997' are present verbatim in the rewritten text."
+        },
+        {
+          "attribute": "Date (Court of Appeal refused leave to appeal to House of Lords)",
+          "leaked": true,
+          "inferred_value": "19 April 1997",
+          "rationale": "The date '19 April 1997' is present verbatim in the rewritten text."
+        },
+        {
+          "attribute": "Date (House of Lords refused leave to appeal)",
+          "leaked": true,
+          "inferred_value": "30 March 1998",
+          "rationale": "The date '30 March 1998' is present verbatim in the rewritten text."
+        },
+        {
+          "attribute": "Duration (births of applicants)",
+          "leaked": true,
+          "inferred_value": "several years apart",
+          "rationale": "The duration 'several years apart' is present verbatim in the rewritten text."
+        },
+        {
+          "attribute": "Duration (plaintiff's use of property)",
+          "leaked": true,
+          "inferred_value": "early months",
+          "rationale": "The duration 'early months' is present verbatim in the rewritten text."
+        },
+        {
+          "attribute": "Country (Respondent State)",
+          "leaked": true,
+          "inferred_value": "United Kingdom of Great Britain and Northern Ireland",
+          "rationale": "The country name 'United Kingdom of Great Britain and Northern Ireland' is present verbatim."
+        },
+        {
+          "attribute": "State/Region (Property location)",
+          "leaked": true,
+          "inferred_value": "Florida",
+          "rationale": "The state 'Florida' is present verbatim in the rewritten text."
+        },
+        {
+          "attribute": "Town/City (Applicants' residence)",
           "leaked": false,
-          "inferred_value": "Republic of Turkey",
-          "rationale": "This is a public entity involved in a legal case; its mention is not sensitive personal information about the protected individual."
+          "inferred_value": null,
+          "rationale": "The specific town 'Lincoln' has been replaced with 'a particular town'."
         },
         {
-          "attribute": "names of organisations",
-          "leaked": false,
+          "attribute": "Court/Body (Originating application)",
+          "leaked": true,
           "inferred_value": "European Commission of Human Rights",
-          "rationale": "This is a public legal body; its mention is not sensitive personal information about the protected individual."
+          "rationale": "The name 'European Commission of Human Rights' is present verbatim."
         },
         {
-          "attribute": "names of organisations",
-          "leaked": false,
-          "inferred_value": "Turkish Government",
-          "rationale": "This is a public entity; its mention is not sensitive personal information about the protected individual."
+          "attribute": "Court/Body (Court to which applications transmitted)",
+          "leaked": true,
+          "inferred_value": "European Court of Human Rights",
+          "rationale": "Although 'European Court of Human Rights' is shortened to 'the Court', the context of its relation to the European Commission of Human Rights and Protocol No. 11 makes the full name highly inferable by a smart adversary."
         },
         {
-          "attribute": "names of organisations",
+          "attribute": "Court (Trial court)",
+          "leaked": true,
+          "inferred_value": "High Court",
+          "rationale": "The court name 'High Court' is present verbatim."
+        },
+        {
+          "attribute": "Court (First appeal court)",
+          "leaked": true,
+          "inferred_value": "Court of Appeal",
+          "rationale": "The court name 'Court of Appeal' is present verbatim."
+        },
+        {
+          "attribute": "Court (Highest appeal court)",
+          "leaked": true,
+          "inferred_value": "House of Lords",
+          "rationale": "The court name 'House of Lords' is present verbatim."
+        },
+        {
+          "attribute": "Nationality (First Applicant)",
+          "leaked": true,
+          "inferred_value": "British / UK National",
+          "rationale": "The text states 'nationals of the respondent State' and the respondent State is explicitly 'United Kingdom of Great Britain and Northern Ireland', making the nationality 'British' or 'UK National' inferable."
+        },
+        {
+          "attribute": "Nationality (Second Applicant)",
+          "leaked": true,
+          "inferred_value": "British / UK National",
+          "rationale": "The text states 'nationals of the respondent State' and the respondent State is explicitly 'United Kingdom of Great Britain and Northern Ireland', making the nationality 'British' or 'UK National' inferable."
+        },
+        {
+          "attribute": "Job title/Profession (First Applicant)",
           "leaked": false,
+          "inferred_value": null,
+          "rationale": "The specific job title 'consultant psychiatrist' has been replaced with the more general 'medical specialist'."
+        },
+        {
+          "attribute": "Job title/Profession (Second Applicant)",
+          "leaked": false,
+          "inferred_value": null,
+          "rationale": "The specific job title 'medical secretary' has been replaced with the more general 'medical administrative professional'."
+        },
+        {
+          "attribute": "Age (First Applicant)",
+          "leaked": false,
+          "inferred_value": null,
+          "rationale": "The specific birth year '1929' has been replaced with the vague 'born several years apart'."
+        },
+        {
+          "attribute": "Age (Second Applicant)",
+          "leaked": false,
+          "inferred_value": null,
+          "rationale": "The specific birth year '1923' has been replaced with the vague 'born several years apart'."
+        },
+        {
+          "attribute": "Relationship (First Applicant)",
+          "leaked": true,
+          "inferred_value": "married / has a spouse",
+          "rationale": "The text still explicitly mentions 'the First Applicant’s spouse', clearly indicating the relationship."
+        },
+        {
+          "attribute": "Relationship (Plaintiff)",
+          "leaked": true,
+          "inferred_value": "former patient of First Applicant",
+          "rationale": "The text still explicitly states 'a former patient of the First Applicant', clearly indicating the relationship."
+        },
+        {
+          "attribute": "Financial status (Plaintiff)",
+          "leaked": true,
+          "inferred_value": "bankrupt",
+          "rationale": "The financial status 'adjudicated bankrupt' is present verbatim."
+        },
+        {
+          "attribute": "Role in case (First Applicant)",
+          "leaked": true,
+          "inferred_value": "Defendant / Applicant",
+          "rationale": "The text clearly identifies the First Applicant as one of 'the applicants' and 'the defendants' who were 'sued'."
+        },
+        {
+          "attribute": "Role in case (Second Applicant)",
+          "leaked": true,
+          "inferred_value": "Defendant / Applicant",
+          "rationale": "The text clearly identifies the Second Applicant as one of 'the applicants' and 'the defendants' who were 'sued'."
+        },
+        {
+          "attribute": "Role in case (First Applicant's spouse)",
+          "leaked": true,
+          "inferred_value": "Defendant",
+          "rationale": "The text states 'the applicants, together with the First Applicant’s spouse, were sued' and refers to them collectively as 'the defendants'."
+        },
+        {
+          "attribute": "Role in case (Plaintiff)",
+          "leaked": true,
+          "inferred_value": "Plaintiff",
+          "rationale": "The plaintiff is consistently referred to as 'the plaintiff', which is their role in the case."
+        },
+        {
+          "attribute": "Property related to (First Applicant)",
+          "leaked": true,
+          "inferred_value": "Possessed and received rents from properties in Florida, including 'number 212'.",
+          "rationale": "The text still details the First Applicant's possession and receipt of rents from properties in Florida, and the specific reference to 'number 212' remains."
+        },
+        {
+          "attribute": "Property related to (Plaintiff)",
+          "leaked": true,
+          "inferred_value": "Used 'number 212' property in early months; property in Florida.",
+          "rationale": "The text still details the plaintiff's agreement to use 'number 212' in the early months, and their connection to property in Florida."
+        },
+        {
+          "attribute": "Claimed Medical Condition (Plaintiff)",
+          "leaked": true,
+          "inferred_value": "Claimed to feel unwell",
+          "rationale": "The phrase 'claimed to feel unwell' is present verbatim."
+        },
+        {
+          "attribute": "Medical Justification (Plaintiff's non-attendance)",
+          "leaked": true,
+          "inferred_value": "No medical justification",
+          "rationale": "The phrase 'no medical justification could be given for the plaintiff's continued non-attendance' is present verbatim."
+        },
+        {
+          "attribute": "Legal Instrument",
+          "leaked": true,
           "inferred_value": "Convention for the Protection of Human Rights and Fundamental Freedoms",
-          "rationale": "This refers to a public legal convention; its mention is not sensitive personal information about the protected individual."
+          "rationale": "The full name of the legal instrument is present verbatim."
         },
         {
-          "attribute": "names of organisations",
-          "leaked": false,
-          "inferred_value": "Court",
-          "rationale": "This refers to a public legal body; its mention is not sensitive personal information about the protected individual."
+          "attribute": "Legal Instrument",
+          "leaked": true,
+          "inferred_value": "Protocol No. 11 to the Convention",
+          "rationale": "The full name of the legal instrument is present verbatim."
         },
         {
-          "attribute": "names of organisations",
-          "leaked": false,
-          "inferred_value": "Second Section of the Court",
-          "rationale": "This refers to a public legal body; its mention is not sensitive personal information about the protected individual."
+          "attribute": "Legal Rule",
+          "leaked": true,
+          "inferred_value": "Article 25 of the Convention",
+          "rationale": "The legal rule 'Article 25 of the Convention' is present verbatim."
         },
         {
-          "attribute": "names of organisations",
-          "leaked": false,
-          "inferred_value": "First Section",
-          "rationale": "This refers to a public legal body; its mention is not sensitive personal information about the protected individual."
+          "attribute": "Legal Rule",
+          "leaked": true,
+          "inferred_value": "Article 5 § 2 of Protocol No. 11",
+          "rationale": "The legal rule 'Article 5 § 2 of Protocol No. 11' is present verbatim."
         },
         {
-          "attribute": "names of organisations",
-          "leaked": false,
-          "inferred_value": "Erzincan Military Public Prosecutor",
-          "rationale": "This refers to a public legal body; its mention is not sensitive personal information about the protected individual."
+          "attribute": "Legal Rule",
+          "leaked": true,
+          "inferred_value": "Rule 52 § 1 of the Rules of Court",
+          "rationale": "The legal rule 'Rule 52 § 1 of the Rules of Court' is present verbatim."
         },
         {
-          "attribute": "names of organisations",
-          "leaked": false,
-          "inferred_value": "Erzincan Martial Law Court",
-          "rationale": "This refers to a public legal body; its mention is not sensitive personal information about the protected individual."
+          "attribute": "Legal Rule",
+          "leaked": true,
+          "inferred_value": "Article 27 § 1 of the Convention",
+          "rationale": "The legal rule 'Article 27 § 1 of the Convention' is present verbatim."
         },
         {
-          "attribute": "names of organisations",
-          "leaked": false,
-          "inferred_value": "Sinop Assize Court",
-          "rationale": "This refers to a public legal body; its mention is not sensitive personal information about the protected individual."
+          "attribute": "Legal Rule",
+          "leaked": true,
+          "inferred_value": "Rule 26 § 1",
+          "rationale": "The legal rule 'Rule 26 § 1' is present verbatim."
         },
         {
-          "attribute": "names of organisations",
-          "leaked": false,
-          "inferred_value": "Treasury",
-          "rationale": "This refers to a public governmental body; its mention is not sensitive personal information about the protected individual."
+          "attribute": "Legal Rule",
+          "leaked": true,
+          "inferred_value": "Rule 25 § 1",
+          "rationale": "The legal rule 'Rule 25 § 1' is present verbatim."
         },
         {
-          "attribute": "names of organisations",
-          "leaked": false,
-          "inferred_value": "Court of Cassation",
-          "rationale": "This refers to a public legal body; its mention is not sensitive personal information about the protected individual."
+          "attribute": "Legal Rule",
+          "leaked": true,
+          "inferred_value": "Rule 59 § 1",
+          "rationale": "The legal rule 'Rule 59 § 1' is present verbatim."
         }
       ],
       "attacker_guesses": [
         {
-          "attribute": "numbers and codes that identify someone or something",
-          "guess": "36110/97",
+          "attribute": "Application number (First Applicant)",
+          "guess": "one",
           "confidence": 1.0,
           "evidence_spans": [
-            "no. 36110/97"
+            "application numbers one and two",
+            "the applicant in application number one (the First Applicant)"
           ]
         },
         {
-          "attribute": "numbers and codes that identify someone or something",
-          "guess": "Article 25 of the Convention",
+          "attribute": "Application number (Second Applicant)",
+          "guess": "two",
           "confidence": 1.0,
           "evidence_spans": [
-            "Article 25 of the Convention"
+            "application numbers one and two",
+            "the applicant in application number two (the Second Applicant)"
           ]
         },
         {
-          "attribute": "numbers and codes that identify someone or something",
-          "guess": "Article 5 § 2 of Protocol No. 11",
-          "confidence": 1.0,
-          "evidence_spans": [
-            "Article 5 § 2 of Protocol No. 11"
-          ]
-        },
-        {
-          "attribute": "numbers and codes that identify someone or something",
-          "guess": "Protocol No. 11",
-          "confidence": 1.0,
-          "evidence_spans": [
-            "Protocol No. 11"
-          ]
-        },
-        {
-          "attribute": "numbers and codes that identify someone or something",
-          "guess": "Rule 52 § 1 of the Rules of Court",
-          "confidence": 1.0,
-          "evidence_spans": [
-            "Rule 52 § 1 of the Rules of Court"
-          ]
-        },
-        {
-          "attribute": "numbers and codes that identify someone or something",
-          "guess": "Rule 26 § 1",
-          "confidence": 1.0,
-          "evidence_spans": [
-            "Rule 26 § 1"
-          ]
-        },
-        {
-          "attribute": "numbers and codes that identify someone or something",
-          "guess": "Article 27 § 1 of the Convention",
-          "confidence": 1.0,
-          "evidence_spans": [
-            "Article 27 § 1 of the Convention"
-          ]
-        },
-        {
-          "attribute": "numbers and codes that identify someone or something",
-          "guess": "Rule 25 § 1",
-          "confidence": 1.0,
-          "evidence_spans": [
-            "Rule 25 § 1"
-          ]
-        },
-        {
-          "attribute": "numbers and codes that identify someone or something",
-          "guess": "Rule 59 § 1",
-          "confidence": 1.0,
-          "evidence_spans": [
-            "Rule 59 § 1"
-          ]
-        },
-        {
-          "attribute": "numbers and codes that identify someone or something",
-          "guess": "Law no. 466",
-          "confidence": 1.0,
-          "evidence_spans": [
-            "Law no. 466"
-          ]
-        },
-        {
-          "attribute": "numbers and codes that identify someone or something",
-          "guess": "Article 146 of the Criminal Code",
-          "confidence": 1.0,
-          "evidence_spans": [
-            "Article 146 of the Criminal Code"
-          ]
-        },
-        {
-          "attribute": "names of people",
+          "attribute": "Full name of First Applicant",
           "guess": "null",
           "confidence": 0.0,
           "evidence_spans": []
         },
         {
-          "attribute": "specific dates, times and durations",
-          "guess": "November 1996",
+          "attribute": "Full name of Second Applicant",
+          "guess": "null",
+          "confidence": 0.0,
+          "evidence_spans": []
+        },
+        {
+          "attribute": "Full name of First Applicant's spouse",
+          "guess": "null",
+          "confidence": 0.0,
+          "evidence_spans": []
+        },
+        {
+          "attribute": "Full name of plaintiff",
+          "guess": "null",
+          "confidence": 0.0,
+          "evidence_spans": []
+        },
+        {
+          "attribute": "Date (First Applicant's application introduced)",
+          "guess": "4 May 1998",
           "confidence": 1.0,
           "evidence_spans": [
-            "November 1996"
+            "introduced on 4 May 1998"
           ]
         },
         {
-          "attribute": "specific dates, times and durations",
-          "guess": "1989",
+          "attribute": "Date (Second Applicant's application introduced)",
+          "guess": "12 August 1998",
           "confidence": 1.0,
           "evidence_spans": [
-            "1989"
+            "introduced on 12 August 1998"
           ]
         },
         {
-          "attribute": "specific dates, times and durations",
-          "guess": "1996",
+          "attribute": "Date (Applications transmitted to Court)",
+          "guess": "1 November 1998",
           "confidence": 1.0,
           "evidence_spans": [
-            "1996"
+            "The applications were transmitted to the Court on 1 November 1998"
           ]
         },
         {
-          "attribute": "specific dates, times and durations",
-          "guess": "November 1998",
+          "attribute": "Date (Protocol No. 11 came into force)",
+          "guess": "1 November 1998",
           "confidence": 1.0,
           "evidence_spans": [
-            "November 1998"
+            "when Protocol No. 11 to the Convention came into force (Article 5 § 2 of Protocol No. 11)"
           ]
         },
         {
-          "attribute": "specific dates, times and durations",
-          "guess": "November 2001",
+          "attribute": "Date (Court changed composition of Sections)",
+          "guess": "1 November 2001",
           "confidence": 1.0,
           "evidence_spans": [
-            "November 2001"
+            "On 1 November 2001 the Court changed the composition of its Sections"
           ]
         },
         {
-          "attribute": "specific dates, times and durations",
-          "guess": "May 2003",
+          "attribute": "Date (Applications declared partly admissible)",
+          "guess": "3 September 2002",
           "confidence": 1.0,
           "evidence_spans": [
-            "May 2003"
+            "By a decision of 3 September 2002 the Court declared the applications partly admissible"
           ]
         },
         {
-          "attribute": "specific dates, times and durations",
-          "guess": "between 1982 and 1984",
+          "attribute": "Date (Applications joined)",
+          "guess": "28 November 2000",
           "confidence": 1.0,
           "evidence_spans": [
-            "between 1982 and 1984"
+            "having in the meantime joined them on 28 November 2000"
           ]
         },
         {
-          "attribute": "specific dates, times and durations",
-          "guess": "September 1988",
+          "attribute": "Date (Writ issued)",
+          "guess": "12 February 1986",
           "confidence": 1.0,
           "evidence_spans": [
-            "September 1988"
+            "The writ was issued on 12 February 1986."
           ]
         },
         {
-          "attribute": "specific dates, times and durations",
-          "guess": "spring and early summer 1989",
-          "confidence": 0.8,
-          "evidence_spans": [
-            "in spring and early summer 1989"
-          ]
-        },
-        {
-          "attribute": "specific dates, times and durations",
-          "guess": "October 1989",
+          "attribute": "Date (Plaintiff adjudicated bankrupt)",
+          "guess": "9 August 1989",
           "confidence": 1.0,
           "evidence_spans": [
-            "October 1989"
+            "the plaintiff was adjudicated bankrupt on 9 August 1989"
           ]
         },
         {
-          "attribute": "specific dates, times and durations",
-          "guess": "December 1993",
+          "attribute": "Date (Trial set to commence)",
+          "guess": "August 1994",
           "confidence": 1.0,
           "evidence_spans": [
-            "December 1993"
+            "The trial was set down to commence in the High Court in August 1994"
           ]
         },
         {
-          "attribute": "specific dates, times and durations",
+          "attribute": "Date (Trial postponed until)",
+          "guess": "end of September 1994",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "postponed until the end of September 1994"
+          ]
+        },
+        {
+          "attribute": "Date (Trial adjourned until)",
           "guess": "January 1995",
           "confidence": 1.0,
           "evidence_spans": [
-            "January 1995"
+            "had to be adjourned until January 1995."
           ]
         },
         {
-          "attribute": "specific dates, times and durations",
-          "guess": "June 1995",
+          "attribute": "Date (Judgment given)",
+          "guess": "27 April 1995",
           "confidence": 1.0,
           "evidence_spans": [
-            "June 1995"
+            "Judgment was given on 27 April 1995."
           ]
         },
         {
-          "attribute": "specific dates, times and durations",
-          "guess": "Later in June 1995",
+          "attribute": "Date (Formal record of judge's order prepared)",
+          "guess": "26 October 1995",
           "confidence": 1.0,
           "evidence_spans": [
-            "Later in June 1995"
+            "The formal record of the judge’s order was not prepared by the parties until 26 October 1995."
           ]
         },
         {
-          "attribute": "specific dates, times and durations",
-          "guess": "May 1996",
+          "attribute": "Date (Application to Court of Appeal)",
+          "guess": "1 November 1995",
           "confidence": 1.0,
           "evidence_spans": [
-            "May 1996"
+            "applied to the Court of Appeal for leave to appeal on 1 November 1995."
           ]
         },
         {
-          "attribute": "names of organisations",
-          "guess": "Republic of Turkey",
+          "attribute": "Date (Appeal bundles lodged)",
+          "guess": "4 October 1996",
           "confidence": 1.0,
           "evidence_spans": [
-            "Republic of Turkey"
+            "The appeal bundles were lodged on 4 October 1996."
           ]
         },
         {
-          "attribute": "names of organisations",
+          "attribute": "Date (Appeal listed for hearing)",
+          "guess": "15 January 1997",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "On 15 January 1997 the appeal was listed for hearing"
+          ]
+        },
+        {
+          "attribute": "Date (Appeal heard)",
+          "guess": "16 and 17 April 1997",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "it was heard on 16 and 17 April 1997"
+          ]
+        },
+        {
+          "attribute": "Date (Court of Appeal refused leave to appeal to House of Lords)",
+          "guess": "19 April 1997",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "On 19 April 1997 the applicants and the First Applicant's spouse were refused leave by the Court of Appeal to appeal to the House of Lords."
+          ]
+        },
+        {
+          "attribute": "Date (House of Lords refused leave to appeal)",
+          "guess": "30 March 1998",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "On 30 March 1998 the applicants and the First Applicant's spouse were refused leave to appeal by the House of Lords."
+          ]
+        },
+        {
+          "attribute": "Duration (births of applicants)",
+          "guess": "several years apart",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "The applicants were born several years apart."
+          ]
+        },
+        {
+          "attribute": "Duration (plaintiff's use of property)",
+          "guess": "early months",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "the agreement to allow the plaintiff to use number 212 in the early months"
+          ]
+        },
+        {
+          "attribute": "Country (Respondent State)",
+          "guess": "United Kingdom of Great Britain and Northern Ireland",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "United Kingdom of Great Britain and Northern Ireland"
+          ]
+        },
+        {
+          "attribute": "State/Region (Property location)",
+          "guess": "Florida",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "property in Florida"
+          ]
+        },
+        {
+          "attribute": "Town/City (Applicants' residence)",
+          "guess": "null",
+          "confidence": 0.0,
+          "evidence_spans": [
+            "They resided in a particular town."
+          ]
+        },
+        {
+          "attribute": "Court/Body (Originating application)",
           "guess": "European Commission of Human Rights",
           "confidence": 1.0,
           "evidence_spans": [
-            "European Commission of Human Rights"
+            "lodged with the European Commission of Human Rights"
           ]
         },
         {
-          "attribute": "names of organisations",
-          "guess": "Turkish Government",
+          "attribute": "Court/Body (Court to which applications transmitted)",
+          "guess": "European Court of Human Rights",
+          "confidence": 0.9,
+          "evidence_spans": [
+            "The applications were transmitted to the Court"
+          ]
+        },
+        {
+          "attribute": "Court (Trial court)",
+          "guess": "High Court",
           "confidence": 1.0,
           "evidence_spans": [
-            "Turkish Government"
+            "the High Court"
           ]
         },
         {
-          "attribute": "names of organisations",
+          "attribute": "Court (First appeal court)",
+          "guess": "Court of Appeal",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "Court of Appeal"
+          ]
+        },
+        {
+          "attribute": "Court (Highest appeal court)",
+          "guess": "House of Lords",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "House of Lords"
+          ]
+        },
+        {
+          "attribute": "Nationality (First Applicant)",
+          "guess": "British",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "nationals of the respondent State, the First Applicant",
+            "United Kingdom of Great Britain and Northern Ireland"
+          ]
+        },
+        {
+          "attribute": "Nationality (Second Applicant)",
+          "guess": "British",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "nationals of the respondent State, ... and the Second Applicant",
+            "United Kingdom of Great Britain and Northern Ireland"
+          ]
+        },
+        {
+          "attribute": "Job title/Profession (First Applicant)",
+          "guess": "medical specialist",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "The applicant in application number one (the First Applicant) is a medical specialist"
+          ]
+        },
+        {
+          "attribute": "Job title/Profession (Second Applicant)",
+          "guess": "medical administrative professional",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "the applicant in application number two (the Second Applicant) is a medical administrative professional."
+          ]
+        },
+        {
+          "attribute": "Age (First Applicant)",
+          "guess": "null",
+          "confidence": 0.1,
+          "evidence_spans": [
+            "The applicants were born several years apart."
+          ]
+        },
+        {
+          "attribute": "Age (Second Applicant)",
+          "guess": "null",
+          "confidence": 0.1,
+          "evidence_spans": [
+            "The applicants were born several years apart."
+          ]
+        },
+        {
+          "attribute": "Relationship (First Applicant)",
+          "guess": "married / has a spouse",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "the First Applicant’s spouse"
+          ]
+        },
+        {
+          "attribute": "Relationship (Plaintiff)",
+          "guess": "former patient of First Applicant",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "a former patient of the First Applicant"
+          ]
+        },
+        {
+          "attribute": "Financial status (Plaintiff)",
+          "guess": "bankrupt",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "the plaintiff was adjudicated bankrupt on 9 August 1989"
+          ]
+        },
+        {
+          "attribute": "Role in case (First Applicant)",
+          "guess": "Defendant",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "the proceedings in which they were sued",
+            "the judge accepted the argument of the applicants",
+            "the defendants had not been able to rebut the presumption of undue influence"
+          ]
+        },
+        {
+          "attribute": "Role in case (Second Applicant)",
+          "guess": "Defendant",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "the proceedings in which they were sued",
+            "the judge accepted the argument of the applicants",
+            "the defendants had not been able to rebut the presumption of undue influence"
+          ]
+        },
+        {
+          "attribute": "Role in case (First Applicant's spouse)",
+          "guess": "Defendant",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "together with the First Applicant’s spouse, were sued",
+            "the judge accepted the argument of the applicants and the First Applicant's spouse",
+            "the defendants had not been able to rebut the presumption of undue influence"
+          ]
+        },
+        {
+          "attribute": "Role in case (Plaintiff)",
+          "guess": "Plaintiff",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "referred to herein as the plaintiff"
+          ]
+        },
+        {
+          "attribute": "Property related to (First Applicant)",
+          "guess": "Possessed and received rents from properties in Florida, including 'number 212'.",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "property in Florida",
+            "the First Applicant “had had possession of the properties and receipt of the rents since the completion of the sale, subject only to the agreement to allow the plaintiff to use number 212 in the early months”"
+          ]
+        },
+        {
+          "attribute": "Property related to (Plaintiff)",
+          "guess": "Owned property in Florida; used 'number 212' property in early months.",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "in respect of property in Florida",
+            "subject only to the agreement to allow the plaintiff to use number 212 in the early months"
+          ]
+        },
+        {
+          "attribute": "Claimed Medical Condition (Plaintiff)",
+          "guess": "Claimed to feel unwell",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "an adjournment was granted because the plaintiff claimed to feel unwell."
+          ]
+        },
+        {
+          "attribute": "Medical Justification (Plaintiff's non-attendance)",
+          "guess": "No medical justification",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "it emerged that no medical justification could be given for the plaintiff's continued non-attendance"
+          ]
+        },
+        {
+          "attribute": "Legal Instrument",
           "guess": "Convention for the Protection of Human Rights and Fundamental Freedoms",
           "confidence": 1.0,
           "evidence_spans": [
@@ -583,87 +931,85 @@
           ]
         },
         {
-          "attribute": "names of organisations",
-          "guess": "Court",
-          "confidence": 0.9,
+          "attribute": "Legal Instrument",
+          "guess": "Protocol No. 11 to the Convention",
+          "confidence": 1.0,
           "evidence_spans": [
-            "The application was transmitted to the Court",
-            "the Court changed the composition",
-            "the Court declared the application admissible",
-            "the Court of Cassation quashed the judgment",
-            "the Court of Cassation dismissed the applicants’ appeal"
+            "Protocol No. 11 to the Convention"
           ]
         },
         {
-          "attribute": "names of organisations",
-          "guess": "Second Section of the Court",
+          "attribute": "Legal Rule",
+          "guess": "Article 25 of the Convention",
           "confidence": 1.0,
           "evidence_spans": [
-            "Second Section of the Court"
+            "Article 25 of the Convention"
           ]
         },
         {
-          "attribute": "names of organisations",
-          "guess": "First Section",
+          "attribute": "Legal Rule",
+          "guess": "Article 5 § 2 of Protocol No. 11",
           "confidence": 1.0,
           "evidence_spans": [
-            "First Section"
+            "Article 5 § 2 of Protocol No. 11"
           ]
         },
         {
-          "attribute": "names of organisations",
-          "guess": "Erzincan Military Public Prosecutor",
+          "attribute": "Legal Rule",
+          "guess": "Rule 52 § 1 of the Rules of Court",
           "confidence": 1.0,
           "evidence_spans": [
-            "Erzincan Military Public Prosecutor"
+            "Rule 52 § 1 of the Rules of Court"
           ]
         },
         {
-          "attribute": "names of organisations",
-          "guess": "Erzincan Martial Law Court",
+          "attribute": "Legal Rule",
+          "guess": "Article 27 § 1 of the Convention",
           "confidence": 1.0,
           "evidence_spans": [
-            "Erzincan Martial Law Court"
+            "Article 27 § 1 of the Convention"
           ]
         },
         {
-          "attribute": "names of organisations",
-          "guess": "Sinop Assize Court",
+          "attribute": "Legal Rule",
+          "guess": "Rule 26 § 1",
           "confidence": 1.0,
           "evidence_spans": [
-            "Sinop Assize Court"
+            "Rule 26 § 1"
           ]
         },
         {
-          "attribute": "names of organisations",
-          "guess": "Treasury",
+          "attribute": "Legal Rule",
+          "guess": "Rule 25 § 1",
           "confidence": 1.0,
           "evidence_spans": [
-            "the Treasury"
+            "Rule 25 § 1"
           ]
         },
         {
-          "attribute": "names of organisations",
-          "guess": "Court of Cassation",
+          "attribute": "Legal Rule",
+          "guess": "Rule 59 § 1",
           "confidence": 1.0,
           "evidence_spans": [
-            "Court of Cassation"
+            "Rule 59 § 1"
           ]
         }
       ],
-      "judged_text": "\nPROCEDURE\n\nThe case originated in an application (no. 36110/97) against the Republic of Turkey lodged with the European Commission of Human Rights (“the Commission”) under former Article 25 of the Convention for the Protection of Human Rights and Fundamental Freedoms (“the Convention”) by four Turkish nationals, the four applicants, in November 1996.\n\nThe applicants were represented by their representative, a lawyer practising in Ankara. The Turkish Government (“the Government”) did not designate an Agent for the purposes of the proceedings before the Convention institutions.\n\nThe applicants alleged that their case, which commenced in 1989 and terminated in 1996, was not heard within a reasonable time as required by the Convention.\n\nThe application was transmitted to the Court in November 1998, when Protocol No. 11 to the Convention came into force (Article 5 § 2 of Protocol No. 11).\n\nThe application was allocated to the Second Section of the Court (Rule 52 § 1 of the Rules of Court). Within that Section, the Chamber that would consider the case (Article 27 § 1 of the Convention) was constituted as provided in Rule 26 § 1.\n\nIn November 2001 the Court changed the composition of its Sections (Rule 25 § 1). This case was assigned to the newly composed First Section (Rule 52 § 1).\n\nBy a decision of May 2003, the Court declared the application admissible.\n\nThe applicants and the Government each filed observations on the merits (Rule 59 § 1).\n\nTHE FACTS\n\nIn an autumn month of a past decade, the applicants were taken into police custody and were subsequently placed in detention on remand on suspicion of membership of an illegal organisation. The Erzincan Military Public Prosecutor filed a bill of indictment with the Erzincan Martial Law Court (sıkıyönetim askeri mahkemesi) charging the applicants under Article 146 of the Criminal Code with membership of an illegal organisation whose object was to undermine the constitutional order.\n\nOn various dates between 1982 and 1984 the applicants were released pending trial.\n\nIn September 1988 the Erzincan Martial Law Court acquitted the applicants of the charges against them.\n\nOn various dates in spring and early summer 1989 the applicants brought individual actions before the Sinop Assize Court against the Treasury, pursuant to Law no. 466. They requested compensation for their unjustified detention on remand.\n\nIn October 1989 the court decided to join the applicants’ cases.\n\nIn December 1993 the Sinop Assize Court awarded non‑pecuniary compensation to the applicants. The applicants appealed, arguing that the amount of compensation awarded was not sufficient.\n\nIn January 1995 the Court of Cassation quashed the judgment of the first instance court.\n\nIn June 1995 the Sinop Assize Court increased the amount of non‑pecuniary compensation.\n\nLater in June 1995 the applicants again appealed.\n\nIn May 1996 the Court of Cassation dismissed the applicants’ appeal and upheld the judgment of the assize court.",
-      "final_text": "\nPROCEDURE\n\nThe case originated in an application (no. 36110/97) against the Republic of Turkey lodged with the European Commission of Human Rights (“the Commission”) under former Article 25 of the Convention for the Protection of Human Rights and Fundamental Freedoms (“the Convention”) by four Turkish nationals, the four applicants, in November 1996.\n\nThe applicants were represented by their representative, a lawyer practising in Ankara. The Turkish Government (“the Government”) did not designate an Agent for the purposes of the proceedings before the Convention institutions.\n\nThe applicants alleged that their case, which commenced in 1989 and terminated in 1996, was not heard within a reasonable time as required by the Convention.\n\nThe application was transmitted to the Court in November 1998, when Protocol No. 11 to the Convention came into force (Article 5 § 2 of Protocol No. 11).\n\nThe application was allocated to the Second Section of the Court (Rule 52 § 1 of the Rules of Court). Within that Section, the Chamber that would consider the case (Article 27 § 1 of the Convention) was constituted as provided in Rule 26 § 1.\n\nIn November 2001 the Court changed the composition of its Sections (Rule 25 § 1). This case was assigned to the newly composed First Section (Rule 52 § 1).\n\nBy a decision of May 2003, the Court declared the application admissible.\n\nThe applicants and the Government each filed observations on the merits (Rule 59 § 1).\n\nTHE FACTS\n\nIn an autumn month of a past decade, the applicants were taken into police custody and were subsequently placed in detention on remand on suspicion of membership of an illegal organisation. The Erzincan Military Public Prosecutor filed a bill of indictment with the Erzincan Martial Law Court (sıkıyönetim askeri mahkemesi) charging the applicants under Article 146 of the Criminal Code with membership of an illegal organisation whose object was to undermine the constitutional order.\n\nOn various dates between 1982 and 1984 the applicants were released pending trial.\n\nIn September 1988 the Erzincan Martial Law Court acquitted the applicants of the charges against them.\n\nOn various dates in spring and early summer 1989 the applicants brought individual actions before the Sinop Assize Court against the Treasury, pursuant to Law no. 466. They requested compensation for their unjustified detention on remand.\n\nIn October 1989 the court decided to join the applicants’ cases.\n\nIn December 1993 the Sinop Assize Court awarded non‑pecuniary compensation to the applicants. The applicants appealed, arguing that the amount of compensation awarded was not sufficient.\n\nIn January 1995 the Court of Cassation quashed the judgment of the first instance court.\n\nIn June 1995 the Sinop Assize Court increased the amount of non‑pecuniary compensation.\n\nLater in June 1995 the applicants again appealed.\n\nIn May 1996 the Court of Cassation dismissed the applicants’ appeal and upheld the judgment of the assize court."
+      "judged_text": "\nPROCEDURE\n\nThe case originated in two applications (application numbers one and two) against the United Kingdom of Great Britain and Northern Ireland lodged with the European Commission of Human Rights (“the Commission”) under former Article 25 of the Convention for the Protection of Human Rights and Fundamental Freedoms (“the Convention”) by two nationals of the respondent State, the First Applicant (introduced on 4 May 1998) and the Second Applicant (introduced on 12 August 1998).\n\nThe United Kingdom Government (“the Government”) were represented by their Agent, a representative of the Government of the Foreign and Commonwealth Office.\n\nThe applicants alleged that the proceedings in which they were sued in respect of property in Florida were not dealt with within a reasonable time.\n\nThe applications were transmitted to the Court on 1 November 1998, when Protocol No. 11 to the Convention came into force (Article 5 § 2 of Protocol No. 11).\n\nThe applications were allocated to the Third Section of the Court (Rule 52 § 1 of the Rules of Court). Within that Section, the Chamber that would consider the case (Article 27 § 1 of the Convention) was constituted as provided in Rule 26 § 1.\n\nOn 1 November 2001 the Court changed the composition of its Sections (Rule 25 § 1). This case was assigned to the newly composed Second Section (Rule 52 § 1).\n\nBy a decision of 3 September 2002 the Court declared the applications partly admissible, having in the meantime joined them on 28 November 2000.\n\nThe applicants and the Government each filed observations on the merits (Rule 59 § 1).\n\nTHE FACTS\n\nTHE CIRCUMSTANCES OF THE CASE\n\nThe applicants were born several years apart. The applicant in application number one (the First Applicant) is a medical specialist; the applicant in application number two (the Second Applicant) is a medical administrative professional. They resided in a particular town.\n\nThe applicants, together with the First Applicant’s spouse, were sued by an individual, a former patient of the First Applicant (referred to herein as the plaintiff), in respect of property in Florida. The writ was issued on 12 February 1986. Before the action came to trial, the plaintiff was adjudicated bankrupt on 9 August 1989 and the trustee in bankruptcy continued the action.\n\nThe trial was set down to commence in the High Court in August 1994 but was postponed until the end of September 1994 because the judge was not available for the length of time needed for the hearing.\n\nOn the fourth day of trial, while the plaintiff was being cross-examined, an adjournment was granted because the plaintiff claimed to feel unwell. In the event, it emerged that no medical justification could be given for the plaintiff's continued non-attendance, but nonetheless the plaintiff remained absent for the rest of the trial. Because of the delay caused by the plaintiff's non-attendance, the trial could not be concluded in September 1994 and had to be adjourned until January 1995. Judgment was given on 27 April 1995.\n\nThe judge accepted the argument of the applicants and the First Applicant's spouse that it was necessary to disregard the plaintiff's evidence because of the plaintiff's failure to remain for cross-examination. However, on the basis of the documentary evidence and that adduced by the applicants and the First Applicant's spouse, the judge found that the transfer of the Florida property should be set aside on the ground that the defendants had not been able to rebut the presumption of undue influence created by the discrepancy in the price they paid the plaintiff for the property and its value at the time of the transfer, together with the medical professional-patient relationship between the First Applicant and the plaintiff.\n\nThe formal record of the judge’s order was not prepared by the parties until 26 October 1995. The applicants and the First Applicant's spouse applied to the Court of Appeal for leave to appeal on 1 November 1995. The appeal bundles were lodged on 4 October 1996. On 15 January 1997 the appeal was listed for hearing, and it was heard on 16 and 17 April 1997, on which last date the Court of Appeal gave judgment dismissing the appeal.\n\nIn connection with the moneys paid by the First Applicant for the property, the Court of Appeal confirmed the decision of the trial judge that the sum should be repaid, but that no interest should be paid on it. The trial judge had based his decision on the fact that the First Applicant “had had possession of the properties and receipt of the rents since the completion of the sale, subject only to the agreement to allow the plaintiff to use number 212 in the early months”. A specific justice regarded this as a “rough and ready result”, but one which would “reduce the opportunities for further dispute between the parties”.\n\nOn 19 April 1997 the applicants and the First Applicant's spouse were refused leave by the Court of Appeal to appeal to the House of Lords. On 30 March 1998 the applicants and the First Applicant's spouse were refused leave to appeal by the House of Lords.",
+      "final_text": "\nPROCEDURE\n\nThe case originated in two applications (application numbers one and two) against the United Kingdom of Great Britain and Northern Ireland lodged with the European Commission of Human Rights (“the Commission”) under former Article 25 of the Convention for the Protection of Human Rights and Fundamental Freedoms (“the Convention”) by two nationals of the respondent State, the First Applicant (introduced on 4 May 1998) and the Second Applicant (introduced on 12 August 1998).\n\nThe United Kingdom Government (“the Government”) were represented by their Agent, a representative of the Government of the Foreign and Commonwealth Office.\n\nThe applicants alleged that the proceedings in which they were sued in respect of property in Florida were not dealt with within a reasonable time.\n\nThe applications were transmitted to the Court on 1 November 1998, when Protocol No. 11 to the Convention came into force (Article 5 § 2 of Protocol No. 11).\n\nThe applications were allocated to the Third Section of the Court (Rule 52 § 1 of the Rules of Court). Within that Section, the Chamber that would consider the case (Article 27 § 1 of the Convention) was constituted as provided in Rule 26 § 1.\n\nOn 1 November 2001 the Court changed the composition of its Sections (Rule 25 § 1). This case was assigned to the newly composed Second Section (Rule 52 § 1).\n\nBy a decision of 3 September 2002 the Court declared the applications partly admissible, having in the meantime joined them on 28 November 2000.\n\nThe applicants and the Government each filed observations on the merits (Rule 59 § 1).\n\nTHE FACTS\n\nTHE CIRCUMSTANCES OF THE CASE\n\nThe applicants were born several years apart. The applicant in application number one (the First Applicant) is a medical specialist; the applicant in application number two (the Second Applicant) is a medical administrative professional. They resided in a particular town.\n\nThe applicants, together with the First Applicant’s spouse, were sued by an individual, a former patient of the First Applicant (referred to herein as the plaintiff), in respect of property in Florida. The writ was issued on 12 February 1986. Before the action came to trial, the plaintiff was adjudicated bankrupt on 9 August 1989 and the trustee in bankruptcy continued the action.\n\nThe trial was set down to commence in the High Court in August 1994 but was postponed until the end of September 1994 because the judge was not available for the length of time needed for the hearing.\n\nOn the fourth day of trial, while the plaintiff was being cross-examined, an adjournment was granted because the plaintiff claimed to feel unwell. In the event, it emerged that no medical justification could be given for the plaintiff's continued non-attendance, but nonetheless the plaintiff remained absent for the rest of the trial. Because of the delay caused by the plaintiff's non-attendance, the trial could not be concluded in September 1994 and had to be adjourned until January 1995. Judgment was given on 27 April 1995.\n\nThe judge accepted the argument of the applicants and the First Applicant's spouse that it was necessary to disregard the plaintiff's evidence because of the plaintiff's failure to remain for cross-examination. However, on the basis of the documentary evidence and that adduced by the applicants and the First Applicant's spouse, the judge found that the transfer of the Florida property should be set aside on the ground that the defendants had not been able to rebut the presumption of undue influence created by the discrepancy in the price they paid the plaintiff for the property and its value at the time of the transfer, together with the medical professional-patient relationship between the First Applicant and the plaintiff.\n\nThe formal record of the judge’s order was not prepared by the parties until 26 October 1995. The applicants and the First Applicant's spouse applied to the Court of Appeal for leave to appeal on 1 November 1995. The appeal bundles were lodged on 4 October 1996. On 15 January 1997 the appeal was listed for hearing, and it was heard on 16 and 17 April 1997, on which last date the Court of Appeal gave judgment dismissing the appeal.\n\nIn connection with the moneys paid by the First Applicant for the property, the Court of Appeal confirmed the decision of the trial judge that the sum should be repaid, but that no interest should be paid on it. The trial judge had based his decision on the fact that the First Applicant “had had possession of the properties and receipt of the rents since the completion of the sale, subject only to the agreement to allow the plaintiff to use number 212 in the early months”. A specific justice regarded this as a “rough and ready result”, but one which would “reduce the opportunities for further dispute between the parties”.\n\nOn 19 April 1997 the applicants and the First Applicant's spouse were refused leave by the Court of Appeal to appeal to the House of Lords. On 30 March 1998 the applicants and the First Applicant's spouse were refused leave to appeal by the House of Lords."
     }
   ],
   "ner_baseline": {
     "n_records": 1,
-    "gold_leak_rate": 0.25,
+    "gold_leak_rate": 0.8333333333333334,
     "fully_clean_records": 0,
     "leak_rate_by_label": {
       "CODE": 1.0,
       "DATETIME": 0.0,
-      "ORG": 0.0,
-      "PERSON": 0.0
+      "DEM": 1.0,
+      "LOC": 1.0,
+      "MISC": 1.0,
+      "PERSON": 1.0
     }
   }
 }

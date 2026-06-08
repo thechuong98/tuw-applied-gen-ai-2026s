@@ -81,8 +81,6 @@ GLINER_LABELS = [
     "year",
     "age",
     "location",
-    "city",
-    "country",
     "address",
     "organization",
     "reference number",
@@ -91,10 +89,6 @@ GLINER_LABELS = [
     "profession",
     "medical condition",
     "ethnic group",
-    "political movement",
-    "armed group",
-    "named law or regulation",
-    "named event",
 ]
 
 # spaCy labels used when GLiNER is unavailable
