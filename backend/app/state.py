@@ -1,4 +1,4 @@
-"""Shared LangGraph state for the per-record adversarial loop (docs/architecture.md §5.1)."""
+"""Shared LangGraph state for the per-record adversarial loop."""
 import operator
 from typing import Annotated, Optional, TypedDict
 

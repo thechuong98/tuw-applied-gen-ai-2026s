@@ -1,4 +1,4 @@
-"""Structured-output contracts between graph nodes (see docs/architecture.md §3)."""
+"""Structured-output contracts between graph nodes."""
 from typing import Optional
 
 from pydantic import BaseModel, Field

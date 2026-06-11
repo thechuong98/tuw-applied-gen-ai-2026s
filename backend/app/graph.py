@@ -1,4 +1,4 @@
-"""Build & compile the per-record adversarial graph (Tier B in docs/pipeline.md)."""
+"""Build & compile the per-record adversarial graph (Tier B)."""
 from functools import lru_cache
 
 from langgraph.graph import END, START, StateGraph
