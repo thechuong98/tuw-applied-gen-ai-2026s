@@ -322,8 +322,24 @@ mention spans) and a `utility_to_preserve` list. Short TAB entity labels are exp
 descriptions via [data/eval/type_labels.json](data/eval/type_labels.json) before being fed to the agents.
 
 ```bash
-cd backend
+# Run all records in batches of 10
+python -m app.eval ../data/eval/tab.json --batch-size 10 --out results.json
+```
+```bash
+# Resume after a crash (reads already-done records from results.json)
+python -m app.eval ../data/eval/tab.json --resume --out results.json
+```
+```bash
+# Run only the NER baseline (no LLM calls, free)
+python -m app.eval ../data/eval/tab.json --ner-only --out ner_baseline.json
+```
+```bash
+# Limit to 20 (N) records
 python -m app.eval ../data/eval/tab.json --limit 20 --out results.json
+```
+```bash
+# Run on specific records (useful for tracking improvements across prompt changes)
+python -m app.eval ../data/eval/tab.json --ids tab_001-61807 tab_001-66929 --out results.json
 ```
 
 Using the **verbatim presence of a gold span** as objective ground truth, it reports:
@@ -333,6 +349,17 @@ Using the **verbatim presence of a gold span** as objective ground truth, it rep
 - **System privacy** — gold leak rate of the delivered text, broken down per entity label, plus fully-clean
   and false-pass record counts.
 - **Utility** — mean of the Judge's five utility scores over records that passed the privacy gate.
+- **NER baseline** — same verbatim privacy metric run with plain spaCy NER masking
+  (no LLM). Provides a cost-free comparison point for system_privacy metrics.
+- **Attacker confidence** — mean confidence of Attacker guesses, overall and on
+  attributes that actually leaked.
+- **Rounds distribution** — histogram of how many loop iterations each record needed.
+
+Results are written to two files:
+- `results.json` — aggregate metrics + per-record data (verdict, rounds, leaked attrs, utility scores, attacker guesses)
+- `results_texts.json` — original / LLM-anonymized / NER-anonymized text side by side for each record
+
+Use `--texts-out` to override the default texts output path.
 
 ---
 

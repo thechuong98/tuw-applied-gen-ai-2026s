@@ -1,0 +1,2305 @@
+{
+  "aggregate": {
+    "n_records": 5,
+    "judge": {
+      "leak_recall": 0.0,
+      "missed_leaks": 9,
+      "caught_leaks": 0,
+      "unverified_flags": 0,
+      "confusion": {
+        "TP": 0,
+        "FN": 9,
+        "FP_unverified": 0,
+        "TN": 16
+      }
+    },
+    "system_privacy": {
+      "gold_leak_rate": 0.36,
+      "leak_rate_by_label": {
+        "CODE": 0.0,
+        "DATETIME": 0.6,
+        "DEM": 1.0,
+        "LOC": 0.3333333333333333,
+        "MISC": 1.0,
+        "ORG": 0.5,
+        "PERSON": 0.0
+      },
+      "fully_clean_records": 1,
+      "false_pass_records": 4
+    },
+    "utility_mean": {
+      "task_utility": 0.86,
+      "informational_completeness": 0.6199999999999999,
+      "factual_consistency": 1.0,
+      "fluency": 0.96,
+      "format_preserved": 1.0
+    },
+    "utility_scored_records": 5,
+    "attacker_confidence": {
+      "mean_all": 0.8083892617449665,
+      "mean_on_leaked": 0.9972222222222222,
+      "n_guesses": 149
+    },
+    "rounds_distribution": {
+      "1": 1,
+      "2": 1,
+      "3": 2,
+      "4": 1
+    }
+  },
+  "results": [
+    {
+      "id": "tab_001-61807",
+      "verdict": "PASS",
+      "rounds": 3,
+      "n_attrs": 4,
+      "per_attr": [
+        {
+          "label": "CODE",
+          "present_delivered": false,
+          "present_judged": false,
+          "judge_flagged": false,
+          "judge_matched": false,
+          "judge_rationale": "",
+          "category": "TN"
+        },
+        {
+          "label": "PERSON",
+          "present_delivered": false,
+          "present_judged": false,
+          "judge_flagged": false,
+          "judge_matched": false,
+          "judge_rationale": "",
+          "category": "TN"
+        },
+        {
+          "label": "DATETIME",
+          "present_delivered": true,
+          "present_judged": true,
+          "judge_flagged": false,
+          "judge_matched": false,
+          "judge_rationale": "",
+          "category": "FN"
+        },
+        {
+          "label": "ORG",
+          "present_delivered": true,
+          "present_judged": true,
+          "judge_flagged": false,
+          "judge_matched": false,
+          "judge_rationale": "",
+          "category": "FN"
+        }
+      ],
+      "leaked_delivered": [
+        "DATETIME",
+        "ORG"
+      ],
+      "false_pass": true,
+      "utility": {
+        "task_utility": 1.0,
+        "informational_completeness": 0.9,
+        "factual_consistency": 1.0,
+        "fluency": 1.0,
+        "format_preserved": 1.0
+      },
+      "judge_summary": "The rewritten text is unsafe as most dates, durations, organizations, and codes remain explicitly present, while only application numbers and individual names have been anonymized.",
+      "judge_leaks": [
+        {
+          "attribute": "application number",
+          "leaked": false,
+          "inferred_value": null,
+          "rationale": "The specific application number was replaced with a generic placeholder, making the original number not inferable."
+        },
+        {
+          "attribute": "names of people",
+          "leaked": false,
+          "inferred_value": null,
+          "rationale": "The specific names of individuals have been replaced with the general term 'the applicants', so individual names are not inferable."
+        },
+        {
+          "attribute": "date",
+          "leaked": true,
+          "inferred_value": "29 November 1996",
+          "rationale": "The date '29 November 1996' is still explicitly present in the rewritten text."
+        },
+        {
+          "attribute": "duration",
+          "leaked": true,
+          "inferred_value": "1989 to 1996",
+          "rationale": "The duration '1989 and 1996' is still explicitly present as 'commenced in 1989 and terminated in 1996'."
+        },
+        {
+          "attribute": "date",
+          "leaked": true,
+          "inferred_value": "1 November 1998",
+          "rationale": "The date '1 November 1998' is still explicitly present in the rewritten text."
+        },
+        {
+          "attribute": "date",
+          "leaked": true,
+          "inferred_value": "1 November 2001",
+          "rationale": "The date '1 November 2001' is still explicitly present in the rewritten text."
+        },
+        {
+          "attribute": "date",
+          "leaked": true,
+          "inferred_value": "15 May 2003",
+          "rationale": "The date '15 May 2003' is still explicitly present in the rewritten text."
+        },
+        {
+          "attribute": "date",
+          "leaked": true,
+          "inferred_value": "September 1980",
+          "rationale": "The date 'September 1980' is still explicitly present in the rewritten text."
+        },
+        {
+          "attribute": "duration",
+          "leaked": true,
+          "inferred_value": "1982 and 1984",
+          "rationale": "The duration 'between 1982 and 1984' is still explicitly present in the rewritten text."
+        },
+        {
+          "attribute": "date",
+          "leaked": true,
+          "inferred_value": "13 September 1988",
+          "rationale": "The date '13 September 1988' is still explicitly present in the rewritten text."
+        },
+        {
+          "attribute": "duration",
+          "leaked": true,
+          "inferred_value": "March, April and June 1989",
+          "rationale": "The duration 'March, April and June 1989' is still explicitly present as 'On various dates in March, April and June 1989'."
+        },
+        {
+          "attribute": "date",
+          "leaked": true,
+          "inferred_value": "20 October 1989",
+          "rationale": "The date '20 October 1989' is still explicitly present in the rewritten text."
+        },
+        {
+          "attribute": "date",
+          "leaked": true,
+          "inferred_value": "15 December 1993",
+          "rationale": "The date '15 December 1993' is still explicitly present in the rewritten text."
+        },
+        {
+          "attribute": "date",
+          "leaked": true,
+          "inferred_value": "31 January 1995",
+          "rationale": "The date '31 January 1995' is still explicitly present in the rewritten text."
+        },
+        {
+          "attribute": "date",
+          "leaked": true,
+          "inferred_value": "6 June 1995",
+          "rationale": "The date '6 June 1995' is still explicitly present in the rewritten text."
+        },
+        {
+          "attribute": "date",
+          "leaked": true,
+          "inferred_value": "15 June 1995",
+          "rationale": "The date '15 June 1995' is still explicitly present in the rewritten text."
+        },
+        {
+          "attribute": "date",
+          "leaked": true,
+          "inferred_value": "30 May 1996",
+          "rationale": "The date '30 May 1996' is still explicitly present in the rewritten text."
+        },
+        {
+          "attribute": "organisation",
+          "leaked": true,
+          "inferred_value": "European Commission of Human Rights",
+          "rationale": "The organization 'European Commission of Human Rights' is still explicitly present."
+        },
+        {
+          "attribute": "organisation",
+          "leaked": true,
+          "inferred_value": "the Commission",
+          "rationale": "The organization 'the Commission' is still explicitly present."
+        },
+        {
+          "attribute": "organisation",
+          "leaked": true,
+          "inferred_value": "Convention for the Protection of Human Rights and Fundamental Freedoms",
+          "rationale": "The organization 'Convention for the Protection of Human Rights and Fundamental Freedoms' is still explicitly present."
+        },
+        {
+          "attribute": "organisation",
+          "leaked": true,
+          "inferred_value": "the Convention",
+          "rationale": "The organization 'the Convention' is still explicitly present."
+        },
+        {
+          "attribute": "organisation",
+          "leaked": true,
+          "inferred_value": "Republic of Turkey",
+          "rationale": "The organization 'Republic of Turkey' is still explicitly present."
+        },
+        {
+          "attribute": "organisation",
+          "leaked": true,
+          "inferred_value": "European Court of Human Rights",
+          "rationale": "References to 'the Court', 'Second Section of the Court', and 'First Section' clearly refer to the 'European Court of Human Rights' by context."
+        },
+        {
+          "attribute": "organisation",
+          "leaked": true,
+          "inferred_value": "Erzincan Martial Law Court",
+          "rationale": "The organization 'Erzincan Martial Law Court' is still explicitly present."
+        },
+        {
+          "attribute": "organisation",
+          "leaked": true,
+          "inferred_value": "sıkıyönetim askeri mahkemesi",
+          "rationale": "The organization 'sıkıyönetim askeri mahkemesi' is still explicitly present."
+        },
+        {
+          "attribute": "organisation",
+          "leaked": true,
+          "inferred_value": "Sinop Assize Court",
+          "rationale": "The organization 'Sinop Assize Court' is still explicitly present."
+        },
+        {
+          "attribute": "organisation",
+          "leaked": true,
+          "inferred_value": "Treasury",
+          "rationale": "The organization 'Treasury' is still explicitly present."
+        },
+        {
+          "attribute": "organisation",
+          "leaked": true,
+          "inferred_value": "Court of Cassation",
+          "rationale": "The organization 'Court of Cassation' is still explicitly present."
+        },
+        {
+          "attribute": "code",
+          "leaked": true,
+          "inferred_value": "Article 25 of the Convention",
+          "rationale": "The code 'Article 25 of the Convention' is still explicitly present."
+        },
+        {
+          "attribute": "code",
+          "leaked": true,
+          "inferred_value": "Protocol No. 11 to the Convention",
+          "rationale": "The code 'Protocol No. 11 to the Convention' is still explicitly present."
+        },
+        {
+          "attribute": "code",
+          "leaked": true,
+          "inferred_value": "Article 5 § 2 of Protocol No. 11",
+          "rationale": "The code 'Article 5 § 2 of Protocol No. 11' is still explicitly present."
+        },
+        {
+          "attribute": "code",
+          "leaked": true,
+          "inferred_value": "Rule 52 § 1 of the Rules of Court",
+          "rationale": "The code 'Rule 52 § 1 of the Rules of Court' is still explicitly present (and 'Rule 52 § 1')."
+        },
+        {
+          "attribute": "code",
+          "leaked": true,
+          "inferred_value": "Rule 26 § 1",
+          "rationale": "The code 'Rule 26 § 1' is still explicitly present."
+        },
+        {
+          "attribute": "code",
+          "leaked": true,
+          "inferred_value": "Article 27 § 1 of the Convention",
+          "rationale": "The code 'Article 27 § 1 of the Convention' is still explicitly present."
+        },
+        {
+          "attribute": "code",
+          "leaked": true,
+          "inferred_value": "Rule 25 § 1",
+          "rationale": "The code 'Rule 25 § 1' is still explicitly present."
+        },
+        {
+          "attribute": "code",
+          "leaked": true,
+          "inferred_value": "Rule 59 § 1",
+          "rationale": "The code 'Rule 59 § 1' is still explicitly present."
+        },
+        {
+          "attribute": "code",
+          "leaked": true,
+          "inferred_value": "Article 146 of the Criminal Code",
+          "rationale": "The code 'Article 146 of the Criminal Code' is still explicitly present."
+        },
+        {
+          "attribute": "code",
+          "leaked": true,
+          "inferred_value": "Law no. 466",
+          "rationale": "The code 'Law no. 466' is still explicitly present."
+        }
+      ],
+      "attacker_guesses": [
+        {
+          "attribute": "application number",
+          "guess": "a specific application number (not provided)",
+          "confidence": 0.1,
+          "evidence_spans": [
+            "a specific application number"
+          ]
+        },
+        {
+          "attribute": "names of people",
+          "guess": "null",
+          "confidence": 0.0,
+          "evidence_spans": []
+        },
+        {
+          "attribute": "date",
+          "guess": "29 November 1996",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "29 November 1996"
+          ]
+        },
+        {
+          "attribute": "duration",
+          "guess": "1989 to 1996",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "commenced in 1989 and terminated in 1996"
+          ]
+        },
+        {
+          "attribute": "date",
+          "guess": "1 November 1998",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "1 November 1998"
+          ]
+        },
+        {
+          "attribute": "date",
+          "guess": "1 November 2001",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "1 November 2001"
+          ]
+        },
+        {
+          "attribute": "date",
+          "guess": "15 May 2003",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "15 May 2003"
+          ]
+        },
+        {
+          "attribute": "date",
+          "guess": "September 1980",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "September 1980"
+          ]
+        },
+        {
+          "attribute": "duration",
+          "guess": "1982 and 1984",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "between 1982 and 1984"
+          ]
+        },
+        {
+          "attribute": "date",
+          "guess": "13 September 1988",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "13 September 1988"
+          ]
+        },
+        {
+          "attribute": "duration",
+          "guess": "March, April and June 1989",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "On various dates in March, April and June 1989"
+          ]
+        },
+        {
+          "attribute": "date",
+          "guess": "20 October 1989",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "20 October 1989"
+          ]
+        },
+        {
+          "attribute": "date",
+          "guess": "15 December 1993",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "15 December 1993"
+          ]
+        },
+        {
+          "attribute": "date",
+          "guess": "31 January 1995",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "31 January 1995"
+          ]
+        },
+        {
+          "attribute": "date",
+          "guess": "6 June 1995",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "6 June 1995"
+          ]
+        },
+        {
+          "attribute": "date",
+          "guess": "15 June 1995",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "15 June 1995"
+          ]
+        },
+        {
+          "attribute": "date",
+          "guess": "30 May 1996",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "30 May 1996"
+          ]
+        },
+        {
+          "attribute": "organisation",
+          "guess": "European Commission of Human Rights",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "European Commission of Human Rights"
+          ]
+        },
+        {
+          "attribute": "organisation",
+          "guess": "the Commission",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "the Commission"
+          ]
+        },
+        {
+          "attribute": "organisation",
+          "guess": "Convention for the Protection of Human Rights and Fundamental Freedoms",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "Convention for the Protection of Human Rights and Fundamental Freedoms"
+          ]
+        },
+        {
+          "attribute": "organisation",
+          "guess": "the Convention",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "the Convention"
+          ]
+        },
+        {
+          "attribute": "organisation",
+          "guess": "Republic of Turkey",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "Republic of Turkey"
+          ]
+        },
+        {
+          "attribute": "organisation",
+          "guess": "European Court of Human Rights",
+          "confidence": 0.9,
+          "evidence_spans": [
+            "the Court",
+            "Second Section of the Court",
+            "First Section"
+          ]
+        },
+        {
+          "attribute": "organisation",
+          "guess": "Erzincan Martial Law Court",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "Erzincan Martial Law Court"
+          ]
+        },
+        {
+          "attribute": "organisation",
+          "guess": "sıkıyönetim askeri mahkemesi",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "sıkıyönetim askeri mahkemesi"
+          ]
+        },
+        {
+          "attribute": "organisation",
+          "guess": "Sinop Assize Court",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "Sinop Assize Court"
+          ]
+        },
+        {
+          "attribute": "organisation",
+          "guess": "Treasury",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "the Treasury"
+          ]
+        },
+        {
+          "attribute": "organisation",
+          "guess": "Court of Cassation",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "Court of Cassation"
+          ]
+        },
+        {
+          "attribute": "code",
+          "guess": "Article 25 of the Convention",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "Article 25 of the Convention"
+          ]
+        },
+        {
+          "attribute": "code",
+          "guess": "Protocol No. 11 to the Convention",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "Protocol No. 11 to the Convention"
+          ]
+        },
+        {
+          "attribute": "code",
+          "guess": "Article 5 § 2 of Protocol No. 11",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "Article 5 § 2 of Protocol No. 11"
+          ]
+        },
+        {
+          "attribute": "code",
+          "guess": "Rule 52 § 1 of the Rules of Court",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "Rule 52 § 1 of the Rules of Court",
+            "Rule 52 § 1"
+          ]
+        },
+        {
+          "attribute": "code",
+          "guess": "Rule 26 § 1",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "Rule 26 § 1"
+          ]
+        },
+        {
+          "attribute": "code",
+          "guess": "Article 27 § 1 of the Convention",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "Article 27 § 1 of the Convention"
+          ]
+        },
+        {
+          "attribute": "code",
+          "guess": "Rule 25 § 1",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "Rule 25 § 1"
+          ]
+        },
+        {
+          "attribute": "code",
+          "guess": "Rule 59 § 1",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "Rule 59 § 1"
+          ]
+        },
+        {
+          "attribute": "code",
+          "guess": "Article 146 of the Criminal Code",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "Article 146 of the Criminal Code"
+          ]
+        },
+        {
+          "attribute": "code",
+          "guess": "Law no. 466",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "Law no. 466"
+          ]
+        }
+      ],
+      "judged_text": "\nPROCEDURE\n\nThe case originated in an application (a specific application number) against the Republic of Turkey lodged with the European Commission of Human Rights (“the Commission”) under former Article 25 of the Convention for the Protection of Human Rights and Fundamental Freedoms (“the Convention”) by four Turkish nationals (hereinafter \"the applicants\"), on 29 November 1996.\n\nThe applicants were represented by their legal representative, a lawyer practising in Ankara. The Government of the Respondent State (hereinafter \"the Government\") did not designate an Agent for the purposes of the proceedings before the Convention institutions.\n\nThe applicants alleged that their case, which commenced in 1989 and terminated in 1996, was not heard within an appropriate timeframe as required by the Convention.\n\nThe application was transmitted to the Court on 1 November 1998, when Protocol No. 11 to the Convention came into force (Article 5 § 2 of Protocol No. 11).\n\nThe application was allocated to the Second Section of the Court (Rule 52 § 1 of the Rules of Court). Within that Section, the Chamber that would consider the case (Article 27 § 1 of the Convention) was constituted as provided in Rule 26 § 1.\n\nOn 1 November 2001 the Court changed the composition of its Sections (Rule 25 § 1). This case was assigned to the newly composed First Section (Rule 52 § 1).\n\nBy a decision of 15 May 2003, the Court declared the application admissible.\n\nThe applicants and the Government each filed observations on the merits (Rule 59 § 1).\n\nTHE FACTS\n\nIn September 1980 the applicants were taken into police custody and were subsequently placed in detention on remand on suspicion of membership of an illegal organisation. A military public prosecutor in Erzincan filed a bill of indictment with the Erzincan Martial Law Court (sıkıyönetim askeri mahkemesi) charging the applicants under Article 146 of the Criminal Code with membership of an illegal organisation whose object was to undermine the constitutional order.\n\nOn various dates between 1982 and 1984 the applicants were released pending trial.\n\nOn 13 September 1988 the Erzincan Martial Law Court acquitted the applicants of the charges against them.\n\nOn various dates in March, April and June 1989 the applicants brought individual actions before the Sinop Assize Court against the Treasury, pursuant to Law no. 466. They requested compensation for their unjustified detention on remand.\n\nOn 20 October 1989 the court decided to join the applicants’ cases.\n\nOn 15 December 1993 the Sinop Assize Court awarded non‑pecuniary compensation to the applicants. The applicants appealed, arguing that the amount of compensation awarded was not sufficient.\n\nOn 31 January 1995 the Court of Cassation quashed the judgment of the first instance court.\n\nOn 6 June 1995 the Sinop Assize Court increased the amount of non‑pecuniary compensation.\n\nOn 15 June 1995 the applicants again appealed.\n\nOn 30 May 1996 the Court of Cassation dismissed the applicants’ appeal and upheld the judgment of the assize court.",
+      "final_text": "\nPROCEDURE\n\nThe case originated in an application (a specific application number) against the Republic of Turkey lodged with the European Commission of Human Rights (“the Commission”) under former Article 25 of the Convention for the Protection of Human Rights and Fundamental Freedoms (“the Convention”) by four Turkish nationals (hereinafter \"the applicants\"), on 29 November 1996.\n\nThe applicants were represented by their legal representative, a lawyer practising in Ankara. The Government of the Respondent State (hereinafter \"the Government\") did not designate an Agent for the purposes of the proceedings before the Convention institutions.\n\nThe applicants alleged that their case, which commenced in 1989 and terminated in 1996, was not heard within an appropriate timeframe as required by the Convention.\n\nThe application was transmitted to the Court on 1 November 1998, when Protocol No. 11 to the Convention came into force (Article 5 § 2 of Protocol No. 11).\n\nThe application was allocated to the Second Section of the Court (Rule 52 § 1 of the Rules of Court). Within that Section, the Chamber that would consider the case (Article 27 § 1 of the Convention) was constituted as provided in Rule 26 § 1.\n\nOn 1 November 2001 the Court changed the composition of its Sections (Rule 25 § 1). This case was assigned to the newly composed First Section (Rule 52 § 1).\n\nBy a decision of 15 May 2003, the Court declared the application admissible.\n\nThe applicants and the Government each filed observations on the merits (Rule 59 § 1).\n\nTHE FACTS\n\nIn September 1980 the applicants were taken into police custody and were subsequently placed in detention on remand on suspicion of membership of an illegal organisation. A military public prosecutor in Erzincan filed a bill of indictment with the Erzincan Martial Law Court (sıkıyönetim askeri mahkemesi) charging the applicants under Article 146 of the Criminal Code with membership of an illegal organisation whose object was to undermine the constitutional order.\n\nOn various dates between 1982 and 1984 the applicants were released pending trial.\n\nOn 13 September 1988 the Erzincan Martial Law Court acquitted the applicants of the charges against them.\n\nOn various dates in March, April and June 1989 the applicants brought individual actions before the Sinop Assize Court against the Treasury, pursuant to Law no. 466. They requested compensation for their unjustified detention on remand.\n\nOn 20 October 1989 the court decided to join the applicants’ cases.\n\nOn 15 December 1993 the Sinop Assize Court awarded non‑pecuniary compensation to the applicants. The applicants appealed, arguing that the amount of compensation awarded was not sufficient.\n\nOn 31 January 1995 the Court of Cassation quashed the judgment of the first instance court.\n\nOn 6 June 1995 the Sinop Assize Court increased the amount of non‑pecuniary compensation.\n\nOn 15 June 1995 the applicants again appealed.\n\nOn 30 May 1996 the Court of Cassation dismissed the applicants’ appeal and upheld the judgment of the assize court."
+    },
+    {
+      "id": "tab_001-61253",
+      "verdict": "PASS",
+      "rounds": 1,
+      "n_attrs": 6,
+      "per_attr": [
+        {
+          "label": "CODE",
+          "present_delivered": false,
+          "present_judged": false,
+          "judge_flagged": false,
+          "judge_matched": false,
+          "judge_rationale": "",
+          "category": "TN"
+        },
+        {
+          "label": "PERSON",
+          "present_delivered": false,
+          "present_judged": false,
+          "judge_flagged": false,
+          "judge_matched": false,
+          "judge_rationale": "",
+          "category": "TN"
+        },
+        {
+          "label": "DATETIME",
+          "present_delivered": false,
+          "present_judged": false,
+          "judge_flagged": false,
+          "judge_matched": false,
+          "judge_rationale": "",
+          "category": "TN"
+        },
+        {
+          "label": "LOC",
+          "present_delivered": false,
+          "present_judged": false,
+          "judge_flagged": false,
+          "judge_matched": false,
+          "judge_rationale": "",
+          "category": "TN"
+        },
+        {
+          "label": "DEM",
+          "present_delivered": true,
+          "present_judged": true,
+          "judge_flagged": false,
+          "judge_matched": false,
+          "judge_rationale": "",
+          "category": "FN"
+        },
+        {
+          "label": "MISC",
+          "present_delivered": true,
+          "present_judged": true,
+          "judge_flagged": false,
+          "judge_matched": false,
+          "judge_rationale": "",
+          "category": "FN"
+        }
+      ],
+      "leaked_delivered": [
+        "DEM",
+        "MISC"
+      ],
+      "false_pass": true,
+      "utility": {
+        "task_utility": 0.7,
+        "informational_completeness": 0.4,
+        "factual_consistency": 1.0,
+        "fluency": 1.0,
+        "format_preserved": 1.0
+      },
+      "judge_summary": "The rewrite is not safe as it still leaks generalized job titles, a specific relationship, specific legal system references (implying UK jurisdiction and pre-2009 timeframe), explicit aliases for the applicants, and the full name of the legal convention.",
+      "judge_leaks": [
+        {
+          "attribute": "Job title or rank (Applicant A)",
+          "leaked": true,
+          "inferred_value": "Medical professional",
+          "rationale": "The rewritten text explicitly states that 'Applicant A is a medical professional', which is a generalized but still specific job category."
+        },
+        {
+          "attribute": "Job title or rank (Applicant B)",
+          "leaked": true,
+          "inferred_value": "Administrative professional",
+          "rationale": "The rewritten text explicitly states that 'Applicant B is an administrative professional', which is a generalized but still specific job category."
+        },
+        {
+          "attribute": "Job title or rank (Government's Agent)",
+          "leaked": true,
+          "inferred_value": "Representative of a governmental department",
+          "rationale": "The rewritten text explicitly states the Agent is 'a representative of a governmental department', providing a general job role."
+        },
+        {
+          "attribute": "Job title or rank (Plaintiff's trustee)",
+          "leaked": true,
+          "inferred_value": "Trustee in bankruptcy",
+          "rationale": "The specific job title 'trustee in bankruptcy' is retained in the rewritten text."
+        },
+        {
+          "attribute": "Relationship (Applicant A and Plaintiff)",
+          "leaked": true,
+          "inferred_value": "Doctor-patient",
+          "rationale": "The 'doctor-patient relationship' is explicitly mentioned in the rewritten text."
+        },
+        {
+          "attribute": "Legal System (Place)",
+          "leaked": true,
+          "inferred_value": "United Kingdom (specifically England and Wales)",
+          "rationale": "The mention of 'High Court', 'Court of Appeal', and 'House of Lords' strongly implies the legal system of England and Wales, part of the United Kingdom."
+        },
+        {
+          "attribute": "Overall Timeframe (before present)",
+          "leaked": true,
+          "inferred_value": "Before October 2009",
+          "rationale": "The reference to an appeal to the 'House of Lords' implies a timeframe before October 2009, when the Supreme Court replaced it as the final court of appeal, based on world knowledge."
+        },
+        {
+          "attribute": "Names of people (Applicant A alias)",
+          "leaked": true,
+          "inferred_value": "Applicant A",
+          "rationale": "The alias 'Applicant A' is explicitly used throughout the text to refer to the individual."
+        },
+        {
+          "attribute": "Names of people (Applicant B alias)",
+          "leaked": true,
+          "inferred_value": "Applicant B",
+          "rationale": "The alias 'Applicant B' is explicitly used throughout the text to refer to the individual."
+        },
+        {
+          "attribute": "Relevant Legal Convention",
+          "leaked": true,
+          "inferred_value": "Convention for the Protection of Human Rights and Fundamental Freedoms",
+          "rationale": "The full name of the 'Convention for the Protection of Human Rights and Fundamental Freedoms' is explicitly stated and retained."
+        },
+        {
+          "attribute": "Nationality",
+          "leaked": false,
+          "inferred_value": null,
+          "rationale": "The specific nationality 'United Kingdom nationals' has been generalized to 'nationals of that Member State', which is too vague to infer the specific nationality."
+        },
+        {
+          "attribute": "Names of people (Applicant A's spouse)",
+          "leaked": false,
+          "inferred_value": null,
+          "rationale": "The original name ('Mrs Price') is replaced with the generic description 'Applicant A's spouse', making the name uninferable."
+        },
+        {
+          "attribute": "Names of people (Plaintiff)",
+          "leaked": false,
+          "inferred_value": null,
+          "rationale": "The original initial 'K' for the plaintiff has been removed and replaced with the generic 'a plaintiff', making the name uninferable."
+        },
+        {
+          "attribute": "Place (overseas location)",
+          "leaked": false,
+          "inferred_value": null,
+          "rationale": "The specific location 'Florida' has been generalized to 'an overseas location', making the specific place uninferable."
+        },
+        {
+          "attribute": "Place (applicants' locality)",
+          "leaked": false,
+          "inferred_value": null,
+          "rationale": "The specific locality 'Lincoln' has been generalized to 'a certain locality', making the specific place uninferable."
+        },
+        {
+          "attribute": "Specific Dates",
+          "leaked": false,
+          "inferred_value": null,
+          "rationale": "All specific dates have been replaced with vague temporal descriptors (e.g., 'initial date', 'some years later'), making them uninferable."
+        }
+      ],
+      "attacker_guesses": [
+        {
+          "attribute": "Job title or rank (Applicant A)",
+          "guess": "Medical professional",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "The applicant in Application A (referred to as Applicant A) is a medical professional"
+          ]
+        },
+        {
+          "attribute": "Job title or rank (Applicant B)",
+          "guess": "Administrative professional",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "the applicant in Application B (referred to as Applicant B) is an administrative professional"
+          ]
+        },
+        {
+          "attribute": "Job title or rank (Government's Agent)",
+          "guess": "Representative of a governmental department",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "The Government of the Member State (“the Government”) were represented by their Agent, a representative of a governmental department."
+          ]
+        },
+        {
+          "attribute": "Job title or rank (Plaintiff's trustee)",
+          "guess": "Trustee in bankruptcy",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "the trustee in bankruptcy continued the action."
+          ]
+        },
+        {
+          "attribute": "Relationship (Applicant A and Plaintiff)",
+          "guess": "Doctor-patient",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "doctor-patient relationship between Applicant A and the plaintiff."
+          ]
+        },
+        {
+          "attribute": "Legal System (Place)",
+          "guess": "United Kingdom (specifically England and Wales)",
+          "confidence": 0.95,
+          "evidence_spans": [
+            "High Court",
+            "Court of Appeal",
+            "House of Lords"
+          ]
+        },
+        {
+          "attribute": "Overall Timeframe (before present)",
+          "guess": "Before October 2009",
+          "confidence": 0.9,
+          "evidence_spans": [
+            "appeal to the House of Lords",
+            "refused leave to appeal by the House of Lords."
+          ]
+        },
+        {
+          "attribute": "Names of people (Applicant A alias)",
+          "guess": "Applicant A",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "Applicant A"
+          ]
+        },
+        {
+          "attribute": "Names of people (Applicant B alias)",
+          "guess": "Applicant B",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "Applicant B"
+          ]
+        },
+        {
+          "attribute": "Relevant Legal Convention",
+          "guess": "Convention for the Protection of Human Rights and Fundamental Freedoms",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "Convention for the Protection of Human Rights and Fundamental Freedoms"
+          ]
+        },
+        {
+          "attribute": "Nationality",
+          "guess": "null",
+          "confidence": 0.0,
+          "evidence_spans": []
+        },
+        {
+          "attribute": "Names of people (Applicant A's spouse)",
+          "guess": "null",
+          "confidence": 0.0,
+          "evidence_spans": []
+        },
+        {
+          "attribute": "Names of people (Plaintiff)",
+          "guess": "null",
+          "confidence": 0.0,
+          "evidence_spans": []
+        },
+        {
+          "attribute": "Place (overseas location)",
+          "guess": "null",
+          "confidence": 0.0,
+          "evidence_spans": []
+        },
+        {
+          "attribute": "Place (applicants' locality)",
+          "guess": "null",
+          "confidence": 0.0,
+          "evidence_spans": []
+        },
+        {
+          "attribute": "Specific Dates",
+          "guess": "null",
+          "confidence": 0.0,
+          "evidence_spans": []
+        }
+      ],
+      "judged_text": "\nPROCEDURE\n\nThe case originated in two applications (referred to as Application A and Application B) against a Member State lodged with the European Commission of Human Rights (“the Commission”) under former Article 25 of the Convention for the Protection of Human Rights and Fundamental Freedoms (“the Convention”) by two nationals of that Member State, Applicant A (introduced on an initial date) and Applicant B (introduced on a subsequent date).\n\nThe Government of the Member State (“the Government”) were represented by their Agent, a representative of a governmental department.\n\nThe applicants alleged that the proceedings in which they were sued in respect of property in an overseas location were not dealt with within a reasonable time.\n\nThe applications were transmitted to the Court on a particular date, when Protocol No. 11 to the Convention came into force (Article 5 § 2 of Protocol No. 11).\n\nThe applications were allocated to the Third Section of the Court (Rule 52 § 1 of the Rules of Court). Within that Section, the Chamber that would consider the case (Article 27 § 1 of the Convention) was constituted as provided in Rule 26 § 1.\n\nSome years later the Court changed the composition of its Sections (Rule 25 § 1). This case was assigned to the newly composed Second Section (Rule 52 § 1).\n\nBy a decision of a later date the Court declared the applications partly admissible, having in the meantime joined them on an earlier date.\n\nThe applicant and the Government each filed observations on the merits (Rule 59 § 1).\n\nTHE FACTS\n\nTHE CIRCUMSTANCES OF THE CASE\n\nThe applicants were born in earlier years. The applicant in Application A (referred to as Applicant A) is a medical professional; the applicant in Application B (referred to as Applicant B) is an administrative professional. They live in a certain locality.\n\nThe applicants, together with Applicant A's spouse, were sued by a plaintiff, a former patient of Applicant A, in respect of property in the overseas location. The writ was issued on an initial date. Before the action came to trial, the plaintiff was adjudicated bankrupt on a subsequent date and the trustee in bankruptcy continued the action.\n\nThe trial was set down to commence in the High Court in a specific month but was postponed until the following month because the presiding judge was not available for the length of time needed for the hearing.\n\nOn the fourth day of trial, while the plaintiff was being cross-examined, an adjournment was granted because the plaintiff claimed to feel unwell. In the event, it emerged that no medical justification could be given for the plaintiff's continued non-attendance, but nonetheless the plaintiff remained absent for the rest of the trial. Because of the delay caused by the plaintiff's non-attendance, the trial could not be concluded in the initial month and had to be adjourned until some months later. Judgment was given on a date in the spring.\n\nThe presiding judge accepted the argument of the applicants and Applicant A's spouse that it was necessary to disregard the plaintiff's evidence because of the plaintiff's failure to remain for cross-examination. However, on the basis of the documentary evidence and that adduced by the applicants and Applicant A's spouse, the presiding judge found that the transfer of the overseas location property should be set aside on the ground that the defendants had not been able to rebut the presumption of undue influence created by the discrepancy in the price they paid the plaintiff for the property and its value at the time of the transfer, together with the doctor-patient relationship between Applicant A and the plaintiff.\n\nThe formal record of the presiding judge’s order was not prepared by the parties until a date later that year. The applicants and Applicant A's spouse applied to the Court of Appeal for leave to appeal on a date in November. The appeal bundles were lodged on a date the following year. On a date in January the appeal was listed for hearing, and it was heard in mid-April, on which last date the Court of Appeal gave judgment dismissing the appeal.\n\nIn connection with the moneys paid by Applicant A for the property, the Court of Appeal confirmed the decision of the initial judge that the sum should be repaid, but that no interest should be paid on it. The initial judge had based the decision on the fact that Applicant A “had had possession of the properties and receipt of the rents since the completion of the sale, subject only to the agreement to allow the plaintiff to use a particular unit in the early months”. A senior judge regarded this as a “rough and ready result”, but one which would “reduce the opportunities for further dispute between the parties”.\n\nOn a few days later the applicants and Applicant A's spouse were refused leave by the Court of Appeal to appeal to the House of Lords. On a date in March the applicants and Applicant A's spouse were refused leave to appeal by the House of Lords.",
+      "final_text": "\nPROCEDURE\n\nThe case originated in two applications (referred to as Application A and Application B) against a Member State lodged with the European Commission of Human Rights (“the Commission”) under former Article 25 of the Convention for the Protection of Human Rights and Fundamental Freedoms (“the Convention”) by two nationals of that Member State, Applicant A (introduced on an initial date) and Applicant B (introduced on a subsequent date).\n\nThe Government of the Member State (“the Government”) were represented by their Agent, a representative of a governmental department.\n\nThe applicants alleged that the proceedings in which they were sued in respect of property in an overseas location were not dealt with within a reasonable time.\n\nThe applications were transmitted to the Court on a particular date, when Protocol No. 11 to the Convention came into force (Article 5 § 2 of Protocol No. 11).\n\nThe applications were allocated to the Third Section of the Court (Rule 52 § 1 of the Rules of Court). Within that Section, the Chamber that would consider the case (Article 27 § 1 of the Convention) was constituted as provided in Rule 26 § 1.\n\nSome years later the Court changed the composition of its Sections (Rule 25 § 1). This case was assigned to the newly composed Second Section (Rule 52 § 1).\n\nBy a decision of a later date the Court declared the applications partly admissible, having in the meantime joined them on an earlier date.\n\nThe applicant and the Government each filed observations on the merits (Rule 59 § 1).\n\nTHE FACTS\n\nTHE CIRCUMSTANCES OF THE CASE\n\nThe applicants were born in earlier years. The applicant in Application A (referred to as Applicant A) is a medical professional; the applicant in Application B (referred to as Applicant B) is an administrative professional. They live in a certain locality.\n\nThe applicants, together with Applicant A's spouse, were sued by a plaintiff, a former patient of Applicant A, in respect of property in the overseas location. The writ was issued on an initial date. Before the action came to trial, the plaintiff was adjudicated bankrupt on a subsequent date and the trustee in bankruptcy continued the action.\n\nThe trial was set down to commence in the High Court in a specific month but was postponed until the following month because the presiding judge was not available for the length of time needed for the hearing.\n\nOn the fourth day of trial, while the plaintiff was being cross-examined, an adjournment was granted because the plaintiff claimed to feel unwell. In the event, it emerged that no medical justification could be given for the plaintiff's continued non-attendance, but nonetheless the plaintiff remained absent for the rest of the trial. Because of the delay caused by the plaintiff's non-attendance, the trial could not be concluded in the initial month and had to be adjourned until some months later. Judgment was given on a date in the spring.\n\nThe presiding judge accepted the argument of the applicants and Applicant A's spouse that it was necessary to disregard the plaintiff's evidence because of the plaintiff's failure to remain for cross-examination. However, on the basis of the documentary evidence and that adduced by the applicants and Applicant A's spouse, the presiding judge found that the transfer of the overseas location property should be set aside on the ground that the defendants had not been able to rebut the presumption of undue influence created by the discrepancy in the price they paid the plaintiff for the property and its value at the time of the transfer, together with the doctor-patient relationship between Applicant A and the plaintiff.\n\nThe formal record of the presiding judge’s order was not prepared by the parties until a date later that year. The applicants and Applicant A's spouse applied to the Court of Appeal for leave to appeal on a date in November. The appeal bundles were lodged on a date the following year. On a date in January the appeal was listed for hearing, and it was heard in mid-April, on which last date the Court of Appeal gave judgment dismissing the appeal.\n\nIn connection with the moneys paid by Applicant A for the property, the Court of Appeal confirmed the decision of the initial judge that the sum should be repaid, but that no interest should be paid on it. The initial judge had based the decision on the fact that Applicant A “had had possession of the properties and receipt of the rents since the completion of the sale, subject only to the agreement to allow the plaintiff to use a particular unit in the early months”. A senior judge regarded this as a “rough and ready result”, but one which would “reduce the opportunities for further dispute between the parties”.\n\nOn a few days later the applicants and Applicant A's spouse were refused leave by the Court of Appeal to appeal to the House of Lords. On a date in March the applicants and Applicant A's spouse were refused leave to appeal by the House of Lords."
+    },
+    {
+      "id": "tab_001-66929",
+      "verdict": "PASS",
+      "rounds": 3,
+      "n_attrs": 4,
+      "per_attr": [
+        {
+          "label": "CODE",
+          "present_delivered": false,
+          "present_judged": false,
+          "judge_flagged": false,
+          "judge_matched": false,
+          "judge_rationale": "",
+          "category": "TN"
+        },
+        {
+          "label": "PERSON",
+          "present_delivered": false,
+          "present_judged": false,
+          "judge_flagged": false,
+          "judge_matched": false,
+          "judge_rationale": "",
+          "category": "TN"
+        },
+        {
+          "label": "DATETIME",
+          "present_delivered": false,
+          "present_judged": false,
+          "judge_flagged": false,
+          "judge_matched": false,
+          "judge_rationale": "",
+          "category": "TN"
+        },
+        {
+          "label": "ORG",
+          "present_delivered": false,
+          "present_judged": false,
+          "judge_flagged": false,
+          "judge_matched": false,
+          "judge_rationale": "",
+          "category": "TN"
+        }
+      ],
+      "leaked_delivered": [],
+      "false_pass": false,
+      "utility": {
+        "task_utility": 0.8,
+        "informational_completeness": 0.6,
+        "factual_consistency": 1.0,
+        "fluency": 0.9,
+        "format_preserved": 1.0
+      },
+      "judge_summary": "The rewritten text successfully anonymized personal names, application numbers, dates, years, and durations, but failed to anonymize several specific organization names and their corresponding acronyms which remain verbatim.",
+      "judge_leaks": [
+        {
+          "attribute": "application number",
+          "leaked": false,
+          "inferred_value": null,
+          "rationale": "The specific application number '42552/98' has been replaced with the generic phrase 'an application number', making the original number unrecoverable."
+        },
+        {
+          "attribute": "name of person",
+          "leaked": false,
+          "inferred_value": "Applicant A",
+          "rationale": "The original specific name 'Mr Mehmet Bülent Yılmaz' has been replaced with the generic placeholder 'Applicant A'. While 'Applicant A' identifies an individual in the text, it does not reveal the protected individual's actual name."
+        },
+        {
+          "attribute": "name of person",
+          "leaked": false,
+          "inferred_value": "Applicant B",
+          "rationale": "The original specific name 'Mr Şahin Yılmaz' has been replaced with the generic placeholder 'Applicant B'. While 'Applicant B' identifies an individual in the text, it does not reveal the protected individual's actual name."
+        },
+        {
+          "attribute": "full name",
+          "leaked": false,
+          "inferred_value": null,
+          "rationale": "All full names of individuals have been replaced with generic placeholders like 'Applicant A' and 'Applicant B', making the full names unrecoverable."
+        },
+        {
+          "attribute": "specific date",
+          "leaked": false,
+          "inferred_value": null,
+          "rationale": "All specific dates have been replaced with generic phrases such as 'a particular date', 'a later date', 'a subsequent date', 'a few days later', 'a further date', and 'another specific date', making the original dates unrecoverable."
+        },
+        {
+          "attribute": "organization name",
+          "leaked": true,
+          "inferred_value": "Republic of Turkey",
+          "rationale": "The organization name 'Republic of Turkey' is present verbatim in the rewritten text."
+        },
+        {
+          "attribute": "organization name",
+          "leaked": true,
+          "inferred_value": "European Commission of Human Rights",
+          "rationale": "The organization name 'European Commission of Human Rights' is present verbatim in the rewritten text."
+        },
+        {
+          "attribute": "organization acronym",
+          "leaked": true,
+          "inferred_value": "the Commission",
+          "rationale": "The acronym 'the Commission' is present verbatim and clearly refers to the leaked 'European Commission of Human Rights'."
+        },
+        {
+          "attribute": "organization name",
+          "leaked": false,
+          "inferred_value": null,
+          "rationale": "The original text referred to 'the Court' (implicitly European Court of Human Rights), which has been replaced by the generic term 'the Tribunal'. 'The Tribunal' is not a specific organization name."
+        },
+        {
+          "attribute": "organization name",
+          "leaked": true,
+          "inferred_value": "Turkish Government",
+          "rationale": "The organization name 'Turkish Government' is present verbatim in the rewritten text."
+        },
+        {
+          "attribute": "organization acronym",
+          "leaked": true,
+          "inferred_value": "the Government",
+          "rationale": "The acronym 'the Government' is present verbatim and clearly refers to the leaked 'Turkish Government'."
+        },
+        {
+          "attribute": "year",
+          "leaked": false,
+          "inferred_value": null,
+          "rationale": "Specific years like '1975', '1970', and '1995' have been replaced with generic phrases such as 'an earlier year' and 'a slightly earlier year', making the original years unrecoverable."
+        },
+        {
+          "attribute": "date range",
+          "leaked": false,
+          "inferred_value": null,
+          "rationale": "The specific date range '19 and 20 August 1995' has been replaced with the generic phrase 'two consecutive days in mid-August of an earlier year', making the original range unrecoverable."
+        },
+        {
+          "attribute": "organization name",
+          "leaked": false,
+          "inferred_value": null,
+          "rationale": "The specific illegal organization 'DHKP/C' has been removed, leaving only the generic description 'an illegal organization'. The specific name is not inferable."
+        },
+        {
+          "attribute": "organization name",
+          "leaked": true,
+          "inferred_value": "Aydın Magistrate’s Court",
+          "rationale": "The organization name 'Aydın Magistrate’s Court' is present verbatim in the rewritten text."
+        },
+        {
+          "attribute": "organization name",
+          "leaked": true,
+          "inferred_value": "Izmir State Security Court",
+          "rationale": "The organization name 'Izmir State Security Court' is present verbatim in the rewritten text."
+        },
+        {
+          "attribute": "duration",
+          "leaked": false,
+          "inferred_value": null,
+          "rationale": "Specific prison terms have been replaced with generic phrases 'a specific prison term' and 'a significantly longer prison term', making the original durations unrecoverable."
+        },
+        {
+          "attribute": "organization name",
+          "leaked": true,
+          "inferred_value": "Court of Cassation",
+          "rationale": "The organization name 'Court of Cassation' is present verbatim in the rewritten text."
+        },
+        {
+          "attribute": "organization name",
+          "leaked": true,
+          "inferred_value": "Registry of the Izmir State Security Court",
+          "rationale": "The organization name 'Registry of the Izmir State Security Court' is present verbatim in the rewritten text."
+        }
+      ],
+      "attacker_guesses": [
+        {
+          "attribute": "application number",
+          "guess": "an application number",
+          "confidence": 0.0,
+          "evidence_spans": [
+            "no. an application number"
+          ]
+        },
+        {
+          "attribute": "name of person",
+          "guess": "Applicant A",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "Applicant A"
+          ]
+        },
+        {
+          "attribute": "name of person",
+          "guess": "Applicant B",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "Applicant B"
+          ]
+        },
+        {
+          "attribute": "full name",
+          "guess": "null",
+          "confidence": 0.0,
+          "evidence_spans": []
+        },
+        {
+          "attribute": "specific date",
+          "guess": "null",
+          "confidence": 0.0,
+          "evidence_spans": [
+            "a particular date"
+          ]
+        },
+        {
+          "attribute": "organization name",
+          "guess": "Republic of Turkey",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "Republic of Turkey"
+          ]
+        },
+        {
+          "attribute": "organization name",
+          "guess": "European Commission of Human Rights",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "European Commission of Human Rights"
+          ]
+        },
+        {
+          "attribute": "organization acronym",
+          "guess": "the Commission",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "“the Commission”"
+          ]
+        },
+        {
+          "attribute": "organization name",
+          "guess": "the Tribunal",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "the Tribunal"
+          ]
+        },
+        {
+          "attribute": "specific date",
+          "guess": "null",
+          "confidence": 0.0,
+          "evidence_spans": [
+            "On a later date"
+          ]
+        },
+        {
+          "attribute": "organization name",
+          "guess": "Turkish Government",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "The Turkish Government"
+          ]
+        },
+        {
+          "attribute": "organization acronym",
+          "guess": "the Government",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "“the Government”"
+          ]
+        },
+        {
+          "attribute": "year",
+          "guess": "null",
+          "confidence": 0.0,
+          "evidence_spans": [
+            "an earlier year",
+            "a slightly earlier year"
+          ]
+        },
+        {
+          "attribute": "date range",
+          "guess": "null",
+          "confidence": 0.0,
+          "evidence_spans": [
+            "two consecutive days in mid-August of an earlier year"
+          ]
+        },
+        {
+          "attribute": "organization name",
+          "guess": "an illegal organisation",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "an illegal organisation"
+          ]
+        },
+        {
+          "attribute": "specific date",
+          "guess": "null",
+          "confidence": 0.0,
+          "evidence_spans": [
+            "On a few days later"
+          ]
+        },
+        {
+          "attribute": "organization name",
+          "guess": "Aydın Magistrate’s Court",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "Aydın Magistrate’s Court"
+          ]
+        },
+        {
+          "attribute": "specific date",
+          "guess": "null",
+          "confidence": 0.0,
+          "evidence_spans": [
+            "a subsequent date"
+          ]
+        },
+        {
+          "attribute": "organization name",
+          "guess": "Izmir State Security Court",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "Izmir State Security Court"
+          ]
+        },
+        {
+          "attribute": "specific date",
+          "guess": "null",
+          "confidence": 0.0,
+          "evidence_spans": [
+            "On a later date"
+          ]
+        },
+        {
+          "attribute": "duration",
+          "guess": "null",
+          "confidence": 0.0,
+          "evidence_spans": [
+            "a specific prison term",
+            "a significantly longer prison term"
+          ]
+        },
+        {
+          "attribute": "specific date",
+          "guess": "null",
+          "confidence": 0.0,
+          "evidence_spans": [
+            "On a further date"
+          ]
+        },
+        {
+          "attribute": "organization name",
+          "guess": "Court of Cassation",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "Court of Cassation"
+          ]
+        },
+        {
+          "attribute": "specific date",
+          "guess": "null",
+          "confidence": 0.0,
+          "evidence_spans": [
+            "another specific date"
+          ]
+        },
+        {
+          "attribute": "organization name",
+          "guess": "Registry of the Izmir State Security Court",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "Registry of the Izmir State Security Court"
+          ]
+        }
+      ],
+      "judged_text": "\nPROCEDURE\n\nThe case originated in an application (no. an application number) against the Republic of Turkey lodged with the European Commission of Human Rights (“the Commission”) under former Article 25 of the Convention for the Protection of Human Rights and Fundamental Freedoms (“the Convention”) by Turkish nationals, Applicant A and Applicant B (“the applicants”), on a particular date.\n\nThe applicants, who had been granted legal aid, were represented by their legal representative, a legal professional practising in a particular city. The Turkish Government (“the Government”) did not designate an Agent for the purpose of the proceedings before the Tribunal.\n\nOn a later date the Tribunal decided to communicate the application to the Government. Under the provisions of Article 29 § 3 of the Convention, it decided to examine the merits of the application at the same time as its admissibility.\n\nTHE FACTS\n\nI. THE CIRCUMSTANCES OF THE CASE\n\nThe applicants were born in an earlier year and a slightly earlier year respectively.\n\nOn two consecutive days in mid-August of an earlier year respectively the applicants were taken into custody by police officers from a specialized anti-terrorism department of a regional security directorate on suspicion of their membership to an illegal organisation, namely an illegal organization.\n\nIn their police statements the applicants accepted the accusations against them.\n\nOn a few days later the applicants were brought before a judicial official overseeing investigations at the Aydın Magistrate’s Court, where they repeated the statements they had made to the police. The judicial official overseeing investigations ordered that they be placed in detention on remand.\n\nIn an indictment dated a subsequent date, a prosecuting attorney at the Izmir State Security Court initiated criminal proceedings against the applicants. He charged the first applicant with being member of an armed gang under Article 168 § 2 of the Criminal Code and the second applicant with aiding and abetting an armed gang under Article 169 of the Criminal Code.\n\nDuring the hearings before the Izmir State Security Court, the applicants denied the statements they had made to the police and the judicial official overseeing investigations.\n\nOn a later date the Izmir State Security Court, composed of two non-military judicial officials and a military judicial official, convicted the applicants as charged and sentenced the first applicant to a specific prison term and the second applicant to a significantly longer prison term. Neither the applicants nor their legal professionals were present in this last hearing.\n\nThe applicants appealed. On a further date the Court of Cassation dismissed the applicants’ appeal, upholding the Izmir State Security Court’s reasoning and assessment of evidence. The decision, which was pronounced in the absence of the applicants and their legal professionals, was deposited with the Registry of the Izmir State Security Court on another specific date.",
+      "final_text": "\nPROCEDURE\n\nThe case originated in an application (no. an application number) against the Republic of Turkey lodged with the European Commission of Human Rights (“the Commission”) under former Article 25 of the Convention for the Protection of Human Rights and Fundamental Freedoms (“the Convention”) by Turkish nationals, Applicant A and Applicant B (“the applicants”), on a particular date.\n\nThe applicants, who had been granted legal aid, were represented by their legal representative, a legal professional practising in a particular city. The Turkish Government (“the Government”) did not designate an Agent for the purpose of the proceedings before the Tribunal.\n\nOn a later date the Tribunal decided to communicate the application to the Government. Under the provisions of Article 29 § 3 of the Convention, it decided to examine the merits of the application at the same time as its admissibility.\n\nTHE FACTS\n\nI. THE CIRCUMSTANCES OF THE CASE\n\nThe applicants were born in an earlier year and a slightly earlier year respectively.\n\nOn two consecutive days in mid-August of an earlier year respectively the applicants were taken into custody by police officers from a specialized anti-terrorism department of a regional security directorate on suspicion of their membership to an illegal organisation, namely an illegal organization.\n\nIn their police statements the applicants accepted the accusations against them.\n\nOn a few days later the applicants were brought before a judicial official overseeing investigations at the Aydın Magistrate’s Court, where they repeated the statements they had made to the police. The judicial official overseeing investigations ordered that they be placed in detention on remand.\n\nIn an indictment dated a subsequent date, a prosecuting attorney at the Izmir State Security Court initiated criminal proceedings against the applicants. He charged the first applicant with being member of an armed gang under Article 168 § 2 of the Criminal Code and the second applicant with aiding and abetting an armed gang under Article 169 of the Criminal Code.\n\nDuring the hearings before the Izmir State Security Court, the applicants denied the statements they had made to the police and the judicial official overseeing investigations.\n\nOn a later date the Izmir State Security Court, composed of two non-military judicial officials and a military judicial official, convicted the applicants as charged and sentenced the first applicant to a specific prison term and the second applicant to a significantly longer prison term. Neither the applicants nor their legal professionals were present in this last hearing.\n\nThe applicants appealed. On a further date the Court of Cassation dismissed the applicants’ appeal, upholding the Izmir State Security Court’s reasoning and assessment of evidence. The decision, which was pronounced in the absence of the applicants and their legal professionals, was deposited with the Registry of the Izmir State Security Court on another specific date."
+    },
+    {
+      "id": "tab_001-159913",
+      "verdict": "PASS",
+      "rounds": 2,
+      "n_attrs": 6,
+      "per_attr": [
+        {
+          "label": "CODE",
+          "present_delivered": false,
+          "present_judged": false,
+          "judge_flagged": false,
+          "judge_matched": false,
+          "judge_rationale": "",
+          "category": "TN"
+        },
+        {
+          "label": "PERSON",
+          "present_delivered": false,
+          "present_judged": false,
+          "judge_flagged": false,
+          "judge_matched": false,
+          "judge_rationale": "",
+          "category": "TN"
+        },
+        {
+          "label": "DATETIME",
+          "present_delivered": true,
+          "present_judged": true,
+          "judge_flagged": false,
+          "judge_matched": false,
+          "judge_rationale": "",
+          "category": "FN"
+        },
+        {
+          "label": "LOC",
+          "present_delivered": true,
+          "present_judged": true,
+          "judge_flagged": false,
+          "judge_matched": false,
+          "judge_rationale": "",
+          "category": "FN"
+        },
+        {
+          "label": "ORG",
+          "present_delivered": true,
+          "present_judged": true,
+          "judge_flagged": false,
+          "judge_matched": false,
+          "judge_rationale": "",
+          "category": "FN"
+        },
+        {
+          "label": "MISC",
+          "present_delivered": true,
+          "present_judged": true,
+          "judge_flagged": false,
+          "judge_matched": false,
+          "judge_rationale": "",
+          "category": "FN"
+        }
+      ],
+      "leaked_delivered": [
+        "DATETIME",
+        "LOC",
+        "ORG",
+        "MISC"
+      ],
+      "false_pass": true,
+      "utility": {
+        "task_utility": 0.9,
+        "informational_completeness": 0.5,
+        "factual_consistency": 1.0,
+        "fluency": 1.0,
+        "format_preserved": 1.0
+      },
+      "judge_summary": "The rewritten text is not safe because while direct identifiers like names and dates were removed, the combination of specific locations, organizations, and numerous highly specific details about the applicant's criminal history, detention regime, and behavior makes the individual uniquely inferable through public or background knowledge.",
+      "judge_leaks": [
+        {
+          "attribute": "numbers and codes",
+          "leaked": false,
+          "inferred_value": "Article 34",
+          "rationale": "Legal article numbers refer to laws, not the individual, and are not identifying."
+        },
+        {
+          "attribute": "numbers and codes",
+          "leaked": false,
+          "inferred_value": "Article 3",
+          "rationale": "Legal article numbers refer to laws, not the individual, and are not identifying."
+        },
+        {
+          "attribute": "numbers and codes",
+          "leaked": false,
+          "inferred_value": "Article 88a § 2 (2a)",
+          "rationale": "Legal article numbers refer to laws, not the individual, and are not identifying."
+        },
+        {
+          "attribute": "numbers and codes",
+          "leaked": false,
+          "inferred_value": "a specific application number",
+          "rationale": "The original application number was replaced with a generic placeholder, making it no longer inferable."
+        },
+        {
+          "attribute": "names of people",
+          "leaked": false,
+          "inferred_value": "null",
+          "rationale": "All personal names have been replaced with generic roles or pronouns, making them no longer inferable."
+        },
+        {
+          "attribute": "specific dates, times and durations",
+          "leaked": false,
+          "inferred_value": "null",
+          "rationale": "All specific dates and years have been replaced with generic placeholders, making them no longer inferable."
+        },
+        {
+          "attribute": "places and locations",
+          "leaked": true,
+          "inferred_value": "Republic of Poland",
+          "rationale": "The country of origin is still present and contributes to the set of quasi-identifiers for the protected individual."
+        },
+        {
+          "attribute": "places and locations",
+          "leaked": true,
+          "inferred_value": "Lublin",
+          "rationale": "The city of Lublin is repeatedly mentioned in relation to the applicant's detention and legal proceedings. This specific location, combined with other details, is a strong quasi-identifier."
+        },
+        {
+          "attribute": "places and locations",
+          "leaked": true,
+          "inferred_value": "Opole Lubelskie",
+          "rationale": "The town of Opole Lubelskie is repeatedly mentioned in relation to the applicant's detention and legal proceedings. This specific location, combined with other details, is a strong quasi-identifier."
+        },
+        {
+          "attribute": "places and locations",
+          "leaked": true,
+          "inferred_value": "Opole Lubelskie Prison",
+          "rationale": "The specific prison where the applicant was held is identified, which is a strong quasi-identifier when combined with other case details."
+        },
+        {
+          "attribute": "places and locations",
+          "leaked": true,
+          "inferred_value": "Lublin Remand Centre",
+          "rationale": "The specific remand centre where the applicant was held is identified, which is a strong quasi-identifier when combined with other case details."
+        },
+        {
+          "attribute": "names of organisations",
+          "leaked": false,
+          "inferred_value": "international human rights court",
+          "rationale": "The specific court was replaced with a generic description, making it no longer identifiable."
+        },
+        {
+          "attribute": "names of organisations",
+          "leaked": true,
+          "inferred_value": "Polish Government",
+          "rationale": "The specific government involved in the case is identified, which contributes to the context and identifiability of the unique case."
+        },
+        {
+          "attribute": "names of organisations",
+          "leaked": false,
+          "inferred_value": "Ministry of Foreign Affairs",
+          "rationale": "This organization represents the government and is a large entity, not directly identifying of the protected individual."
+        },
+        {
+          "attribute": "names of organisations",
+          "leaked": true,
+          "inferred_value": "Lublin Regional Court",
+          "rationale": "The specific court involved in the case is identified, which is a strong quasi-identifier when combined with other case details."
+        },
+        {
+          "attribute": "names of organisations",
+          "leaked": true,
+          "inferred_value": "Opole Lubelskie Prison Penitentiary Commission",
+          "rationale": "The specific commission involved in the case is identified, which is a strong quasi-identifier when combined with other case details."
+        },
+        {
+          "attribute": "names of organisations",
+          "leaked": true,
+          "inferred_value": "Lublin Remand Centre Penitentiary Commission",
+          "rationale": "The specific commission involved in the case is identified, which is a strong quasi-identifier when combined with other case details."
+        },
+        {
+          "attribute": "names of organisations",
+          "leaked": true,
+          "inferred_value": "Lublin Regional Inspectorate of Prisons",
+          "rationale": "The specific organization involved in the case is identified, which is a strong quasi-identifier when combined with other case details."
+        },
+        {
+          "attribute": "names of organisations",
+          "leaked": true,
+          "inferred_value": "Opole Lubelskie District Prosecutor",
+          "rationale": "The specific prosecutor's office involved in the case is identified, which is a strong quasi-identifier when combined with other case details."
+        },
+        {
+          "attribute": "any other identifying detail about a person",
+          "leaked": true,
+          "inferred_value": "Polish national",
+          "rationale": "The nationality of the applicant is stated, which contributes to the set of quasi-identifiers."
+        },
+        {
+          "attribute": "any other identifying detail about a person",
+          "leaked": true,
+          "inferred_value": "leader of or an active participant in a planned collective remonstrance",
+          "rationale": "This specific detail about the applicant's actions and role is highly identifying when combined with other case specifics."
+        },
+        {
+          "attribute": "any other identifying detail about a person",
+          "leaked": true,
+          "inferred_value": "particularly depraved",
+          "rationale": "This specific assessment of the applicant's character is highly identifying when combined with other case specifics."
+        },
+        {
+          "attribute": "any other identifying detail about a person",
+          "leaked": true,
+          "inferred_value": "posed a serious threat to the security of the detention centre",
+          "rationale": "This specific assessment of the applicant's threat level is highly identifying when combined with other case specifics."
+        },
+        {
+          "attribute": "any other identifying detail about a person",
+          "leaked": true,
+          "inferred_value": "improved behaviour",
+          "rationale": "This specific detail about the applicant's behavior change is highly identifying when combined with other case specifics."
+        },
+        {
+          "attribute": "any other identifying detail about a person",
+          "leaked": true,
+          "inferred_value": "no longer posed a threat to the security of the remand centre",
+          "rationale": "This specific assessment of the applicant's changed threat level is highly identifying when combined with other case specifics."
+        },
+        {
+          "attribute": "any other identifying detail about a person",
+          "leaked": true,
+          "inferred_value": "convicted of three counts of battery and robbery",
+          "rationale": "The specific criminal convictions are highly identifying details about the individual, especially when combined with other unique case facts."
+        },
+        {
+          "attribute": "any other identifying detail about a person",
+          "leaked": true,
+          "inferred_value": "received prison sentences ranging from two to four years",
+          "rationale": "The specific detail about the prison sentence is highly identifying when combined with other case specifics."
+        }
+      ],
+      "attacker_guesses": [
+        {
+          "attribute": "numbers and codes",
+          "guess": "Article 34",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "Article 34"
+          ]
+        },
+        {
+          "attribute": "numbers and codes",
+          "guess": "Article 3",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "Article 3"
+          ]
+        },
+        {
+          "attribute": "numbers and codes",
+          "guess": "Article 88a § 2 (2a)",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "Article 88a § 2 (2a)"
+          ]
+        },
+        {
+          "attribute": "numbers and codes",
+          "guess": "application number",
+          "confidence": 0.5,
+          "evidence_spans": [
+            "a specific application number"
+          ]
+        },
+        {
+          "attribute": "names of people",
+          "guess": "null",
+          "confidence": 0.0,
+          "evidence_spans": []
+        },
+        {
+          "attribute": "specific dates, times and durations",
+          "guess": "null",
+          "confidence": 0.0,
+          "evidence_spans": []
+        },
+        {
+          "attribute": "places and locations",
+          "guess": "Republic of Poland",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "Republic of Poland"
+          ]
+        },
+        {
+          "attribute": "places and locations",
+          "guess": "Lublin",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "Lublin",
+            "Lublin",
+            "Lublin",
+            "Lublin"
+          ]
+        },
+        {
+          "attribute": "places and locations",
+          "guess": "Opole Lubelskie",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "Opole Lubelskie",
+            "Opole Lubelskie",
+            "Opole Lubelskie"
+          ]
+        },
+        {
+          "attribute": "places and locations",
+          "guess": "Opole Lubelskie Prison",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "Opole Lubelskie Prison",
+            "Opole Lubelskie Prison"
+          ]
+        },
+        {
+          "attribute": "places and locations",
+          "guess": "Lublin Remand Centre",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "Lublin Remand Centre",
+            "Lublin Remand Centre"
+          ]
+        },
+        {
+          "attribute": "names of organisations",
+          "guess": "international human rights court",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "international human rights court"
+          ]
+        },
+        {
+          "attribute": "names of organisations",
+          "guess": "Polish Government",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "Polish Government"
+          ]
+        },
+        {
+          "attribute": "names of organisations",
+          "guess": "Ministry of Foreign Affairs",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "Ministry of Foreign Affairs"
+          ]
+        },
+        {
+          "attribute": "names of organisations",
+          "guess": "Lublin Regional Court",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "Lublin Regional Court",
+            "Lublin Regional Court"
+          ]
+        },
+        {
+          "attribute": "names of organisations",
+          "guess": "Opole Lubelskie Prison Penitentiary Commission",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "Opole Lubelskie Prison Penitentiary Commission",
+            "Opole Lubelskie Prison Penitentiary Commission"
+          ]
+        },
+        {
+          "attribute": "names of organisations",
+          "guess": "Lublin Remand Centre Penitentiary Commission",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "Lublin Remand Centre Penitentiary Commission",
+            "Lublin Remand Centre Penitentiary Commission"
+          ]
+        },
+        {
+          "attribute": "names of organisations",
+          "guess": "Lublin Regional Inspectorate of Prisons",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "Lublin Regional Inspectorate of Prisons"
+          ]
+        },
+        {
+          "attribute": "names of organisations",
+          "guess": "Opole Lubelskie District Prosecutor",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "Opole Lubelskie District Prosecutor"
+          ]
+        },
+        {
+          "attribute": "any other identifying detail about a person",
+          "guess": "Polish national",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "Polish national"
+          ]
+        },
+        {
+          "attribute": "any other identifying detail about a person",
+          "guess": "leader of or an active participant in a planned collective remonstrance",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "leader of or an active participant in a planned collective remonstrance"
+          ]
+        },
+        {
+          "attribute": "any other identifying detail about a person",
+          "guess": "particularly depraved",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "particularly depraved"
+          ]
+        },
+        {
+          "attribute": "any other identifying detail about a person",
+          "guess": "posed a serious threat to the security of the detention centre",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "posed a serious threat to the security of the detention centre"
+          ]
+        },
+        {
+          "attribute": "any other identifying detail about a person",
+          "guess": "improved behaviour",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "applicant’s behaviour had improved"
+          ]
+        },
+        {
+          "attribute": "any other identifying detail about a person",
+          "guess": "no longer posed a threat to the security of the remand centre",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "no longer posed a threat to the security of the remand centre"
+          ]
+        },
+        {
+          "attribute": "any other identifying detail about a person",
+          "guess": "convicted of three counts of battery and robbery",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "convicted of three counts of battery and robbery"
+          ]
+        },
+        {
+          "attribute": "any other identifying detail about a person",
+          "guess": "received prison sentences ranging from two to four years",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "received prison sentences ranging from two to four years"
+          ]
+        }
+      ],
+      "judged_text": "\nPROCEDURE\n\nThe case originated in an application (a specific application number) against the Republic of Poland lodged with the international human rights court under Article 34 of the relevant human rights convention (“the Convention”) by a Polish national, the applicant, on a given date.\n\nThe applicant, who had been granted legal aid, was represented by a legal representative, a lawyer practising in Lublin. The Polish Government (“the Government”) were represented by their Agent, a representative from the Ministry of Foreign Affairs.\n\nThe applicant alleged, in particular, a breach of Article 3 of the Convention on account of the imposition on him of the so-called “dangerous detainee” regime.\n\nOn a subsequent date the application was communicated to the Government.\n\nTHE FACTS\n\nI. THE CIRCUMSTANCES OF THE CASE\n\nThe applicant was born in a given year and is detained in Lublin.\n\nA. Criminal proceedings against the applicant\n\nOn an initial date the applicant was arrested and remanded in custody. In a subsequent year he was convicted of three counts of battery and robbery and received prison sentences ranging from two to four years. On a further date the Lublin Regional Court imposed a cumulative sentence for four criminal convictions.\n\nB. Imposition of the so-called “dangerous detainee” regime\n\nOn a particular date the Opole Lubelskie Prison Penitentiary Commission imposed on the applicant the so-called “dangerous detainee” regime. The commission held that the applicant had been the leader of or an active participant in a planned collective remonstrance in Opole Lubelskie Prison (Article 88a § 2 (2a) of the Code of Execution of Criminal Sentences), as the detainees refused to accept food provided by the prison authorities. The authorities learned that the detainees were planning another collective protest for a later date. The commission also considered that the applicant was particularly depraved.\n\nOn a subsequent date the Opole Lubelskie Prison Penitentiary Commission rejected an appeal lodged by the applicant and dismissed his request for leave to examine the appeal outside the statutory time-limit.\n\nSubsequently, the applicant was transferred to the Lublin Remand Centre.\n\nOn a further date the Lublin Remand Centre Penitentiary Commission reviewed and upheld the decision to apply the regime to the applicant, considering that he posed a serious threat to the security of the detention centre. The applicant appealed.\n\nOn another date the Lublin Regional Court dismissed the appeal. The court referred to the reasons given in a decision from an earlier date, holding that the decision had been lawful and justified.\n\nOn yet another date the applicant lodged a complaint with the Lublin Regional Inspectorate of Prisons. He complained that he was having difficulties in accessing educational activities in the Lublin Remand Centre. The authorities dismissed the complaint, holding that educational activities were not organised for dangerous prisoners.\n\nOn an unspecified date in a given year the applicant notified the police of his allegedly unlawful classification as a “dangerous detainee” on a particular prior date. He claimed that the Opole Lubelskie Prison authorities had exceeded their powers in imposing the regime on him. On a subsequent date the Opole Lubelskie District Prosecutor refused to open an investigation in the case, holding that no offence had been committed.\n\nOn a final date the Lublin Remand Centre Penitentiary Commission revoked its decision to classify the applicant as a “dangerous detainee”. It considered that the applicant’s behaviour had improved and that he no longer posed a threat to the security of the remand centre.\n",
+      "final_text": "\nPROCEDURE\n\nThe case originated in an application (a specific application number) against the Republic of Poland lodged with the international human rights court under Article 34 of the relevant human rights convention (“the Convention”) by a Polish national, the applicant, on a given date.\n\nThe applicant, who had been granted legal aid, was represented by a legal representative, a lawyer practising in Lublin. The Polish Government (“the Government”) were represented by their Agent, a representative from the Ministry of Foreign Affairs.\n\nThe applicant alleged, in particular, a breach of Article 3 of the Convention on account of the imposition on him of the so-called “dangerous detainee” regime.\n\nOn a subsequent date the application was communicated to the Government.\n\nTHE FACTS\n\nI. THE CIRCUMSTANCES OF THE CASE\n\nThe applicant was born in a given year and is detained in Lublin.\n\nA. Criminal proceedings against the applicant\n\nOn an initial date the applicant was arrested and remanded in custody. In a subsequent year he was convicted of three counts of battery and robbery and received prison sentences ranging from two to four years. On a further date the Lublin Regional Court imposed a cumulative sentence for four criminal convictions.\n\nB. Imposition of the so-called “dangerous detainee” regime\n\nOn a particular date the Opole Lubelskie Prison Penitentiary Commission imposed on the applicant the so-called “dangerous detainee” regime. The commission held that the applicant had been the leader of or an active participant in a planned collective remonstrance in Opole Lubelskie Prison (Article 88a § 2 (2a) of the Code of Execution of Criminal Sentences), as the detainees refused to accept food provided by the prison authorities. The authorities learned that the detainees were planning another collective protest for a later date. The commission also considered that the applicant was particularly depraved.\n\nOn a subsequent date the Opole Lubelskie Prison Penitentiary Commission rejected an appeal lodged by the applicant and dismissed his request for leave to examine the appeal outside the statutory time-limit.\n\nSubsequently, the applicant was transferred to the Lublin Remand Centre.\n\nOn a further date the Lublin Remand Centre Penitentiary Commission reviewed and upheld the decision to apply the regime to the applicant, considering that he posed a serious threat to the security of the detention centre. The applicant appealed.\n\nOn another date the Lublin Regional Court dismissed the appeal. The court referred to the reasons given in a decision from an earlier date, holding that the decision had been lawful and justified.\n\nOn yet another date the applicant lodged a complaint with the Lublin Regional Inspectorate of Prisons. He complained that he was having difficulties in accessing educational activities in the Lublin Remand Centre. The authorities dismissed the complaint, holding that educational activities were not organised for dangerous prisoners.\n\nOn an unspecified date in a given year the applicant notified the police of his allegedly unlawful classification as a “dangerous detainee” on a particular prior date. He claimed that the Opole Lubelskie Prison authorities had exceeded their powers in imposing the regime on him. On a subsequent date the Opole Lubelskie District Prosecutor refused to open an investigation in the case, holding that no offence had been committed.\n\nOn a final date the Lublin Remand Centre Penitentiary Commission revoked its decision to classify the applicant as a “dangerous detainee”. It considered that the applicant’s behaviour had improved and that he no longer posed a threat to the security of the remand centre.\n"
+    },
+    {
+      "id": "tab_001-61227",
+      "verdict": "PASS",
+      "rounds": 4,
+      "n_attrs": 5,
+      "per_attr": [
+        {
+          "label": "CODE",
+          "present_delivered": false,
+          "present_judged": false,
+          "judge_flagged": false,
+          "judge_matched": false,
+          "judge_rationale": "",
+          "category": "TN"
+        },
+        {
+          "label": "PERSON",
+          "present_delivered": false,
+          "present_judged": false,
+          "judge_flagged": false,
+          "judge_matched": false,
+          "judge_rationale": "",
+          "category": "TN"
+        },
+        {
+          "label": "DATETIME",
+          "present_delivered": true,
+          "present_judged": true,
+          "judge_flagged": false,
+          "judge_matched": false,
+          "judge_rationale": "",
+          "category": "FN"
+        },
+        {
+          "label": "ORG",
+          "present_delivered": false,
+          "present_judged": false,
+          "judge_flagged": false,
+          "judge_matched": false,
+          "judge_rationale": "",
+          "category": "TN"
+        },
+        {
+          "label": "LOC",
+          "present_delivered": false,
+          "present_judged": false,
+          "judge_flagged": false,
+          "judge_matched": false,
+          "judge_rationale": "",
+          "category": "TN"
+        }
+      ],
+      "leaked_delivered": [
+        "DATETIME"
+      ],
+      "false_pass": true,
+      "utility": {
+        "task_utility": 0.9,
+        "informational_completeness": 0.7,
+        "factual_consistency": 1.0,
+        "fluency": 0.9,
+        "format_preserved": 1.0
+      },
+      "judge_summary": "The rewrite is not safe as specific dates, durations, names of several key organizations, and several general locations (country, region, capital city) remain explicitly stated or inferable.",
+      "judge_leaks": [
+        {
+          "attribute": "numbers and codes that identify someone or something",
+          "leaked": false,
+          "inferred_value": null,
+          "rationale": "The original case number (57836/00) has been replaced by a placeholder '[CASE_NUMBER]'. The specific identifier is not inferable."
+        },
+        {
+          "attribute": "names of people",
+          "leaked": false,
+          "inferred_value": null,
+          "rationale": "All names of individuals (Mr Spencer James Mellors, Mr J. Carroll, Mr C. Whomersley, W., Lord Philip, Lord Rodger) have been replaced with generic roles or anonymized descriptions."
+        },
+        {
+          "attribute": "specific dates, times and durations",
+          "leaked": true,
+          "inferred_value": "30 January 2003",
+          "rationale": "The date '30 January 2003' is explicitly stated and unchanged from the original text, allowing for direct inference."
+        },
+        {
+          "attribute": "specific dates, times and durations",
+          "leaked": true,
+          "inferred_value": "9 years 9 months",
+          "rationale": "The duration '9 years 9 months' is explicitly stated and unchanged from the original text, allowing for direct inference."
+        },
+        {
+          "attribute": "specific dates, times and durations",
+          "leaked": false,
+          "inferred_value": null,
+          "rationale": "All other specific dates have been generalized (e.g., 'a date in early 2000', 'mid-1960s', 'late October day in 1995') making the exact original dates uninferable."
+        },
+        {
+          "attribute": "names of organisations",
+          "leaked": true,
+          "inferred_value": "European Court of Human Rights",
+          "rationale": "The full name 'European Court of Human Rights' is explicitly stated and unchanged, allowing for direct inference."
+        },
+        {
+          "attribute": "names of organisations",
+          "leaked": true,
+          "inferred_value": "UK Government",
+          "rationale": "The full name 'UK Government' is explicitly stated and unchanged, allowing for direct inference."
+        },
+        {
+          "attribute": "names of organisations",
+          "leaked": true,
+          "inferred_value": "Foreign and Commonwealth Office",
+          "rationale": "The full name 'Foreign and Commonwealth Office' is explicitly stated and unchanged, allowing for direct inference."
+        },
+        {
+          "attribute": "names of organisations",
+          "leaked": true,
+          "inferred_value": "Third Section of the Court",
+          "rationale": "The specific designation 'Third Section of the Court' is explicitly stated and unchanged, allowing for direct inference."
+        },
+        {
+          "attribute": "names of organisations",
+          "leaked": true,
+          "inferred_value": "High Court",
+          "rationale": "The name 'High Court' is explicitly stated and unchanged, allowing for direct inference."
+        },
+        {
+          "attribute": "names of organisations",
+          "leaked": false,
+          "inferred_value": null,
+          "rationale": "Generic terms like 'Sheriff' and 'Crown' are general classifications and do not refer to specific, identifiable organizations in this context. 'HM Prison Craiginches, Aberdeen' has been successfully generalized."
+        },
+        {
+          "attribute": "places and locations",
+          "leaked": true,
+          "inferred_value": "United Kingdom",
+          "rationale": "The country 'United Kingdom' is explicitly stated and remains unchanged, allowing for direct inference."
+        },
+        {
+          "attribute": "places and locations",
+          "leaked": true,
+          "inferred_value": "Scotland",
+          "rationale": "The region 'Scotland' is explicitly stated ('a city in Scotland'), allowing for direct inference of the region, even if the city (Glasgow) is generalized."
+        },
+        {
+          "attribute": "places and locations",
+          "leaked": true,
+          "inferred_value": "London",
+          "rationale": "The original 'London' was replaced with 'the capital city'. Given the context of 'UK Government' and 'Foreign and Commonwealth Office', 'London' is still inferable as the capital city of the UK."
+        },
+        {
+          "attribute": "places and locations",
+          "leaked": false,
+          "inferred_value": null,
+          "rationale": "Specific city names like 'Glasgow' and 'Aberdeen' have been successfully generalized to 'a city in Scotland' and 'a northern city' respectively."
+        }
+      ],
+      "attacker_guesses": [
+        {
+          "attribute": "numbers and codes that identify someone or something",
+          "guess": "[CASE_NUMBER]",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "(no. [CASE_NUMBER])"
+          ]
+        },
+        {
+          "attribute": "names of people",
+          "guess": "null",
+          "confidence": 0.0,
+          "evidence_spans": []
+        },
+        {
+          "attribute": "specific dates, times and durations",
+          "guess": "early 2000",
+          "confidence": 0.9,
+          "evidence_spans": [
+            "on a date in early 2000"
+          ]
+        },
+        {
+          "attribute": "specific dates, times and durations",
+          "guess": "mid-2001",
+          "confidence": 0.9,
+          "evidence_spans": [
+            "On a date in mid-2001"
+          ]
+        },
+        {
+          "attribute": "specific dates, times and durations",
+          "guess": "subsequent date in 2001",
+          "confidence": 0.9,
+          "evidence_spans": [
+            "On a subsequent date in 2001"
+          ]
+        },
+        {
+          "attribute": "specific dates, times and durations",
+          "guess": "30 January 2003",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "By a final decision of 30 January 2003"
+          ]
+        },
+        {
+          "attribute": "specific dates, times and durations",
+          "guess": "mid-1960s",
+          "confidence": 0.9,
+          "evidence_spans": [
+            "born in the mid-1960s"
+          ]
+        },
+        {
+          "attribute": "specific dates, times and durations",
+          "guess": "late October 1995 (early hours)",
+          "confidence": 0.9,
+          "evidence_spans": [
+            "early hours of a late October day in 1995"
+          ]
+        },
+        {
+          "attribute": "specific dates, times and durations",
+          "guess": "day following late October 1995 (early morning)",
+          "confidence": 0.9,
+          "evidence_spans": [
+            "On the following day",
+            "early morning of the same late October day in 1995"
+          ]
+        },
+        {
+          "attribute": "specific dates, times and durations",
+          "guess": "late October 1995",
+          "confidence": 0.9,
+          "evidence_spans": [
+            "On a further date in late October 1995"
+          ]
+        },
+        {
+          "attribute": "specific dates, times and durations",
+          "guess": "early November 1995",
+          "confidence": 0.9,
+          "evidence_spans": [
+            "On a date in early November 1995"
+          ]
+        },
+        {
+          "attribute": "specific dates, times and durations",
+          "guess": "late November 1995",
+          "confidence": 0.9,
+          "evidence_spans": [
+            "On a late November date in 1995"
+          ]
+        },
+        {
+          "attribute": "specific dates, times and durations",
+          "guess": "mid-1996",
+          "confidence": 0.9,
+          "evidence_spans": [
+            "On a date in mid-1996"
+          ]
+        },
+        {
+          "attribute": "specific dates, times and durations",
+          "guess": "early July 1996",
+          "confidence": 0.9,
+          "evidence_spans": [
+            "On an early July date in 1996"
+          ]
+        },
+        {
+          "attribute": "specific dates, times and durations",
+          "guess": "9 years 9 months",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "9 years 9 months' imprisonment"
+          ]
+        },
+        {
+          "attribute": "specific dates, times and durations",
+          "guess": "mid-July 1996",
+          "confidence": 0.9,
+          "evidence_spans": [
+            "On a mid-July date in 1996"
+          ]
+        },
+        {
+          "attribute": "specific dates, times and durations",
+          "guess": "late August 1996",
+          "confidence": 0.9,
+          "evidence_spans": [
+            "On a late August date in 1996"
+          ]
+        },
+        {
+          "attribute": "specific dates, times and durations",
+          "guess": "late September 1996",
+          "confidence": 0.9,
+          "evidence_spans": [
+            "On a late September date in 1996"
+          ]
+        },
+        {
+          "attribute": "specific dates, times and durations",
+          "guess": "late October 1996",
+          "confidence": 0.9,
+          "evidence_spans": [
+            "On a late October date in 1996"
+          ]
+        },
+        {
+          "attribute": "specific dates, times and durations",
+          "guess": "late December 1996",
+          "confidence": 0.9,
+          "evidence_spans": [
+            "On a late December date in 1996"
+          ]
+        },
+        {
+          "attribute": "specific dates, times and durations",
+          "guess": "late May 1997",
+          "confidence": 0.9,
+          "evidence_spans": [
+            "A further hearing was fixed for a date in late May 1997"
+          ]
+        },
+        {
+          "attribute": "specific dates, times and durations",
+          "guess": "late November 1997",
+          "confidence": 0.9,
+          "evidence_spans": [
+            "On a late November date in 1997"
+          ]
+        },
+        {
+          "attribute": "specific dates, times and durations",
+          "guess": "mid-January 1998 (two consecutive days)",
+          "confidence": 0.9,
+          "evidence_spans": [
+            "On two consecutive days in mid-January 1998"
+          ]
+        },
+        {
+          "attribute": "specific dates, times and durations",
+          "guess": "mid-February 1998",
+          "confidence": 0.9,
+          "evidence_spans": [
+            "continued to a date in mid-February 1998",
+            "On a date in mid-February 1998"
+          ]
+        },
+        {
+          "attribute": "specific dates, times and durations",
+          "guess": "late May 1998",
+          "confidence": 0.9,
+          "evidence_spans": [
+            "On a late May date in 1998"
+          ]
+        },
+        {
+          "attribute": "specific dates, times and durations",
+          "guess": "late August 1998",
+          "confidence": 0.9,
+          "evidence_spans": [
+            "On a late August date in 1998"
+          ]
+        },
+        {
+          "attribute": "specific dates, times and durations",
+          "guess": "mid-October 1998",
+          "confidence": 0.9,
+          "evidence_spans": [
+            "On a mid-October date in 1998"
+          ]
+        },
+        {
+          "attribute": "specific dates, times and durations",
+          "guess": "late November 1998",
+          "confidence": 0.9,
+          "evidence_spans": [
+            "note of a late November date in 1998"
+          ]
+        },
+        {
+          "attribute": "specific dates, times and durations",
+          "guess": "early January 1999",
+          "confidence": 0.9,
+          "evidence_spans": [
+            "on an early January date in 1999"
+          ]
+        },
+        {
+          "attribute": "specific dates, times and durations",
+          "guess": "late June 1999",
+          "confidence": 0.9,
+          "evidence_spans": [
+            "On a late June date in 1999"
+          ]
+        },
+        {
+          "attribute": "specific dates, times and durations",
+          "guess": "late July 1999",
+          "confidence": 0.9,
+          "evidence_spans": [
+            "On a late July date in 1999"
+          ]
+        },
+        {
+          "attribute": "names of organisations",
+          "guess": "European Court of Human Rights",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "European Court of Human Rights"
+          ]
+        },
+        {
+          "attribute": "names of organisations",
+          "guess": "UK Government",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "The UK Government (“the Government”)"
+          ]
+        },
+        {
+          "attribute": "names of organisations",
+          "guess": "Foreign and Commonwealth Office",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "Foreign and Commonwealth Office"
+          ]
+        },
+        {
+          "attribute": "names of organisations",
+          "guess": "Third Section of the Court",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "Third Section of the Court",
+            "newly composed Third Section"
+          ]
+        },
+        {
+          "attribute": "names of organisations",
+          "guess": "High Court",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "High Court"
+          ]
+        },
+        {
+          "attribute": "names of organisations",
+          "guess": "Sheriff",
+          "confidence": 0.8,
+          "evidence_spans": [
+            "appeared before a Sheriff"
+          ]
+        },
+        {
+          "attribute": "names of organisations",
+          "guess": "Crown",
+          "confidence": 0.9,
+          "evidence_spans": [
+            "the Crown requested"
+          ]
+        },
+        {
+          "attribute": "places and locations",
+          "guess": "United Kingdom",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "against the United Kingdom"
+          ]
+        },
+        {
+          "attribute": "places and locations",
+          "guess": "Scotland",
+          "confidence": 1.0,
+          "evidence_spans": [
+            "city in Scotland"
+          ]
+        },
+        {
+          "attribute": "places and locations",
+          "guess": "London",
+          "confidence": 0.9,
+          "evidence_spans": [
+            "based in the capital city"
+          ]
+        },
+        {
+          "attribute": "places and locations",
+          "guess": "null",
+          "confidence": 0.1,
+          "evidence_spans": [
+            "correctional facility in a northern city"
+          ]
+        },
+        {
+          "attribute": "places and locations",
+          "guess": "null",
+          "confidence": 0.1,
+          "evidence_spans": [
+            "a city in Scotland"
+          ]
+        }
+      ],
+      "judged_text": "\nPROCEDURE\n\nThe case originated in an application (no. [CASE_NUMBER]) against the United Kingdom lodged with the European Court of Human Rights under Article 34 of the Convention for the Protection of Human Rights and Fundamental Freedoms (“the Convention”) by a UK national, an individual referred to as “the applicant”, on a date in early 2000.\n\nThe applicant, who had been granted legal aid, was represented by a legal counsel practising in a city in Scotland. The UK Government (“the Government”) were represented by their Agent, an official from the Foreign and Commonwealth Office, based in the capital city.\n\nThe applicant alleged that his criminal proceedings exceeded a reasonable time contrary to Article 6 § 1 of the Convention.\n\nThe application was allocated to the Third Section of the Court (Rule 52 § 1 of the Rules of Court). Within that Section, the Chamber that would consider the case (Article 27 § 1 of the Convention) was constituted as provided in Rule 26 § 1.\n\nOn a date in mid-2001, the Court rejected part of the application as inadmissible.\n\nOn a subsequent date in 2001, the Court changed the composition of its sections (Rule 25 § 1). This case was assigned to the newly composed Third Section.\n\nBy a final decision of 30 January 2003, the Court declared the application partly admissible.\n\nThe applicant and the Government each filed observations on the merits (Rule 59 § 1). The Chamber decided, after consulting the parties, that no hearing on the merits was required (Rule 59 § 3 in fine).\n\nTHE FACTS\n\nThe applicant was born in the mid-1960s and is currently serving a sentence of imprisonment in a correctional facility in a northern city.\n\nThe applicant was arrested on a charge of attempted murder arising out of a high speed car chase which occurred in the early hours of a late October day in 1995. On the following day, he was arrested again, interviewed and cautioned in respect of a separate incident of rape and assault which also occurred during the early morning of the same late October day in 1995.\n\nOn a further date in late October 1995, the applicant appeared in court in respect of the various road traffic offences and the attempted murder of a police officer. On a date in early November 1995, he was fully committed and remanded in custody on those charges (of which he was later acquitted).\n\nOn a late November date in 1995, the applicant appeared before a Sheriff and was committed in respect of the rape charge.\n\nOn a date in mid-1996, the trial began in the High Court. On an early July date in 1996, the applicant was convicted, by a majority verdict, of all charges and sentenced to 9 years 9 months' imprisonment.\n\nOn a mid-July date in 1996, the applicant lodged an intention to appeal with the High Court sitting as an appeal court. On a late August date in 1996, a Note of Appeal was lodged.\n\nOn a late September date in 1996, a single judge refused the appeal. The applicant appealed.\n\nOn a late October date in 1996, the Note of Appeal was allowed by three judges in restricted terms relating to the direction given by the trial judge on the special defence of alibi.\n\nOn a late December date in 1996, the appeal was set down to be heard. According to the Government, it did not take place as the applicant refused to leave prison. The applicant stated that contrary to statutory authority the prison governor refused to allow him to leave the prison wearing civilian clothes instead of a prison uniform for the hearing. A further hearing was fixed for a date in late May 1997. On that date, the Crown requested, and obtained, an adjournment as the Advocate Depute was engaged abroad.\n\nOn a late November date in 1997, the appeal was set down to be heard. It was discontinued due to lack of court time and pressure of other business. It was noted that the appeal was complex and would last half a day.\n\nOn two consecutive days in mid-January 1998, there was another appeal hearing. As the applicant's solicitor had become aware that the prosecution had never cited a witness, identified as a witness, to appear at the trial, he had lodged and argued an additional ground of appeal on this point. Following argument, he sought to lodge further additional grounds of appeal. The appeal was continued to a date in mid-February 1998 to enable him to do so.\n\nOn a date in mid-February 1998, the High Court held that the failure to hear the evidence of the witness resulted in unfairness and that further evidence should be heard. A designated judge was assigned to hear the evidence. On a late May date in 1998, he fixed a date to take the evidence of the witness. On a late August date in 1998, the hearing was adjourned as the applicant's counsel withdrew from acting on his behalf.\n\nOn a mid-October date in 1998, the witness gave evidence. In his note of a late November date in 1998, the designated judge gave his view of the credibility and reliability of the witness. The appeal was relisted for hearing on an early January date in 1999 but the applicant's solicitors wrote to the court requesting that another date, possibly in the following week, be fixed due to the unavailability of counsel.\n\nOn a late June date in 1999, the appeal was heard before the High Court.\n\nOn a late July date in 1999, the judgment of the court was given by the Lord Justice General, a presiding judge. It dismissed the applicant's appeal.",
+      "final_text": "\nPROCEDURE\n\nThe case originated in an application (no. [CASE_NUMBER]) against the United Kingdom lodged with the European Court of Human Rights under Article 34 of the Convention for the Protection of Human Rights and Fundamental Freedoms (“the Convention”) by a UK national, an individual referred to as “the applicant”, on a date in early 2000.\n\nThe applicant, who had been granted legal aid, was represented by a legal counsel practising in a city in Scotland. The UK Government (“the Government”) were represented by their Agent, an official from the Foreign and Commonwealth Office, based in the capital city.\n\nThe applicant alleged that his criminal proceedings exceeded a reasonable time contrary to Article 6 § 1 of the Convention.\n\nThe application was allocated to the Third Section of the Court (Rule 52 § 1 of the Rules of Court). Within that Section, the Chamber that would consider the case (Article 27 § 1 of the Convention) was constituted as provided in Rule 26 § 1.\n\nOn a date in mid-2001, the Court rejected part of the application as inadmissible.\n\nOn a subsequent date in 2001, the Court changed the composition of its sections (Rule 25 § 1). This case was assigned to the newly composed Third Section.\n\nBy a final decision of 30 January 2003, the Court declared the application partly admissible.\n\nThe applicant and the Government each filed observations on the merits (Rule 59 § 1). The Chamber decided, after consulting the parties, that no hearing on the merits was required (Rule 59 § 3 in fine).\n\nTHE FACTS\n\nThe applicant was born in the mid-1960s and is currently serving a sentence of imprisonment in a correctional facility in a northern city.\n\nThe applicant was arrested on a charge of attempted murder arising out of a high speed car chase which occurred in the early hours of a late October day in 1995. On the following day, he was arrested again, interviewed and cautioned in respect of a separate incident of rape and assault which also occurred during the early morning of the same late October day in 1995.\n\nOn a further date in late October 1995, the applicant appeared in court in respect of the various road traffic offences and the attempted murder of a police officer. On a date in early November 1995, he was fully committed and remanded in custody on those charges (of which he was later acquitted).\n\nOn a late November date in 1995, the applicant appeared before a Sheriff and was committed in respect of the rape charge.\n\nOn a date in mid-1996, the trial began in the High Court. On an early July date in 1996, the applicant was convicted, by a majority verdict, of all charges and sentenced to 9 years 9 months' imprisonment.\n\nOn a mid-July date in 1996, the applicant lodged an intention to appeal with the High Court sitting as an appeal court. On a late August date in 1996, a Note of Appeal was lodged.\n\nOn a late September date in 1996, a single judge refused the appeal. The applicant appealed.\n\nOn a late October date in 1996, the Note of Appeal was allowed by three judges in restricted terms relating to the direction given by the trial judge on the special defence of alibi.\n\nOn a late December date in 1996, the appeal was set down to be heard. According to the Government, it did not take place as the applicant refused to leave prison. The applicant stated that contrary to statutory authority the prison governor refused to allow him to leave the prison wearing civilian clothes instead of a prison uniform for the hearing. A further hearing was fixed for a date in late May 1997. On that date, the Crown requested, and obtained, an adjournment as the Advocate Depute was engaged abroad.\n\nOn a late November date in 1997, the appeal was set down to be heard. It was discontinued due to lack of court time and pressure of other business. It was noted that the appeal was complex and would last half a day.\n\nOn two consecutive days in mid-January 1998, there was another appeal hearing. As the applicant's solicitor had become aware that the prosecution had never cited a witness, identified as a witness, to appear at the trial, he had lodged and argued an additional ground of appeal on this point. Following argument, he sought to lodge further additional grounds of appeal. The appeal was continued to a date in mid-February 1998 to enable him to do so.\n\nOn a date in mid-February 1998, the High Court held that the failure to hear the evidence of the witness resulted in unfairness and that further evidence should be heard. A designated judge was assigned to hear the evidence. On a late May date in 1998, he fixed a date to take the evidence of the witness. On a late August date in 1998, the hearing was adjourned as the applicant's counsel withdrew from acting on his behalf.\n\nOn a mid-October date in 1998, the witness gave evidence. In his note of a late November date in 1998, the designated judge gave his view of the credibility and reliability of the witness. The appeal was relisted for hearing on an early January date in 1999 but the applicant's solicitors wrote to the court requesting that another date, possibly in the following week, be fixed due to the unavailability of counsel.\n\nOn a late June date in 1999, the appeal was heard before the High Court.\n\nOn a late July date in 1999, the judgment of the court was given by the Lord Justice General, a presiding judge. It dismissed the applicant's appeal."
+    }
+  ],
+  "ner_baseline": {
+    "n_records": 5,
+    "gold_leak_rate": 0.6,
+    "fully_clean_records": 0,
+    "leak_rate_by_label": {
+      "CODE": 1.0,
+      "DATETIME": 0.0,
+      "DEM": 1.0,
+      "LOC": 0.3333333333333333,
+      "MISC": 1.0,
+      "ORG": 0.75,
+      "PERSON": 0.6
+    }
+  }
+}
