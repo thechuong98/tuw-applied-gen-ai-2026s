@@ -30,11 +30,22 @@ flowchart LR
 **Prereqs:** Docker + Docker Compose.
 
 ```bash
-cp .env.example .env          # then edit .env and set your Google Cloud project ID
+cp .env.example .env          # then edit .env (see steps below)
 docker compose up --build     # builds + starts both containers
 ```
 
-> **Note:** Docker deployment with Vertex AI may require additional credential mounting (e.g., mounting the ADC JSON file or using a service account key). This is not yet fully configured in the Docker setup.
+Before `up`, set **both** the credentials and the model for your chosen provider:
+
+1. **Credentials** — put them in `.env`:
+   - **OpenAI** (simplest for Docker): set `OPENAI_API_KEY=sk-...`
+   - **Google Vertex AI** (the default): set `GOOGLE_CLOUD_PROJECT` and `GOOGLE_CLOUD_LOCATION`. See the Vertex note below.
+2. **Model** — make sure `config.yaml` points at the provider whose key you set. Two ways:
+   - Override every role at once via the `MODEL` env var in `docker-compose.yml` (an `openai:gpt-5-mini` example is already commented in there), **or**
+   - Edit the model strings in [`backend/config.yaml`](backend/config.yaml) (`models.default`/`defender`/`attacker`/`judge`/`matcher`), e.g. `google_vertexai:gemini-2.5-flash` → `openai:gpt-4o`.
+
+The key in `.env` and the provider in `config.yaml` must match — an OpenAI key with a `google_vertexai:` model (or vice-versa) fails at the first LLM call. `/api/health` and `/api/config` still return `200` without valid credentials, but `POST /api/anonymize` does not.
+
+> **Vertex note:** Docker deployment with Vertex AI may require additional credential mounting (e.g., mounting the ADC JSON file or using a service account key). This is not yet fully configured in the Docker setup — OpenAI is the smoother Docker path.
 
 Open **http://localhost:8080**, paste a sentence, choose attributes to hide, hit **Anonymize** — the
 Defender → Attacker → Judge flow streams round by round, then the final anonymized text appears.
