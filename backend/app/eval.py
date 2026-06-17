@@ -76,7 +76,7 @@ def load_label_map(records_path: Path, override: str | None) -> dict:
     if p.exists():
         m = json.loads(p.read_text(encoding="utf-8"))
         return {k: v for k, v in m.items() if not k.startswith("_")}
-    print(f"note: no label map at {p} — feeding short labels as-is")
+    print(f"note: no label map at {p} -- feeding short labels as-is")
     return {}
 
 
@@ -116,7 +116,7 @@ def _get_nlp():
                   "Run: python -m spacy download en_core_web_sm", file=sys.stderr)
             return None
     except ImportError:
-        print("warning: spaCy not installed — NER baseline skipped. "
+        print("warning: spaCy not installed -- NER baseline skipped. "
               "Run: pip install spacy", file=sys.stderr)
         return None
 
@@ -393,7 +393,7 @@ def aggregate(results: list[dict]) -> dict:
 def print_report(agg: dict, results: list[dict], ner_agg: dict | None = None) -> None:
     j, s = agg["judge"], agg["system_privacy"]
     print("\n" + "=" * 64)
-    print(f"EVAL  —  {agg['n_records']} record(s)")
+    print(f"EVAL -- {agg['n_records']} record(s)")
     print("=" * 64)
 
     print("\nJUDGE (vs verbatim ground truth)")
@@ -432,12 +432,12 @@ def print_report(agg: dict, results: list[dict], ner_agg: dict | None = None) ->
     if rd:
         print(f"\nROUNDS DISTRIBUTION")
         for rnd, cnt in rd.items():
-            bar = "█" * cnt
+            bar = "#" * cnt
             print(f"  {rnd} round(s): {cnt:3d}  {bar}")
 
     print("\nPER-RECORD")
     for r in results:
-        flag = "  ⚠ FALSE PASS" if r["false_pass"] else ""
+        flag = "  [!] FALSE PASS" if r["false_pass"] else ""
         print(f"  {r['id']}: verdict={r['verdict']} rounds={r['rounds']} "
               f"leaked={len(r['leaked_delivered'])}/{r['n_attrs']}{flag}")
         for lbl in r["leaked_delivered"]:
@@ -506,7 +506,7 @@ def main() -> None:
     if args.ner_only:
         if ner_agg:
             print("\n" + "=" * 64)
-            print(f"NER BASELINE  —  {ner_agg['n_records']} record(s)")
+            print(f"NER BASELINE -- {ner_agg['n_records']} record(s)")
             print("=" * 64)
             print(f"  gold leak rate ........... {ner_agg['gold_leak_rate']:.0%}")
             for lbl, rate in ner_agg["leak_rate_by_label"].items():
@@ -558,8 +558,8 @@ def main() -> None:
         batch = todo[batch_start: batch_start + batch_size]
         batch_num = batch_start // batch_size + 1
         total_batches = (len(todo) + batch_size - 1) // batch_size
-        print(f"\n── batch {batch_num}/{total_batches} "
-              f"(records {batch_start + 1}–{batch_start + len(batch)}) ──")
+        print(f"\n-- batch {batch_num}/{total_batches} "
+              f"(records {batch_start + 1}-{batch_start + len(batch)}) --")
 
         for i, rec in enumerate(batch, 1):
             rid = rec.get("id", rec.get("label", f"#{batch_start + i}"))
@@ -583,7 +583,7 @@ def main() -> None:
             _flush(args.out, agg_so_far, results, ner_agg, ner_results)
             if texts_path:
                 _flush_texts(texts_path, results, ner_results)
-            print(f"  → flushed {len(results)} record(s) to {args.out}")
+            print(f"  -> flushed {len(results)} record(s) to {args.out}")
 
     ok = [r for r in results if r.get("verdict") != "ERROR"]
     agg = aggregate(ok)
