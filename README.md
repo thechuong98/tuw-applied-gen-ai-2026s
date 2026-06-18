@@ -264,13 +264,14 @@ backend/
     matcher.py           # deterministic ground_truth validation
     eval.py              # offline eval harness over TAB/ECHR records (judge-focused metrics)
   tests/                 # pytest unit tests (no LLM calls)
+  eval_results/...       # output files of model evaluation (different models and prompting, results_50 are from poster on 50 cases
 data/
   eval/
     tab.json             # 127 TAB / ECHR gold records (attributes_to_hide + utility_to_preserve)
     type_labels.json     # TAB entity type -> detailed description fed to the agents
 frontend/                # static UI (HTML/CSS/JS) + nginx reverse proxy
 docker-compose.yml
-CHANGES.txt              # detailed project status and change log
+CHANGES.md               # changes after poster session
 ```
 
 ---
@@ -375,23 +376,23 @@ descriptions via [data/eval/type_labels.json](data/eval/type_labels.json) before
 
 ```bash
 # Run all records in batches of 10
-python -m app.eval ../data/eval/tab.json --batch-size 10 --out results.json
+python -m app.eval ../data/eval/tab.json --batch-size 10 --out eval_results/results.json
 ```
 ```bash
-# Resume after a crash (reads already-done records from results.json)
-python -m app.eval ../data/eval/tab.json --resume --out results.json
+# Resume after a crash (reads already-done records from eval_results/results.json)
+python -m app.eval ../data/eval/tab.json --resume --out eval_results/results.json
 ```
 ```bash
 # Run only the NER baseline (no LLM calls, free)
-python -m app.eval ../data/eval/tab.json --ner-only --out ner_baseline.json
+python -m app.eval ../data/eval/tab.json --ner-only --out eval_results/ner_baseline.json
 ```
 ```bash
 # Limit to 20 (N) records
-python -m app.eval ../data/eval/tab.json --limit 20 --out results.json
+python -m app.eval ../data/eval/tab.json --limit 20 --out eval_results/results.json
 ```
 ```bash
 # Run on specific records (useful for tracking improvements across prompt changes)
-python -m app.eval ../data/eval/tab.json --ids tab_001-61807 tab_001-66929 --out results.json
+python -m app.eval ../data/eval/tab.json --ids tab_001-61807 tab_001-66929 --out eval_results/results.json
 ```
 
 Using the **verbatim presence of a gold span** as objective ground truth, it reports:
@@ -423,3 +424,12 @@ Use `--texts-out` to override the default texts output path.
 - **Judge can be lenient with approximate inference.** The Judge LLM may mark "NO LEAK" even when the Attacker infers approximate values (e.g., birth year from historical context). For stricter evaluation, use `ground_truth` validation or implement numeric tolerance thresholds.
 - **Ground truth validation not exposed in frontend.** The `ground_truth` field and validation results are available in the backend API but not displayed in the frontend UI.
 - **Docker Vertex AI credentials.** Docker deployment with Vertex AI may require additional credential mounting that is not yet configured.
+
+## Security considerations
+
+This is a **research prototype**, not a hardened production service.
+
+- **No API authentication.** The `/api/anonymize` endpoint is open. In a production deployment, add API keys or OAuth at the nginx or application level.
+- **Data leaves your infrastructure.** Text is sent to a third-party LLM provider (OpenAI or Google Vertex AI). For genuinely sensitive data, use the local Ollama path -- everything stays on your machine.
+- **Prompt injection.** Input text is passed directly to LLM agents. A malicious input could attempt to manipulate agent behaviour. This is an inherent risk of any LLM pipeline.
+- **No input logging by the app.** The backend does not store submitted texts beyond a single request, but third-party providers may log inputs per their own policies.
