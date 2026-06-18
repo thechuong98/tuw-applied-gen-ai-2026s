@@ -82,7 +82,11 @@ GOOGLE_CLOUD_LOCATION=us-central1
 To use OpenAI instead of Vertex AI:
 
 1. Uncomment and set `OPENAI_API_KEY` in `.env`
-2. Change the model strings in `backend/config.yaml` from `google_vertexai:gemini-2.5-flash` to `openai:gpt-4o` (or another OpenAI model)
+2. Point the app at OpenAI — edit **only** `.env`:
+   ```bash
+   MODEL=openai:gpt-4o
+   ```
+   Alternatively, change the model strings in `backend/config.yaml` (e.g. `google_vertexai:gemini-2.5-flash` → `openai:gpt-4o`)
 
 ### Alternative: Local model (Ollama)
 
