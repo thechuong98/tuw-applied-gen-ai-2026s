@@ -1,4 +1,5 @@
 """LLM-agnostic factory. Swap providers by changing the "provider:model" string in config.yaml."""
+import os
 from functools import lru_cache
 
 from langchain.chat_models import init_chat_model
@@ -16,12 +17,17 @@ def resolve_method(config: dict, spec: str) -> str:
     return methods.get(provider) or methods.get("default") or "function_calling"
 
 
+DEFAULT_OLLAMA_BASE_URL = "http://localhost:11434"
+
+
 @lru_cache(maxsize=None)
-def _build(spec: str, temperature):
+def _build(spec: str, temperature, base_url):
     kwargs = {}
     if temperature is not None:
         kwargs["temperature"] = temperature
-    # spec e.g. "openai:gpt-5-mini", "anthropic:claude-...", "ollama:llama3.1"
+    if base_url is not None:
+        kwargs["base_url"] = base_url
+    # spec e.g. "openai:gpt-5-mini", "google_vertexai:gemini-2.5-flash", "ollama:llama3.1"
     return init_chat_model(spec, **kwargs)
 
 
@@ -30,7 +36,10 @@ def get_llm(config: dict, role: str):
     spec = models.get(role) or models["default"]
     temps = config.get("temperature", {}) or {}
     temp = temps.get(role, temps.get("default"))
-    return _build(spec, temp)
+    base_url = None
+    if spec.split(":", 1)[0] == "ollama":
+        base_url = os.getenv("OLLAMA_BASE_URL", DEFAULT_OLLAMA_BASE_URL)
+    return _build(spec, temp, base_url)
 
 
 def safe_structured_invoke(chain, inputs: dict, schema_name: str, max_retries: int = 1):
