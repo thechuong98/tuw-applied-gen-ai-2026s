@@ -25,6 +25,23 @@ body {
 header { padding: 24px 32px 8px; }
 header h1 { margin: 0; font-size: 1.5rem; }
 header .sub { margin: 4px 0 0; color: var(--muted); font-size: 0.9rem; }
+.model-badge {
+  margin-top: 8px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 10px;
+  background: var(--panel-2);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  font-size: 0.78rem;
+  color: var(--muted);
+}
+.model-badge .m-name { color: var(--text); font-weight: 600; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+.model-badge .m-meta { color: var(--muted); }
+.model-badge .dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+.model-badge .dot.ok { background: var(--ok); }
+.model-badge .dot.bad { background: var(--bad); }
 
 main {
   display: grid;
