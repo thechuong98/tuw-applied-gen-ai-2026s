@@ -30,9 +30,9 @@ the first N records (or use --resume to auto-detect from an existing --out).
 
 Run:
     cd backend
-    python -m app.eval ../data/eval/tab.json --limit 20 --batch-size 10 --out results.json
-    python -m app.eval ../data/eval/tab.json --resume --out results.json   # continue after crash
-    python -m app.eval ../data/eval/tab.json --ner-only --out ner_baseline.json  # free, no LLM
+    python -m app.eval ../data/eval/tab.json --limit 20 --batch-size 10 --out eval_results/results.json
+    python -m app.eval ../data/eval/tab.json --resume --out eval_results/results.json   # continue after crash
+    python -m app.eval ../data/eval/tab.json --ner-only --out eval_results/ner_baseline.json  # free, no LLM
 """
 
 from __future__ import annotations
@@ -465,10 +465,12 @@ def main() -> None:
                     help="auto-resume: read --out and skip already-evaluated record IDs")
     ap.add_argument("--label-map",
                     help="type->description JSON (default: type_labels.json next to records)")
-    ap.add_argument("--out", help="write results + aggregate as JSON here (flushed per batch)")
+    ap.add_argument("--out", default="eval_results/results.json",
+                    help="write results + aggregate as JSON here (flushed per batch); "
+                         "default: eval_results/results.json")
     ap.add_argument("--texts-out", default=None,
                     help="write original / LLM-anonymized / NER-anonymized texts here "
-                         "(default: <out>_texts.json if --out is given)")
+                         "(default: eval_results/results_texts.json)")
     ap.add_argument("--ner-only", action="store_true",
                     help="run ONLY the NER baseline (no LLM calls, free)")
     ap.add_argument("--no-ner", action="store_true",
@@ -607,6 +609,7 @@ def _flush(path: str, agg: dict, results: list[dict],
     out: dict = {"aggregate": agg, "results": clean_results}
     if ner_agg:
         out["ner_baseline"] = ner_agg
+    Path(path).parent.mkdir(parents=True, exist_ok=True)
     Path(path).write_text(
         json.dumps(out, indent=2, ensure_ascii=False), encoding="utf-8")
 
@@ -622,6 +625,7 @@ def _flush_texts(path: str, results: list[dict], ner_results: list[dict]) -> Non
             "anonymized_llm": r.get("final_text", ""),
             "anonymized_ner": ner_by_id.get(r["id"], ""),
         })
+    Path(path).parent.mkdir(parents=True, exist_ok=True)
     Path(path).write_text(
         json.dumps(entries, indent=2, ensure_ascii=False), encoding="utf-8")
 
