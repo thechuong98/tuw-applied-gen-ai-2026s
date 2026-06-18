@@ -1,6 +1,7 @@
 """FastAPI app: streams the adversarial run as newline-delimited JSON (one event per graph step)."""
 import json
 import os
+import urllib.request
 
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
@@ -37,9 +38,36 @@ class BatchAnonRequest(BaseModel):
     ground_truth: list[dict] = Field(default_factory=list)  # parallel to texts: ground_truth[i] for texts[i]
 
 
+def _ollama_status(config: dict):
+    """Probe Ollama when an ollama: model is configured. Never raises. None if not used."""
+    specs = [s for s in config["models"].values()
+             if isinstance(s, str) and s.startswith("ollama:")]
+    if not specs:
+        return None
+    base_url = os.getenv("OLLAMA_BASE_URL", "http://localhost:11434")
+    wanted = {s.split(":", 1)[1] for s in specs}
+    try:
+        with urllib.request.urlopen(f"{base_url}/api/tags", timeout=2) as resp:
+            data = json.loads(resp.read())
+        available = {m.get("name", "") for m in data.get("models", [])}
+        models = {}
+        for w in wanted:
+            present = any(a == w or a.split(":", 1)[0] == w for a in available)
+            models[w] = "present" if present else "missing"
+        return {"reachable": True, "base_url": base_url, "models": models}
+    except Exception:
+        return {"reachable": False, "base_url": base_url,
+                "models": {w: "unknown" for w in wanted}}
+
+
 @app.get("/api/health")
 def health():
-    return {"status": "ok", "models": CONFIG["models"], "openai_key_set": bool(os.getenv("OPENAI_API_KEY"))}
+    resp = {"status": "ok", "models": CONFIG["models"],
+            "openai_key_set": bool(os.getenv("OPENAI_API_KEY"))}
+    ollama = _ollama_status(CONFIG)
+    if ollama is not None:
+        resp["ollama"] = ollama
+    return resp
 
 
 @app.get("/api/config")
