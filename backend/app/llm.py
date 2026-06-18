@@ -42,6 +42,14 @@ def get_llm(config: dict, role: str):
     return _build(spec, temp, base_url)
 
 
+def get_structured_llm(config: dict, role: str, schema):
+    """LLM for a role with structured output bound, using the provider-correct method."""
+    models = config["models"]
+    spec = models.get(role) or models["default"]
+    method = resolve_method(config, spec)
+    return get_llm(config, role).with_structured_output(schema, method=method)
+
+
 def safe_structured_invoke(chain, inputs: dict, schema_name: str, max_retries: int = 1):
     """Invoke structured output chain with retry on None or exception.
 

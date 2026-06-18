@@ -2,7 +2,7 @@
 import pytest
 from unittest.mock import MagicMock, patch
 import app.llm as llm_mod
-from app.llm import safe_structured_invoke, resolve_method
+from app.llm import safe_structured_invoke, resolve_method, get_structured_llm
 
 
 class TestSafeStructuredInvoke:
@@ -122,3 +122,41 @@ class TestGetLlmBaseUrl:
             llm_mod.get_llm(cfg, "default")
         _, kwargs = m.call_args
         assert "base_url" not in kwargs
+
+
+class TestGetStructuredLlm:
+    BASE_CFG = {
+        "models": {"default": "ollama:llama3.1"},
+        "temperature": {},
+        "structured_output_method": {"default": "function_calling", "ollama": "json_schema"},
+    }
+
+    def test_ollama_role_uses_json_schema(self):
+        llm_mod._build.cache_clear()
+        schema = object()
+        fake_llm = MagicMock()
+        with patch.object(llm_mod, "init_chat_model", return_value=fake_llm):
+            get_structured_llm(self.BASE_CFG, "default", schema)
+        fake_llm.with_structured_output.assert_called_once_with(schema, method="json_schema")
+
+    def test_openai_role_uses_function_calling(self):
+        llm_mod._build.cache_clear()
+        cfg = dict(self.BASE_CFG, models={"default": "openai:gpt-4o"})
+        schema = object()
+        fake_llm = MagicMock()
+        with patch.object(llm_mod, "init_chat_model", return_value=fake_llm):
+            get_structured_llm(cfg, "default", schema)
+        fake_llm.with_structured_output.assert_called_once_with(schema, method="function_calling")
+
+    def test_per_role_spec_resolves_independently(self):
+        llm_mod._build.cache_clear()
+        cfg = {
+            "models": {"default": "openai:gpt-4o", "attacker": "ollama:llama3.1"},
+            "temperature": {},
+            "structured_output_method": {"default": "function_calling", "ollama": "json_schema"},
+        }
+        schema = object()
+        fake_llm = MagicMock()
+        with patch.object(llm_mod, "init_chat_model", return_value=fake_llm):
+            get_structured_llm(cfg, "attacker", schema)
+        fake_llm.with_structured_output.assert_called_once_with(schema, method="json_schema")
