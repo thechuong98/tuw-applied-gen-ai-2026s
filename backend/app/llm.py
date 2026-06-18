@@ -4,6 +4,18 @@ from functools import lru_cache
 from langchain.chat_models import init_chat_model
 
 
+def resolve_method(config: dict, spec: str) -> str:
+    """Structured-output method for a model spec, keyed by provider prefix.
+
+    Ollama models default to json_schema (robust for local models); cloud
+    providers keep function_calling. Resolution order: provider key -> default
+    -> "function_calling".
+    """
+    provider = spec.split(":", 1)[0]
+    methods = config.get("structured_output_method") or {}
+    return methods.get(provider) or methods.get("default") or "function_calling"
+
+
 @lru_cache(maxsize=None)
 def _build(spec: str, temperature):
     kwargs = {}

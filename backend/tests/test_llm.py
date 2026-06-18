@@ -1,7 +1,7 @@
 """Unit tests for llm.py — safe_structured_invoke with mocked chains."""
 import pytest
 from unittest.mock import MagicMock
-from app.llm import safe_structured_invoke
+from app.llm import safe_structured_invoke, resolve_method
 
 
 class TestSafeStructuredInvoke:
@@ -72,3 +72,23 @@ class TestSafeStructuredInvoke:
         result = safe_structured_invoke(chain, {}, "TestSchema", max_retries=3)
         assert result == {"answer": "finally"}
         assert chain.invoke.call_count == 4
+
+
+class TestResolveMethod:
+    CFG = {"structured_output_method": {"default": "function_calling", "ollama": "json_schema"}}
+
+    def test_ollama_uses_json_schema(self):
+        assert resolve_method(self.CFG, "ollama:llama3.1") == "json_schema"
+
+    def test_openai_uses_default(self):
+        assert resolve_method(self.CFG, "openai:gpt-4o") == "function_calling"
+
+    def test_vertex_uses_default(self):
+        assert resolve_method(self.CFG, "google_vertexai:gemini-2.5-flash") == "function_calling"
+
+    def test_missing_block_falls_back_to_function_calling(self):
+        assert resolve_method({}, "openai:gpt-4o") == "function_calling"
+
+    def test_missing_default_key_falls_back(self):
+        cfg = {"structured_output_method": {"ollama": "json_schema"}}
+        assert resolve_method(cfg, "openai:gpt-4o") == "function_calling"
