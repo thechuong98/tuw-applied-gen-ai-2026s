@@ -6,6 +6,7 @@ services:
         required: false     # fresh clone has no .env yet — don't fail build/up
     environment:
       - CONFIG_PATH=/app/config.yaml
+      - OLLAMA_BASE_URL=http://host.docker.internal:11434  # reach Ollama on the Docker host
       # - MODEL=openai:gpt-5-mini   # uncomment to override every model role at once
     expose:
       - "8000"

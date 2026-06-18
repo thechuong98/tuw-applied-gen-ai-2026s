@@ -84,6 +84,34 @@ To use OpenAI instead of Vertex AI:
 1. Uncomment and set `OPENAI_API_KEY` in `.env`
 2. Change the model strings in `backend/config.yaml` from `google_vertexai:gemini-2.5-flash` to `openai:gpt-4o` (or another OpenAI model)
 
+### Alternative: Local model (Ollama)
+
+Run fully offline against a local model — no API key, nothing leaves your machine.
+
+1. Install Ollama (https://ollama.com) and start the server:
+   ```bash
+   ollama serve                 # listens on http://localhost:11434
+   ```
+2. Pull a model (a few GB, downloaded by Ollama — not the app):
+   ```bash
+   ollama pull llama3.1
+   ```
+3. Point the app at it — edit **only** `.env`:
+   ```bash
+   MODEL=ollama:llama3.1
+   ```
+   The app auto-uses `json_schema` structured output for Ollama (more robust than
+   function-calling on local models). No `config.yaml` edit needed.
+
+`GET /api/health` reports Ollama status (`reachable`, and whether the model is `present`).
+
+> **Docker:** the backend container can't see `localhost` on the host. `docker-compose.yml`
+> already sets `OLLAMA_BASE_URL=http://host.docker.internal:11434`. For a remote/custom host,
+> set `OLLAMA_BASE_URL` in `.env`.
+
+> **Note:** larger models need more RAM/disk. The Attacker should ideally be your strongest
+> model; with the single `MODEL` knob all roles share one model.
+
 **Backend**
 ```bash
 cd backend
