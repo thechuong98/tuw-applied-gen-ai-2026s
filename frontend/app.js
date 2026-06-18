@@ -147,3 +147,28 @@ async function run() {
 }
 
 runBtn.addEventListener("click", run);
+
+// Show which model the backend is using (and, for Ollama, whether it's reachable).
+async function loadModelBadge() {
+  const badge = $("model-badge");
+  if (!badge) return;
+  try {
+    const resp = await fetch(`${API_BASE}/api/health`);
+    if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+    const data = await resp.json();
+    const models = data.models || {};
+    const def = models.default || "unknown";
+    const mixed = new Set(Object.values(models)).size > 1;
+    let html = `Model: <span class="m-name">${esc(def)}</span>`;
+    if (mixed) html += ` <span class="m-meta">(roles differ)</span>`;
+    if (data.ollama) {
+      const up = !!data.ollama.reachable;
+      html += ` <span class="dot ${up ? "ok" : "bad"}"></span>` +
+        `<span class="m-meta">${up ? "reachable" : "unreachable"}</span>`;
+    }
+    badge.innerHTML = html;
+  } catch (e) {
+    badge.innerHTML = `Model: <span class="m-meta">unavailable</span>`;
+  }
+}
+loadModelBadge();

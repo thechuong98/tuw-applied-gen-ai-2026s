@@ -11,7 +11,7 @@ exact target label. Therefore, any leaked=true finding from the Judge is
 treated as a privacy failure. This avoids false PASS outcomes caused by
 attribute-name mismatch.
 """
-from .llm import get_llm, safe_structured_invoke
+from .llm import get_structured_llm, safe_structured_invoke
 from .matcher import check_ground_truth
 from .ner import detect_identifiers, format_ner_hints, check_verbatim_leaks, format_verbatim_feedback
 from .prompts import ATTACKER_PROMPT, DEFENDER_PROMPT, PRIVACY_PROMPT, UTILITY_PROMPT
@@ -32,8 +32,7 @@ def defender(state: AnonState) -> dict:
         ner_findings = detect_identifiers(state["original_text"])
     ner_hints = format_ner_hints(ner_findings)
 
-    llm = get_llm(state["config"], "defender")
-    chain = DEFENDER_PROMPT | llm.with_structured_output(DefenderOutput, method="function_calling")
+    chain = DEFENDER_PROMPT | get_structured_llm(state["config"], "defender", DefenderOutput)
     feedback = state.get("feedback") or "(none)"
     if state["iteration"] > 0 and state.get("current_text") and ner_findings:
         verbatim_leaks = check_verbatim_leaks(ner_findings, state["current_text"])
@@ -67,8 +66,7 @@ def defender(state: AnonState) -> dict:
 
 
 def attacker(state: AnonState) -> dict:
-    llm = get_llm(state["config"], "attacker")
-    chain = ATTACKER_PROMPT | llm.with_structured_output(AttackerOutput, method="function_calling")
+    chain = ATTACKER_PROMPT | get_structured_llm(state["config"], "attacker", AttackerOutput)
     out: AttackerOutput = safe_structured_invoke(chain, {
         "text": state["current_text"],
         "attrs": ", ".join(state["attributes_to_hide"]),
@@ -134,10 +132,9 @@ def _build_leak_details(leaks_dump: list[dict], attacker_result: dict) -> list[d
 def judge(state: AnonState) -> dict:
     cfg = state["config"]
     attrs = state["attributes_to_hide"]
-    llm = get_llm(cfg, "judge")
 
     # --- Stage 1: privacy. Decide "no leak" before scoring anything. ---
-    priv_chain = PRIVACY_PROMPT | llm.with_structured_output(PrivacyVerdict, method="function_calling")
+    priv_chain = PRIVACY_PROMPT | get_structured_llm(cfg, "judge", PrivacyVerdict)
     priv: PrivacyVerdict = safe_structured_invoke(priv_chain, {
         "attrs": ", ".join(attrs),
         "guesses": _format_guesses(state["attacker_result"]),
@@ -213,7 +210,7 @@ def judge(state: AnonState) -> dict:
         }
 
     # --- Stage 2: utility. Reached only when nothing leaked. ---
-    util_chain = UTILITY_PROMPT | llm.with_structured_output(UtilityScores, method="function_calling")
+    util_chain = UTILITY_PROMPT | get_structured_llm(cfg, "judge", UtilityScores)
     util: UtilityScores = safe_structured_invoke(util_chain, {
         "utility": ", ".join(state.get("utility_to_preserve") or []) or "(preserve general meaning)",
         "original": state["original_text"],

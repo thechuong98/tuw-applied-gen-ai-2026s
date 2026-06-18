@@ -1,22 +1,16 @@
-# Single, documented config file (LLM-agnostic — to switch provider just change the "provider:model" string).
-# For Google Vertex AI: set GOOGLE_CLOUD_PROJECT and GOOGLE_CLOUD_LOCATION env vars.
-# For local development: authenticate via `gcloud auth application-default login`.
-# You can override the model via the MODEL env var.
+# Pipeline config (LLM-agnostic). NOTE: model + temperature selection live in .env, NOT here:
+#   MODEL / MODEL_<ROLE>             -> which "provider:model" each agent uses
+#   TEMPERATURE / TEMPERATURE_<ROLE> -> sampling temperature per agent
+# See .env.example. Local model, offline: set MODEL=ollama:llama3.1 in .env (see README).
+# For Google Vertex AI: set GOOGLE_CLOUD_PROJECT and GOOGLE_CLOUD_LOCATION env vars;
+# for local dev authenticate via `gcloud auth application-default login`.
 
-models:
-  default:  "google_vertexai:gemini-2.5-flash"
-  defender: "google_vertexai:gemini-2.5-flash"
-  attacker: "google_vertexai:gemini-2.5-flash"   # should be the strongest model to stress-test
-  judge:    "google_vertexai:gemini-2.5-flash"
-  matcher:  "google_vertexai:gemini-2.5-flash"   # semantic match when ground_truth is available (eval mode)
-
-# Some models (e.g. the gpt-5 line) only accept the default temperature -> set to null = don't send the parameter.
-# For regular models you can set a number: defender 0.5, attacker 0.1, judge 0.0
-temperature:
-  default:  null
-  defender: null
-  attacker: null
-  judge:    null
+# Structured-output method per provider. Local models (Ollama) do tool/function
+# calling poorly, so they use json_schema; cloud providers keep function_calling.
+# Resolution is by the provider prefix of the model spec ("ollama:" -> json_schema).
+structured_output_method:
+  default: function_calling     # OpenAI, Google Vertex AI
+  ollama:  json_schema          # robust structured output for local Ollama models
 
 loop:
   max_iters: 4                     # max number of times the Defender is allowed to rewrite

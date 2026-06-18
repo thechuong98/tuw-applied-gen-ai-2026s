@@ -4,7 +4,9 @@ Adversarial, LLM-powered anonymizer: a **Defender** rewrites text to hide sensit
 **Attacker** tries to infer them back, and a **Judge** rules on **both** privacy (did anything still leak?)
 and utility (is the rewrite still useful?). The system loops until the Judge passes the text as *private and useful*.
 
-Built with **LangGraph** (workflow) + **LangChain** (LLM-agnostic). Default model: **`google_vertexai:gemini-2.5-flash`**.
+Built with **LangGraph** (workflow) + **LangChain** (LLM-agnostic). The model is chosen via the `MODEL`
+env var in `.env` — the shipped `.env.example` is preset to **`openai:gpt-5-mini`**; if `MODEL` is unset
+the built-in fallback is `google_vertexai:gemini-2.5-flash`.
 
 ---
 
@@ -18,7 +20,7 @@ flowchart LR
     U["Browser<br/>localhost:8080"]
     N["nginx<br/>(frontend container)"]
     B["FastAPI + LangGraph<br/>(backend container)"]
-    V["Google Vertex AI<br/>gemini-2.5-flash"]
+    V["LLM provider<br/>OpenAI / Vertex AI / Ollama"]
     C["config.yaml + .env<br/>(credentials)"]
 
     U <-->|"HTTP — UI + result"| N
@@ -37,13 +39,11 @@ docker compose up --build     # builds + starts both containers
 Before `up`, set **both** the credentials and the model for your chosen provider:
 
 1. **Credentials** — put them in `.env`:
-   - **OpenAI** (simplest for Docker): set `OPENAI_API_KEY=sk-...`
-   - **Google Vertex AI** (the default): set `GOOGLE_CLOUD_PROJECT` and `GOOGLE_CLOUD_LOCATION`. See the Vertex note below.
-2. **Model** — make sure `config.yaml` points at the provider whose key you set. Two ways:
-   - Override every role at once via the `MODEL` env var in `docker-compose.yml` (an `openai:gpt-5-mini` example is already commented in there), **or**
-   - Edit the model strings in [`backend/config.yaml`](backend/config.yaml) (`models.default`/`defender`/`attacker`/`judge`/`matcher`), e.g. `google_vertexai:gemini-2.5-flash` → `openai:gpt-4o`.
+   - **OpenAI** (what `.env.example` is preset to): set `OPENAI_API_KEY=sk-...`
+   - **Google Vertex AI**: set `GOOGLE_CLOUD_PROJECT` and `GOOGLE_CLOUD_LOCATION`. See the Vertex note below.
+2. **Model** — `.env.example` ships `MODEL=openai:gpt-5-mini` (every agent role). Change `MODEL` in `.env` (or in `docker-compose.yml`, a commented example is there) to switch provider, e.g. `MODEL=openai:gpt-4o` or `MODEL=ollama:qwen2.5:0.5b`. Use `MODEL_<ROLE>` to override a single agent.
 
-The key in `.env` and the provider in `config.yaml` must match — an OpenAI key with a `google_vertexai:` model (or vice-versa) fails at the first LLM call. `/api/health` and `/api/config` still return `200` without valid credentials, but `POST /api/anonymize` does not.
+The key in `.env` and the provider in `MODEL` must match — an OpenAI key with a `google_vertexai:` model (or vice-versa) fails at the first LLM call. `/api/health` and `/api/config` still return `200` without valid credentials, but `POST /api/anonymize` does not.
 
 > **Vertex note:** Docker deployment with Vertex AI may require additional credential mounting (e.g., mounting the ADC JSON file or using a service account key). This is not yet fully configured in the Docker setup — OpenAI is the smoother Docker path.
 
@@ -59,9 +59,14 @@ Stop with `Ctrl+C`; fully remove with `docker compose down`.
 **Prereqs:** [uv](https://docs.astral.sh/uv/) (`curl -LsSf https://astral.sh/uv/install.sh | sh`). uv
 manages the virtualenv and the Python version (3.10+) for you.
 
+> **Quickstart:** copy `.env.example` to `.env` — it's preset to `openai:gpt-5-mini` for every agent.
+> Set your `OPENAI_API_KEY` and jump to **Backend** below. The subsections below cover the
+> alternatives (Vertex AI, Ollama).
+
 ### Authentication (Google Vertex AI)
 
-The default provider is Google Vertex AI. Authenticate locally using Application Default Credentials (ADC):
+To use Google Vertex AI, set `MODEL=google_vertexai:...` in `.env` and authenticate locally using
+Application Default Credentials (ADC):
 
 ```bash
 gcloud auth application-default login
@@ -77,12 +82,44 @@ GOOGLE_CLOUD_LOCATION=us-central1
 
 > **Security warning:** Do not commit `.env` or credential files. The `.env` file is git-ignored. The `.env.example` file is safe because it only contains placeholders.
 
-### Alternative: OpenAI
+### OpenAI (the preset)
 
-To use OpenAI instead of Vertex AI:
+`.env.example` is already set to OpenAI. To use it:
 
-1. Uncomment and set `OPENAI_API_KEY` in `.env`
-2. Change the model strings in `backend/config.yaml` from `google_vertexai:gemini-2.5-flash` to `openai:gpt-4o` (or another OpenAI model)
+1. Set `OPENAI_API_KEY` in `.env`
+2. `MODEL` is preset to `openai:gpt-5-mini`; change it for another OpenAI model, e.g.:
+   ```bash
+   MODEL=openai:gpt-4o
+   ```
+
+### Alternative: Local model (Ollama)
+
+Run fully offline against a local model — no API key, nothing leaves your machine.
+
+1. Install Ollama (https://ollama.com) and start the server:
+   ```bash
+   ollama serve                 # listens on http://localhost:11434
+   ```
+2. Pull a model (a few GB, downloaded by Ollama — not the app):
+   ```bash
+   ollama pull llama3.1
+   ```
+3. Point the app at it — edit **only** `.env`:
+   ```bash
+   MODEL=ollama:llama3.1
+   ```
+   The app auto-uses `json_schema` structured output for Ollama (more robust than
+   function-calling on local models). No `config.yaml` edit needed.
+
+`GET /api/health` reports Ollama status (`reachable`, and whether the model is `present`).
+
+> **Docker:** the backend container can't see `localhost` on the host. `docker-compose.yml`
+> already sets `OLLAMA_BASE_URL=http://host.docker.internal:11434`. For a remote/custom host,
+> set `OLLAMA_BASE_URL` in `.env`.
+
+> **Note:** larger models need more RAM/disk. `MODEL` points every agent at one model; if you
+> want the Attacker (which stress-tests the rewrite) on a stronger model, set `MODEL_ATTACKER`
+> in `.env` to override just that role.
 
 **Backend**
 ```bash
@@ -107,7 +144,7 @@ needed — nginx proxies `/api` on the same origin.)
 
 ## Running tests
 
-The project includes a pytest unit test suite (65 tests) that does not require LLM/API calls.
+The project includes a pytest unit test suite that does not require LLM/API calls.
 
 **Install dev dependencies and run tests:**
 
@@ -134,11 +171,15 @@ The tests cover:
 
 ## Configuration
 
-All settings live in **one file**: [backend/config.yaml](backend/config.yaml). Credentials are set via `.env`.
+Model and temperature selection live in **`.env`**; everything else (structured-output method, loop
+thresholds, scoring weights, default attributes) lives in [backend/config.yaml](backend/config.yaml).
+Credentials are also set via `.env`.
 
-- **Swap the LLM / provider** — change the `"provider:model"` strings in `config.yaml`, e.g.
-  `google_vertexai:gemini-2.5-flash` → `openai:gpt-4o` or `ollama:llama3.1` (LangChain handles the rest; install
-  the matching `langchain-*` package and set its credentials). Or override all roles at once with the `MODEL` env var.
+- **Swap the LLM / provider** — set `MODEL` in `.env` to a `"provider:model"` string, e.g.
+  `MODEL=openai:gpt-4o` or `MODEL=ollama:llama3.1` (LangChain handles the rest; install the matching
+  `langchain-*` package and set its credentials). `MODEL` covers every agent; use `MODEL_<ROLE>`
+  (e.g. `MODEL_ATTACKER`) to override a single role, and `TEMPERATURE` / `TEMPERATURE_<ROLE>` for sampling.
+  See [`.env.example`](.env.example).
 - **Tune the loop** — `max_iters` and the utility PASS thresholds (`min_task_utility`, `min_factual`,
   `min_format`). The leak verdict itself is made by the Judge LLM, so there is no confidence threshold to tune.
 - **Default attributes** — when a request omits `attributes_to_hide`, the system falls back to
@@ -207,7 +248,7 @@ flowchart LR
 
 ```
 backend/
-  config.yaml            # single config file (models, thresholds, weights)
+  config.yaml            # non-model config (structured-output method, thresholds, weights, defaults)
   pyproject.toml         # dependencies (uv) + dev dependencies (pytest)
   uv.lock                # pinned lockfile
   app/
@@ -222,7 +263,7 @@ backend/
     ner.py               # NER/regex pre-scan for direct identifiers
     matcher.py           # deterministic ground_truth validation
     eval.py              # offline eval harness over TAB/ECHR records (judge-focused metrics)
-  tests/                 # pytest unit tests (65 tests, no LLM calls)
+  tests/                 # pytest unit tests (no LLM calls)
 data/
   eval/
     tab.json             # 127 TAB / ECHR gold records (attributes_to_hide + utility_to_preserve)
